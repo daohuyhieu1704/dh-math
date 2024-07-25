@@ -13,15 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Geometry">
-      <UniqueIdentifier>{56e661f1-a16a-4c33-b605-f6748690fda8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DatabaseService">
-      <UniqueIdentifier>{a9c7b846-4033-4e52-a546-ea2c30938147}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="AbstractEngine">
-      <UniqueIdentifier>{92ffbb5b-327a-4ad0-aa91-cfc61f97a804}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -30,7 +21,7 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IEngine.h">
+    <ClInclude Include="GLEngineNative.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -38,7 +29,7 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="IEngine.cpp">
+    <ClCompile Include="GLEngineNative.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -6,14 +6,10 @@
 
 #ifndef PCH_H
 #define PCH_H
-
 #define GLFW_EXPOSE_NATIVE_WGL
 #define GLFW_EXPOSE_NATIVE_WIN32
-
 // add headers that you want to pre-compile here
 #include "framework.h"
-#include <Windows.h>
-// add headers that you want to pre-compile here
 #include <GL/glew.h>
 #include <GL/gl.h>
 #include <GL/glu.h>

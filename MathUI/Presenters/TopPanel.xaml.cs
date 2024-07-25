@@ -1,5 +1,8 @@
-﻿using MathUI.Utils.GLHost;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -10,19 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MathUI
+namespace MathUI.Presenters
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for TopPanel.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class TopPanel : UserControl
     {
-        private readonly GLHost glHost;
-        public MainWindow()
+        public TopPanel()
         {
             InitializeComponent();
-            glHost = new();
-            hostContainer.Child = glHost;
         }
     }
 }
