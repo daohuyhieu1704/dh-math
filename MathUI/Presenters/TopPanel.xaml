@@ -5,9 +5,109 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MathUI.Presenters"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-        </StackPanel>
+             d:DesignHeight="150" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style x:Key="NeonTextStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#1e2023"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="#1e2023" BlurRadius="10" ShadowDepth="0" Opacity="1"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="TabItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Grid Name="Panel">
+                            <TextBlock x:Name="TextBlockContent" 
+                                       Text="{TemplateBinding Header}" 
+                                       VerticalAlignment="Center" 
+                                       HorizontalAlignment="Center"
+                                       Margin="10,2"
+                                       Height="20"
+                                       Foreground="White"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Panel" Property="Background" Value="#4c4f54" />
+                                <Setter TargetName="TextBlockContent" Property="Foreground" Value="White"/>
+                                <Setter TargetName="TextBlockContent" Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect Color="White" BlurRadius="10" ShadowDepth="0" Opacity="1"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="False">
+                                <Setter TargetName="Panel" Property="Background" Value="#1e2023" />
+                                <Setter TargetName="TextBlockContent" Property="Foreground" Value="White"/>
+                                <Setter TargetName="TextBlockContent" Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect Color="Transparent" BlurRadius="0" ShadowDepth="0" Opacity="0"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid Background="#1e2023">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="#1e2023">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
+            </StackPanel>
+            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button BorderThickness="0" Background="#1e2023" Foreground="White" Width="40" Content="Min" Margin="0 0 10 0" />
+                <Button BorderThickness="0" Background="#1e2023" Foreground="White" Width="40" Content="Max" Margin="0 0 10 0" />
+                <Button BorderThickness="0" Background="#1e2023" Foreground="White" Width="40" Content="X" />
+            </StackPanel>
+        </Grid>
+        <TabControl Grid.Row="1" Margin="0" BorderThickness="0" Background="#2c2d2f">
+            <TabItem Header="Home">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <Border BorderThickness="0 0 1 0" BorderBrush="Black">
+                        <Grid Width="300">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="18" />
+                            </Grid.RowDefinitions>
+                            <Border Grid.Row="0" BorderThickness="0 0 0 1" BorderBrush="Black">
+
+                            </Border>
+                            <TextBlock Grid.Row="1" Foreground="White" Text="Drawing" TextAlignment="Center" />
+                        </Grid>
+                    </Border>
+                    <Border BorderThickness="0 0 1 0" BorderBrush="Black">
+                        <Grid Width="300">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="18" />
+                            </Grid.RowDefinitions>
+                            <Border Grid.Row="0" BorderThickness="0 0 0 1" BorderBrush="Black">
+
+                            </Border>
+                            <TextBlock Grid.Row="1" Foreground="White" Text="Utilities" TextAlignment="Center" />
+                        </Grid>
+                    </Border>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Insert" />
+            <TabItem Header="Plugin" />
+        </TabControl>
+        <TabControl Grid.Row="2" Margin="0" BorderThickness="0" Background="#2c2d2f">
+            <TabItem Header="Noname.json" />
+        </TabControl>
     </Grid>
 </UserControl>

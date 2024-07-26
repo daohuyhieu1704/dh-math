@@ -75,7 +75,7 @@ HWND DXEngineNative::InitializeWindow(HINSTANCE hInstance, int nCmdShow, HWND pa
         CLASS_NAME,                    // Window class
         L"Drawing App",        // Window text
         WS_CHILD | WS_VISIBLE,         // Window style - make it a child window that is visible
-        70, 220, width - 240, height - 20,                // Position and dimensions
+        60, 210, width - 230, height - 40,                // Position and dimensions
         parentHwnd,                    // Parent window    
         NULL,                          // Menu
         hInstance,                     // Instance handle

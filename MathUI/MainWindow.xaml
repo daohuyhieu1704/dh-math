@@ -10,17 +10,29 @@
         WindowStartupLocation="CenterScreen"
         Background="Transparent"
         WindowStyle="None"
+        ResizeMode="NoResize"
         MouseDown="Window_MouseDown"
         Name="MainView"
-        Title="MathUI" Height="720" Width="1280">
+        Title="MathUI" Height="900" Width="1400">
     <Border 
-        CornerRadius="0 0 2 2"
-        Background="#f3f3f3"
-        BorderBrush="#f3f3f3"
-        BorderThickness="3 0 3 3">
+        CornerRadius="2"
+        BorderThickness="3">
+            <Border.BorderBrush>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#1e2023" Offset="0"/>
+                <GradientStop Color="#333538" Offset="0.75"/>
+                <GradientStop Color="#8A16C1" Offset="1"/>
+            </LinearGradientBrush>
+            </Border.BorderBrush>
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                <GradientStop Color="#2c2d2f" Offset="0"/>
+                <GradientStop Color="black" Offset="2"/>
+            </LinearGradientBrush>
+        </Border.Background>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
+                <RowDefinition Height="150"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
@@ -32,29 +44,31 @@
                     <ColumnDefinition Width="200"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <presenters:LeftSide Grid.Column="1" x:Name="leftSide" />
+                <Border Grid.Column="0" >
+                    <presenters:LeftSide x:Name="leftSide" BorderThickness="0 0 1 0" BorderBrush="Black" />
+                </Border>
                 <Grid Grid.Column="1" x:Name="EngineContainer">
                 </Grid>
             </Grid>
             <Border Grid.Row="2" BorderThickness="0 1 0 0" BorderBrush="Black">
-                <Grid Margin="20 0 20 0">
+                <Grid Margin="0 0 0 0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="200"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" Orientation="Horizontal">
-                        <Border BorderThickness="1" Width="100" Height="30" BorderBrush="Black">
-                            <TextBlock Foreground="Black" Text="{Binding EngineName}" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" />
-                        </Border>
-                        <Button x:Name="btnRun" Content="Run" Width="100" Margin="10" />
-                        <Button x:Name="btnStop" Content="Stop" Width="100" Margin="10" />
+                        <Button x:Name="btnOrthor" Content="Orthor" Width="80" Margin="10" />
+                        <Button x:Name="btnStop" Content="Stop" Width="80" Margin="10" />
                     </StackPanel>
-                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Border BorderThickness="1" Width="80" Height="30" BorderBrush="Black" Margin="0 0 20 0">
-                            <TextBlock Foreground="Black" Text="{Binding MouseX}" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" />
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 7 0">
+                        <Border BorderThickness="1" Width="50" Height="30" BorderBrush="White" Margin="0 0 3 0">
+                            <TextBlock Foreground="White" Text="{Binding EngineName}" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" />
                         </Border>
-                        <Border BorderThickness="1" Width="80" Height="30" BorderBrush="Black">
-                            <TextBlock Foreground="Black" Text="{Binding MouseY}" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" />
+                        <Border BorderThickness="1" Width="50" Height="30" BorderBrush="White" Margin="0 0 3 0">
+                            <TextBlock Foreground="White" Text="{Binding MouseX}" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" />
+                        </Border>
+                        <Border BorderThickness="1" Width="50" Height="30" BorderBrush="White">
+                            <TextBlock Foreground="White" Text="{Binding MouseY}" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" />
                         </Border>
                     </StackPanel>
                 </Grid>
