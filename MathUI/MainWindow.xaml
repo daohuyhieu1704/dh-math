@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:MathUI"
         xmlns:usercontrols="clr-namespace:MathUI.Presenters"
         mc:Ignorable="d"
+        WindowState="Maximized"
         Title="MathUI" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>

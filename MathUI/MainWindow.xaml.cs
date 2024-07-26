@@ -17,10 +17,15 @@ namespace MathUI
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly GLHost glHost;
+        private GLHost glHost;
         public MainWindow()
         {
             InitializeComponent();
+            this.Loaded += MainWindow_Loaded;
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
             glHost = new();
             hostContainer.Child = glHost;
         }

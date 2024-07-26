@@ -8,6 +8,8 @@
 #define PCH_H
 #define GLFW_EXPOSE_NATIVE_WGL
 #define GLFW_EXPOSE_NATIVE_WIN32
+
+#define IDC_MAIN_EDIT 102 
 // add headers that you want to pre-compile here
 #include "framework.h"
 #include <GL/glew.h>

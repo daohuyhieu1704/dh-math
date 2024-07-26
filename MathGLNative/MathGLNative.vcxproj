@@ -115,7 +115,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\GLEW\include;$(SolutionDir)Libraries\GLFW\include;$(SolutionDir)MathCore;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\GLEW\include;$(SolutionDir)Libraries\GLFW\include;$(SolutionDir)MathCore;$(SolutionDir)Libraries\GLM;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>

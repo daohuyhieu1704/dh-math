@@ -16,6 +16,10 @@ namespace MathUI.Utils.GLHost
         {
             GLEngine eng = new();
             hwndHost = eng.InitializeWindow(hwndParent.Handle);
+            if (hwndHost == IntPtr.Zero)
+            {
+                throw new InvalidOperationException("Failed to create OpenGL window.");
+            }
             return new HandleRef(this, hwndHost);
         }
 
