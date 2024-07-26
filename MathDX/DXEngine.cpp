@@ -3,13 +3,12 @@
 
 namespace MathDX
 {
-	DXEngine::DXEngine()
+	DXEngine::DXEngine() : m_pEngine(DXEngineNative::GetInstance())
 	{
-		throw gcnew System::NotImplementedException();
 	}
 	DXEngine::~DXEngine()
 	{
-		throw gcnew System::NotImplementedException();
+		delete m_pEngine;
 	}
 	IntPtr DXEngine::InitializeWindow(IntPtr parentHandle)
 	{

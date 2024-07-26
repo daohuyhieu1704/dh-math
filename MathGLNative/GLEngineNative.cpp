@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "GLEngineNative.h"
+#include <corecrt_math.h>
 
 
 GLEngineNative* GLEngineNative::m_instance = nullptr;
@@ -123,7 +124,16 @@ void GLEngineNative::RenderScene()
     glLoadIdentity();
     glTranslatef(0.0f, 0.0f, -5.0f);
     // Rotate the cube
-    glRotatef(45, 1.0f, 1.0f, 1.0f);
+    glRotatef(0, 1.0f, 1.0f, 1.0f);
+
+    float radius = 10.0f;
+    float camX = radius * cos(angleY * 3.14159 / 180) * cos(angleX * 3.14159 / 180);
+    float camY = radius * sin(angleX * 3.14159 / 180);
+    float camZ = radius * sin(angleY * 3.14159 / 180) * cos(angleX * 3.14159 / 180);
+
+    gluLookAt(camX, camY, camZ, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+
+	Draw3DGrid(10, 1);
 
     glBegin(GL_QUADS);
     // Front face (z = 1.0f)
@@ -170,7 +180,14 @@ void GLEngineNative::RenderScene()
 
     glEnd();
 
-    // theta += 1.0f;
+    glBegin(GL_LINE_LOOP);
+    for (int i = 0; i < 50; i++) {
+        float angle = 2.0f * 3.14159f * float(i) / float(50);
+        float x = radius * cosf(angle);
+        float y = radius * sinf(angle);
+        glVertex2f(x, y);
+    }
+    glEnd();
 }
 
 void GLEngineNative::GetCurrentViewport(int& x, int& y, int& width, int& height)

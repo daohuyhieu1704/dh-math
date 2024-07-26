@@ -22,6 +22,9 @@
     <Filter Include="AbstractEngine">
       <UniqueIdentifier>{92ffbb5b-327a-4ad0-aa91-cfc61f97a804}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Geometry\Point2d">
+      <UniqueIdentifier>{ebc22dbe-0408-4e3d-9d08-ee6fd3d6a101}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">

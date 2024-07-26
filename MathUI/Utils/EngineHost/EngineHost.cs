@@ -8,14 +8,14 @@ using System.Windows.Interop;
 using MathDX;
 using MathGL;
 
-namespace MathUI.Utils.GLHost
+namespace MathUI.Utils.EngineHost
 {
-    public class GLHost(Type type) : HwndHost
+    public class EngineHost(Type type) : HwndHost
     {
         private IntPtr hwndHost;
         private Type type = type;
 
-        public string getName()
+        public string GetName()
         {
             return type.Name;
         }
@@ -26,7 +26,7 @@ namespace MathUI.Utils.GLHost
             {
                 case Type t when t == typeof(GLEngine):
                     {
-                        GLEngine eng = new();
+                        GLEngine eng = GLEngine.Instance;
                         hwndHost = eng.InitializeWindow(hwndParent.Handle);
                         if (hwndHost == IntPtr.Zero)
                         {
@@ -36,7 +36,7 @@ namespace MathUI.Utils.GLHost
                     }
                 case Type t when t == typeof(DXEngine):
                     {
-                        DXEngine eng = new();
+                        DXEngine eng = DXEngine.Instance;
                         hwndHost = eng.InitializeWindow(hwndParent.Handle);
                         if (hwndHost == IntPtr.Zero)
                         {

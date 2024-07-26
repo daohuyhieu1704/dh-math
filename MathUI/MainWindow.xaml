@@ -4,23 +4,61 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MathUI"
-        xmlns:presenters="clr-namespace:MathUI.Presenters"
+        xmlns:presenters="clr-namespace:MathUI.Presenters" xmlns:mainwindow="clr-namespace:MathUI.ViewModels.MainWindow"
+        d:DataContext="{d:DesignInstance Type=mainwindow:MainWindowViewModel}"
         mc:Ignorable="d"
-        WindowState="Maximized"
-        Title="MathUI" Height="450" Width="800">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <presenters:TopPanel Grid.Row="0"/>
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <presenters:LeftSide Grid.Column="1" x:Name="leftSide" />
-            <Border Grid.Column="1" Panel.ZIndex="1" x:Name="hostContainer" Margin="10" BorderBrush="White" />
+        WindowStartupLocation="CenterScreen"
+        Background="Transparent"
+        WindowStyle="None"
+        MouseDown="Window_MouseDown"
+        Name="MainView"
+        Title="MathUI" Height="720" Width="1280">
+    <Border 
+        CornerRadius="0 0 2 2"
+        Background="#f3f3f3"
+        BorderBrush="#f3f3f3"
+        BorderThickness="3 0 3 3">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0" BorderThickness="0 0 0 1" BorderBrush="Black">
+                <presenters:TopPanel />
+            </Border>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <presenters:LeftSide Grid.Column="1" x:Name="leftSide" />
+                <Grid Grid.Column="1" x:Name="EngineContainer">
+                </Grid>
+            </Grid>
+            <Border Grid.Row="2" BorderThickness="0 1 0 0" BorderBrush="Black">
+                <Grid Margin="20 0 20 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="200"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                        <Border BorderThickness="1" Width="100" Height="30" BorderBrush="Black">
+                            <TextBlock Foreground="Black" Text="{Binding EngineName}" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" />
+                        </Border>
+                        <Button x:Name="btnRun" Content="Run" Width="100" Margin="10" />
+                        <Button x:Name="btnStop" Content="Stop" Width="100" Margin="10" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Border BorderThickness="1" Width="80" Height="30" BorderBrush="Black" Margin="0 0 20 0">
+                            <TextBlock Foreground="Black" Text="{Binding MouseX}" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" />
+                        </Border>
+                        <Border BorderThickness="1" Width="80" Height="30" BorderBrush="Black">
+                            <TextBlock Foreground="Black" Text="{Binding MouseY}" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" />
+                        </Border>
+                    </StackPanel>
+                </Grid>
+            </Border>
         </Grid>
-    </Grid>
+    </Border>
 </Window>

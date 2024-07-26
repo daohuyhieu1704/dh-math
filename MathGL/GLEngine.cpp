@@ -2,18 +2,18 @@
 //
 
 #include "pch.h"
-#include "framework.h"
 #include "GLEngine.h"
 
 namespace MathGL
 {
-	GLEngine::GLEngine() : m_pEngine(new GLEngineNative())
+	GLEngine::GLEngine() : m_pEngine(GLEngineNative::GetInstance())
 	{
 	}
 	GLEngine::~GLEngine()
 	{
 		delete m_pEngine;
 	}
+
 	IntPtr GLEngine::InitializeWindow(IntPtr parentHandle)
 	{
 		HINSTANCE hInstance = GetModuleHandle(nullptr);

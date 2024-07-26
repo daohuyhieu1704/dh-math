@@ -74,8 +74,7 @@ HWND DXEngineNative::InitializeWindow(HINSTANCE hInstance, int nCmdShow, HWND pa
         WS_EX_CLIENTEDGE,              // Extended window styles.
         CLASS_NAME,                    // Window class
         L"Drawing App",        // Window text
-        WS_SYSMENU | WS_VISIBLE | WS_MINIMIZEBOX | WS_OVERLAPPED | WS_BORDER | WS_CAPTION |
-        WS_CLIPCHILDREN | WS_CLIPSIBLINGS,         // Window style - make it a child window that is visible
+        WS_CHILD | WS_VISIBLE,         // Window style - make it a child window that is visible
         70, 220, width - 240, height - 20,                // Position and dimensions
         parentHwnd,                    // Parent window    
         NULL,                          // Menu
@@ -88,7 +87,7 @@ HWND DXEngineNative::InitializeWindow(HINSTANCE hInstance, int nCmdShow, HWND pa
     }
 
     ShowWindow(hwnd, nCmdShow);
-    InitializeCore(hwnd);
+    // InitializeCore(hwnd);
     return hwnd;
 }
 
