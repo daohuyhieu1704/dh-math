@@ -4,22 +4,22 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MathUI"
-        xmlns:usercontrols="clr-namespace:MathUI.Presenters"
+        xmlns:presenters="clr-namespace:MathUI.Presenters"
         mc:Ignorable="d"
         WindowState="Maximized"
         Title="MathUI" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
-        <usercontrols:TopPanel Grid.Row="0"/>
+        <presenters:TopPanel Grid.Row="0"/>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
+            <presenters:LeftSide Grid.Column="1" x:Name="leftSide" />
             <Border Grid.Column="1" Panel.ZIndex="1" x:Name="hostContainer" Margin="10" BorderBrush="White" />
         </Grid>
     </Grid>

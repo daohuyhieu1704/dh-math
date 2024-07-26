@@ -15,8 +15,14 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CoreGLConverter", "CoreGLConverter\CoreGLConverter.vcxproj", "{00BA3763-D918-4675-BDA7-95294F33A4EB}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MathDXNative", "MathDXNative\MathDXNative.vcxproj", "{8B3BE34B-C58B-4BF3-9298-ADD94E56D1CF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2B0D475A-3BC0-44DD-B419-0499E5984E63} = {2B0D475A-3BC0-44DD-B419-0499E5984E63}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MathDX", "MathDX\MathDX.vcxproj", "{C4BF1CD1-986C-4E3C-8788-76C32A28F0E3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8B3BE34B-C58B-4BF3-9298-ADD94E56D1CF} = {8B3BE34B-C58B-4BF3-9298-ADD94E56D1CF}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MathGL", "MathGL\MathGL.vcxproj", "{0100D739-D70B-497D-9551-8D39BA58A3D3}"
 	ProjectSection(ProjectDependencies) = postProject

@@ -125,7 +125,7 @@
       </SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)Libraries;$(SolutionDir)Libraries\GLEW\lib\Release\x64;$(SolutionDir)Libraries\GLFW\lib-vc2022;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;MathCore.lib;MathGLNative.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;glu32.lib;glfw3.lib;MathCore.lib;MathGLNative.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)Libraries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>

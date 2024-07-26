@@ -6,10 +6,10 @@ GLEngineNative* GLEngineNative::m_instance = nullptr;
 
 LRESULT GLEngineNative::WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
+    GLEngineNative* engineNative = GLEngineNative::GetInstance();
     switch (uMsg) {
     case WM_CREATE:
     {
-        GLEngineNative* engineNative = GLEngineNative::GetInstance();
         HGDIOBJ hfDefault = GetStockObject(DEFAULT_GUI_FONT);
         SendMessage(engineNative->m_glWindow,
             WM_SETFONT,
@@ -23,7 +23,26 @@ LRESULT GLEngineNative::WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM l
     }
 
     case WM_LBUTTONDOWN:
-        break;
+    {
+    }
+    break;
+    case WM_MOUSEWHEEL:
+    {
+        int delta = GET_WHEEL_DELTA_WPARAM(wParam);
+        if (delta > 0)
+        {
+            engineNative->zoomFactor -= 1.0f; // Zoom in
+        }
+        else
+        {
+            engineNative->zoomFactor += 1.0f; // Zoom out
+        }
+
+        RECT rect;
+        GetClientRect(hwnd, &rect);
+        engineNative->ResizeChild(rect.right - rect.left, rect.bottom - rect.top);
+        return 0;
+    }
     case WM_MOUSEMOVE:
         break;
     case WM_DESTROY:
@@ -33,14 +52,9 @@ LRESULT GLEngineNative::WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM l
     {
         int width = LOWORD(lParam);
         int height = HIWORD(lParam);
-        glViewport(0, 0, width, height);
-		GLEngineNative* engineNative = GLEngineNative::GetInstance();
-        if (engineNative) {
-            engineNative->RenderCube(width, height);
-            SwapBuffers(engineNative->m_hdc);
-        }
+        engineNative->ResizeChild(width, height);
+        return 0;
     }
-    break;
     case WM_DPICHANGED:
     {
         RECT* const prcNewWindow = (RECT*)lParam;
@@ -61,23 +75,120 @@ LRESULT GLEngineNative::WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM l
 
         RECT rect;
         GetClientRect(hwnd, &rect);
+		engineNative->Setup3DViewport(rect.right - rect.left, rect.bottom - rect.top);
         int width = rect.right - rect.left;
         int height = rect.bottom - rect.top;
-        GLEngineNative* engineNative = GLEngineNative::GetInstance();
-        engineNative->RenderCube(width, height);
+        engineNative->RenderScene();
         SwapBuffers(engineNative->m_hdc);
+        return 0;
     }
     break;
+    case WM_SYSCHAR:
+        break;
     default:
         return DefWindowProc(hwnd, uMsg, wParam, lParam);
     }
     return 0;
 }
 
+void GLEngineNative::Setup3DViewport(int width, int height) {
+    glViewport(0, 0, width, height);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluPerspective(45.0, (GLdouble)width / (GLdouble)height, 1.0, 100.0);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+}
+
+void GLEngineNative::Draw3DGrid(float size, float step)
+{
+	glPushMatrix();
+	glTranslatef(-size / 2, 0, -size / 2);
+	for (float i = 0; i <= size; i += step)
+	{
+		glBegin(GL_LINES);
+		glColor3f(0.5, 0.5, 0.5);
+		glVertex3f(i, 0, 0);
+		glVertex3f(i, 0, size);
+		glVertex3f(0, 0, i);
+		glVertex3f(size, 0, i);
+		glEnd();
+	}
+	glPopMatrix();
+}
+
+void GLEngineNative::RenderScene()
+{
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glLoadIdentity();
+    glTranslatef(0.0f, 0.0f, -5.0f);
+    // Rotate the cube
+    glRotatef(45, 1.0f, 1.0f, 1.0f);
+
+    glBegin(GL_QUADS);
+    // Front face (z = 1.0f)
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex3f(-1.0f, -1.0f, 1.0f);
+    glVertex3f(1.0f, -1.0f, 1.0f);
+    glVertex3f(1.0f, 1.0f, 1.0f);
+    glVertex3f(-1.0f, 1.0f, 1.0f);
+
+    // Back face (z = -1.0f)
+    glColor3f(0.0f, 1.0f, 0.0f);
+    glVertex3f(-1.0f, -1.0f, -1.0f);
+    glVertex3f(-1.0f, 1.0f, -1.0f);
+    glVertex3f(1.0f, 1.0f, -1.0f);
+    glVertex3f(1.0f, -1.0f, -1.0f);
+
+    // Top face (y = 1.0f)
+    glColor3f(0.0f, 0.0f, 1.0f);
+    glVertex3f(-1.0f, 1.0f, -1.0f);
+    glVertex3f(-1.0f, 1.0f, 1.0f);
+    glVertex3f(1.0f, 1.0f, 1.0f);
+    glVertex3f(1.0f, 1.0f, -1.0f);
+
+    // Bottom face (y = -1.0f)
+    glColor3f(1.0f, 1.0f, 0.0f);
+    glVertex3f(-1.0f, -1.0f, -1.0f);
+    glVertex3f(1.0f, -1.0f, -1.0f);
+    glVertex3f(1.0f, -1.0f, 1.0f);
+    glVertex3f(-1.0f, -1.0f, 1.0f);
+
+    // Right face (x = 1.0f)
+    glColor3f(1.0f, 0.0f, 1.0f);
+    glVertex3f(1.0f, -1.0f, -1.0f);
+    glVertex3f(1.0f, 1.0f, -1.0f);
+    glVertex3f(1.0f, 1.0f, 1.0f);
+    glVertex3f(1.0f, -1.0f, 1.0f);
+
+    // Left face (x = -1.0f)
+    glColor3f(0.0f, 1.0f, 1.0f);
+    glVertex3f(-1.0f, -1.0f, -1.0f);
+    glVertex3f(-1.0f, -1.0f, 1.0f);
+    glVertex3f(-1.0f, 1.0f, 1.0f);
+    glVertex3f(-1.0f, 1.0f, -1.0f);
+
+    glEnd();
+
+    // theta += 1.0f;
+}
+
+void GLEngineNative::GetCurrentViewport(int& x, int& y, int& width, int& height)
+{
+    GLint viewport[4];
+    glGetIntegerv(GL_VIEWPORT, viewport);
+    x = viewport[0];
+    y = viewport[1];
+    width = viewport[2];
+    height = viewport[3];
+}
+
 HWND GLEngineNative::InitializeWindow(HINSTANCE hInstance, int nCmdShow, HWND parentHwnd) {
     if (!glfwInit()) {
         return nullptr;
     }
+
+    glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
 
     const wchar_t CLASS_NAME[] = L"GLWindowClass";
     BOOL quit = FALSE;
@@ -102,7 +213,7 @@ HWND GLEngineNative::InitializeWindow(HINSTANCE hInstance, int nCmdShow, HWND pa
         CLASS_NAME,                    // Window class
         L"Drawing App",                // Window text
         WS_CHILD | WS_VISIBLE,         // Window style - make it a child window that is visible
-        220, 20, width - 240, height - 40,           // Position and dimensions
+        220, 70, width - 240, height - 90,           // Position and dimensions
         parentHwnd,                    // Parent window    
         NULL,                          // Menu
         hInstance,                     // Instance handle
@@ -135,19 +246,9 @@ HWND GLEngineNative::InitializeWindow(HINSTANCE hInstance, int nCmdShow, HWND pa
         }
         else
         {
-            glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-            glClear(GL_COLOR_BUFFER_BIT);
-            glPushMatrix();
-            glRotatef(theta, 0.0f, 0.0f, 1.0f);
-            glBegin(GL_TRIANGLES);
-            glColor3f(1.0f, 0.0f, 0.0f); glVertex2f(0.0f, 0.25f);
-            glColor3f(0.0f, 1.0f, 0.0f); glVertex2f(0.21f, -0.12f);
-            glColor3f(0.0f, 0.0f, 1.0f); glVertex2f(-0.21f, -0.12f);
-            glEnd();
-            glPopMatrix();
+            RenderScene();
             SwapBuffers(m_hdc);
-            theta += 1.0f;
-
+            glfwPollEvents();
         }
 
     }
@@ -155,6 +256,21 @@ HWND GLEngineNative::InitializeWindow(HINSTANCE hInstance, int nCmdShow, HWND pa
     DisableOpenGL(hwnd, m_hdc, m_hglrc);
     DestroyWindow(hwnd);
     return hwnd;
+}
+
+void GLEngineNative::ResizeChild(int width, int height)
+{
+    if (height == 0)
+        height = 1;
+
+    glViewport(0, 0, width, height);
+
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluPerspective(zoomFactor, (GLfloat)width / (GLfloat)height, 0.1f, 100.0f);
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
 }
 
 HRESULT GLEngineNative::InitializeCore(HWND hwnd)

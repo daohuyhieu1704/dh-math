@@ -1,4 +1,6 @@
-﻿using MathUI.Utils.GLHost;
+﻿using MathDX;
+using MathGL;
+using MathUI.Utils.GLHost;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,7 +19,7 @@ namespace MathUI
     /// </summary>
     public partial class MainWindow : Window
     {
-        private GLHost glHost;
+        public static List<GLHost> EngineHost = [];
         public MainWindow()
         {
             InitializeComponent();
@@ -26,8 +28,9 @@ namespace MathUI
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            glHost = new();
-            hostContainer.Child = glHost;
+            EngineHost.Add(new(typeof(GLEngine)));
+            //EngineHost.Add(new(typeof(DXEngine)));
+            hostContainer.Child = EngineHost[0];
         }
     }
 }

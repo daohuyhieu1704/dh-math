@@ -1,5 +1,4 @@
-﻿using MathUI.ViewModels.TopPanel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,14 +16,13 @@ using System.Windows.Shapes;
 namespace MathUI.Presenters
 {
     /// <summary>
-    /// Interaction logic for TopPanel.xaml
+    /// Interaction logic for LeftSide.xaml
     /// </summary>
-    public partial class TopPanel : UserControl
+    public partial class LeftSide : UserControl
     {
-        public TopPanel()
+        public LeftSide()
         {
             InitializeComponent();
-            DataContext = new TopPanelViewModel();
         }
     }
 }
