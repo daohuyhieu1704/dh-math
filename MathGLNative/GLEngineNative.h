@@ -2,6 +2,20 @@
 #include "pch.h"
 #include "IEngine.h"
 
+enum class ViewportType
+{
+	TL = 0,
+	TM = 1,
+	TR = 2,
+	ML = 3,
+	TMM = 4,
+	BMM = 5,
+	MR = 6,
+	BL = 7,
+	BM = 8,
+	BR = 9
+};
+
 class GLEngineNative : public IEngine
 {
 	static GLEngineNative* m_instance;
@@ -24,8 +38,23 @@ public:
 	void EnableOpenGL(HWND hWnd, HDC* hDC, HGLRC* hRC);
 	void DisableOpenGL(HWND hWnd, HDC hDC, HGLRC hRC);
 	void Draw3DGrid(float size, float step);
+
+	// Viewport functions
+#pragma region Viewport
 	void Setup3DViewport(int width, int height);
 	void Setup2DViewport(int width, int height);
+	void TLViewport();
+	void TMViewport();
+	void TRViewport();
+	void MLViewport();
+	void TMMViewport();
+	void BMMViewport();
+	void MRViewport();
+	void BLViewport();
+	void BMViewport();
+	void BRViewport();
+#pragma endregion
+
 	void GetCurrentViewport(int& x, int& y, int& width, int& height);
 	void RenderScene();
 
@@ -42,5 +71,6 @@ public:
 	bool is3D = true;
 	int lastMouseX, lastMouseY;
 	bool isDragging = false;
+	ViewportType m_viewportType = ViewportType::TL;
 };
 

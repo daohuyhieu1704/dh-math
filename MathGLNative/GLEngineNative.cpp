@@ -93,12 +93,166 @@ LRESULT GLEngineNative::WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM l
 }
 
 void GLEngineNative::Setup3DViewport(int width, int height) {
-    glViewport(0, 0, width, height);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    gluPerspective(45.0, (GLdouble)width / (GLdouble)height, 1.0, 100.0);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
+    switch (m_viewportType) 
+    {
+    case ViewportType::TL:
+    {
+        glViewport(0, 0, width, height);
+        glMatrixMode(GL_PROJECTION);
+        glLoadIdentity();
+        angleX = 45.0f;
+        angleY = 45.0f;
+        gluPerspective(zoomFactor, (GLfloat)width / (GLfloat)height, 0.1f, 100.0f);
+        glMatrixMode(GL_MODELVIEW);
+        glLoadIdentity();
+    }
+    break;
+    case ViewportType::TM:
+    {
+        glViewport(0, 0, width, height);
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		angleX = 0.0f;
+		angleY = 45.0f;
+		gluPerspective(zoomFactor, (GLfloat)width / (GLfloat)height, 0.1f, 100.0f);
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
+    }
+    break;
+    case ViewportType::TR:
+        break;
+    case ViewportType::ML:
+        break;
+    case ViewportType::TMM:
+    {
+        glMatrixMode(GL_PROJECTION);
+        glLoadIdentity();
+        gluPerspective(zoomFactor, (GLfloat)width / (GLfloat)height, 0.1f, 100.0f);
+		angleX = 0.0f;
+		angleY = 90.0f;
+        glMatrixMode(GL_MODELVIEW);
+        glLoadIdentity();
+    }
+    break;
+    case ViewportType::BMM:
+    {
+        glMatrixMode(GL_PROJECTION);
+        glLoadIdentity();
+        gluPerspective(zoomFactor, (GLfloat)width / (GLfloat)height, 0.1f, 100.0f);
+        angleX = 0.0f;
+        angleY = -90.0f;
+        glMatrixMode(GL_MODELVIEW);
+        glLoadIdentity();
+    }
+    break;
+    case ViewportType::MR:
+        break;
+    case ViewportType::BL:
+        break;
+    case ViewportType::BM:
+        glMatrixMode(GL_PROJECTION);
+        glLoadIdentity();
+        gluPerspective(zoomFactor, (GLfloat)width / (GLfloat)height, 0.1f, 100.0f);
+        angleX = 90.0f;
+        angleY = 0.0f;
+        glMatrixMode(GL_MODELVIEW);
+        glLoadIdentity();
+        break;
+    case ViewportType::BR:
+        break;
+    default:
+        break;
+    }
+}
+
+void GLEngineNative::TLViewport()
+{
+    zoomFactor = 45.0f;
+    m_viewportType = ViewportType::TL;
+    int x, y, width, height;
+    GetCurrentViewport(x, y, width, height);
+    Setup3DViewport(width, height);
+}
+
+void GLEngineNative::TMViewport()
+{
+    zoomFactor = 45.0f;
+	m_viewportType = ViewportType::TM;
+	int x, y, width, height;
+	GetCurrentViewport(x, y, width, height);
+	Setup3DViewport(width, height);
+}
+
+void GLEngineNative::TRViewport()
+{
+    zoomFactor = 45.0f;
+	m_viewportType = ViewportType::TR;
+	int x, y, width, height;
+	GetCurrentViewport(x, y, width, height);
+	Setup3DViewport(width, height);
+}
+
+void GLEngineNative::MLViewport()
+{
+    zoomFactor = 45.0f;
+	m_viewportType = ViewportType::ML;
+	int x, y, width, height;
+	GetCurrentViewport(x, y, width, height);
+	Setup3DViewport(width, height);
+}
+
+void GLEngineNative::TMMViewport()
+{
+    zoomFactor = 45.0f;
+    m_viewportType = ViewportType::TMM;
+    int x, y, width, height;
+    GetCurrentViewport(x, y, width, height);
+    Setup3DViewport(width, height);
+}
+
+void GLEngineNative::BMMViewport()
+{
+    zoomFactor = 45.0f;
+	m_viewportType = ViewportType::BMM;
+	int x, y, width, height;
+	GetCurrentViewport(x, y, width, height);
+	Setup3DViewport(width, height);
+}
+
+void GLEngineNative::MRViewport()
+{
+    zoomFactor = 45.0f;
+	m_viewportType = ViewportType::MR;
+	int x, y, width, height;
+	GetCurrentViewport(x, y, width, height);
+	Setup3DViewport(width, height);
+}
+
+void GLEngineNative::BLViewport()
+{
+    zoomFactor = 45.0f;
+	m_viewportType = ViewportType::BL;
+	int x, y, width, height;
+	GetCurrentViewport(x, y, width, height);
+	Setup3DViewport(width, height);
+}
+
+void GLEngineNative::BMViewport()
+{
+    zoomFactor = 45.0f;
+	m_viewportType = ViewportType::BM;
+	int x, y, width, height;
+	GetCurrentViewport(x, y, width, height);
+	Setup3DViewport(width, height);
+}
+
+void GLEngineNative::BRViewport()
+{
+    zoomFactor = 45.0f;
+	m_viewportType = ViewportType::BR;
+	int x, y, width, height;
+	GetCurrentViewport(x, y, width, height);
+	Setup3DViewport(width, height);
 }
 
 void GLEngineNative::Draw3DGrid(float size, float step)
@@ -230,7 +384,7 @@ HWND GLEngineNative::InitializeWindow(HINSTANCE hInstance, int nCmdShow, HWND pa
         CLASS_NAME,                    // Window class
         L"Drawing App",                // Window text
         WS_CHILD | WS_VISIBLE,         // Window style - make it a child window that is visible
-        210, 160, width - 220, height - 220,           // Position and dimensions
+        210, 160, width - 220, height - 320,           // Position and dimensions
         parentHwnd,                    // Parent window    
         NULL,                          // Menu
         hInstance,                     // Instance handle
@@ -279,15 +433,14 @@ void GLEngineNative::ResizeChild(int width, int height)
 {
     if (height == 0)
         height = 1;
+	Setup3DViewport(width, height);
+    //glViewport(0, 0, width, height);
 
-    glViewport(0, 0, width, height);
+    //glMatrixMode(GL_PROJECTION);
+    //glLoadIdentity();
 
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    gluPerspective(zoomFactor, (GLfloat)width / (GLfloat)height, 0.1f, 100.0f);
-
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
+    //glMatrixMode(GL_MODELVIEW);
+    //glLoadIdentity();
 }
 
 HRESULT GLEngineNative::InitializeCore(HWND hwnd)

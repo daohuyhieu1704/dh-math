@@ -15,8 +15,6 @@ namespace MathUI.ViewModels.MainWindow
 {
     class MainWindowViewModel : ViewModelBase
     {
-        public List<EngineHost> EngineHost = [];
-
         int _MouseX;
         public int MouseX
         {
@@ -64,6 +62,56 @@ namespace MathUI.ViewModels.MainWindow
                 engineContainer.Children.Add(new EngineHost(typeof(GLEngine)));
                 // engineContainer.Children.Add(new EngineHost(typeof(DXEngine)));
             }
+        }
+
+        internal void TL()
+        {
+            GLEngine.Instance.TLViewport();
+        }
+
+        internal void TM()
+        {
+            GLEngine.Instance.TMViewport();
+        }
+
+        internal void TR()
+        {
+            GLEngine.Instance.TRViewport();
+        }
+
+        internal void ML()
+        {
+            GLEngine.Instance.MLViewport();
+        }
+
+        internal void TMM()
+        {
+            GLEngine.Instance.TMMViewport();
+        }
+
+        internal void BMM()
+        {
+            GLEngine.Instance.BMMViewport();
+        }
+
+        internal void MR()
+        {
+            GLEngine.Instance.MRViewport();
+        }
+
+        internal void BL()
+        {
+            GLEngine.Instance.BLViewport();
+        }
+
+        internal void BM()
+        {
+            GLEngine.Instance.BMViewport();
+        }
+
+        internal void BR()
+        {
+            GLEngine.Instance.BRViewport();
         }
     }
 }

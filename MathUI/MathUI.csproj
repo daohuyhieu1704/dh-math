@@ -13,6 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MathCoreWrapper\MathCoreWrapper.vcxproj" />
     <ProjectReference Include="..\MathDX\MathDX.vcxproj" />
     <ProjectReference Include="..\MathGL\MathGL.vcxproj" />
   </ItemGroup>

@@ -28,6 +28,16 @@ namespace MathGL
 		}
 
 		IntPtr InitializeWindow(IntPtr parentHandle);
+		void TLViewport();
+		void TMViewport();
+		void TRViewport();
+		void MLViewport();
+		void TMMViewport();
+		void BMMViewport();
+		void MRViewport();
+		void BLViewport();
+		void BMViewport();
+		void BRViewport();
 	protected:
 		GLEngineNative* m_pEngine;
 	};

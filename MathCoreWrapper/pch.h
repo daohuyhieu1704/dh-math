@@ -9,6 +9,5 @@
 
 // add headers that you want to pre-compile here
 #include "framework.h"
-#include <corecrt_math.h>
 
 #endif //PCH_H

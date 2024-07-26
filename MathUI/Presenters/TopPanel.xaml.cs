@@ -1,4 +1,5 @@
-﻿using MathUI.ViewModels.TopPanel;
+﻿using MathUI.ViewModels.MainWindow;
+using MathUI.ViewModels.TopPanel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,27 @@ namespace MathUI.Presenters
         {
             InitializeComponent();
             DataContext = new TopPanelViewModel();
+        }
+        private void CommandAction(Action<TopPanelViewModel> callback)
+        {
+            try
+            {
+                if (DataContext is not TopPanelViewModel model)
+                {
+                    return;
+                }
+
+                callback(model);
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+
+        private void DrawLine_Click(object sender, RoutedEventArgs e)
+        {
+            CommandAction((model) => model.DrawLine());
         }
     }
 }

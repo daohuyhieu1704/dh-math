@@ -25,6 +25,15 @@
     <Filter Include="Geometry\Point2d">
       <UniqueIdentifier>{ebc22dbe-0408-4e3d-9d08-ee6fd3d6a101}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Geometry\Point3d">
+      <UniqueIdentifier>{131d2013-dd8c-47b8-85f0-3c82755e31e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Geometry\Vector2d">
+      <UniqueIdentifier>{32b4f43d-6a0c-4b0d-a02f-da04ad01f70b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Geometry\Vector3d">
+      <UniqueIdentifier>{8c60509c-f55b-4d61-8fc4-75c9efd201a6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -36,6 +45,15 @@
     <ClInclude Include="IEngine.h">
       <Filter>AbstractEngine</Filter>
     </ClInclude>
+    <ClInclude Include="OdGePoint2d.h">
+      <Filter>Geometry\Point2d</Filter>
+    </ClInclude>
+    <ClInclude Include="OdGeVector3d.h">
+      <Filter>Geometry\Vector3d</Filter>
+    </ClInclude>
+    <ClInclude Include="OdGePoint3d.h">
+      <Filter>Geometry\Point3d</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -43,6 +61,15 @@
     </ClCompile>
     <ClCompile Include="IEngine.cpp">
       <Filter>AbstractEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="OdGePoint2d.cpp">
+      <Filter>Geometry\Point2d</Filter>
+    </ClCompile>
+    <ClCompile Include="OdGeVector3d.cpp">
+      <Filter>Geometry\Vector3d</Filter>
+    </ClCompile>
+    <ClCompile Include="OdGePoint3d.cpp">
+      <Filter>Geometry\Point3d</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -53,5 +53,55 @@ namespace MathUI
         {
 
         }
+
+        private void TL_click(object sender, RoutedEventArgs e)
+        {
+            CommandAction((model) => model.TL());
+        }
+
+        private void TM_click(object sender, RoutedEventArgs e)
+        {
+            CommandAction((model) => model.TM());
+        }
+
+        private void TR_click(object sender, RoutedEventArgs e)
+        {
+            CommandAction((model) => model.TR());
+        }
+
+        private void ML_click(object sender, RoutedEventArgs e)
+        {
+            CommandAction((model) => model.ML());
+        }
+
+        private void TMM_click(object sender, RoutedEventArgs e)
+        {
+            CommandAction((model) => model.TMM());
+        }
+
+        private void BMM_click(object sender, RoutedEventArgs e)
+        {
+            CommandAction((model) => model.BMM());
+        }
+
+        private void MR_click(object sender, RoutedEventArgs e)
+        {
+            CommandAction((model) => model.MR());
+        }
+
+        private void BL_click(object sender, RoutedEventArgs e)
+        {
+            CommandAction((model) => model.BL());
+        }
+
+        private void BM_click(object sender, RoutedEventArgs e)
+        {
+            CommandAction((model) => model.BM());
+        }
+
+        private void BR_click(object sender, RoutedEventArgs e)
+        {
+            CommandAction((model) => model.BR());
+        }
     }
 }

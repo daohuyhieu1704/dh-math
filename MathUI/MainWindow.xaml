@@ -13,7 +13,7 @@
         ResizeMode="NoResize"
         MouseDown="Window_MouseDown"
         Name="MainView"
-        Title="MathUI" Height="900" Width="1400">
+        Title="MathUI" Height="960" Width="1400">
     <Border 
         CornerRadius="2"
         BorderThickness="3">
@@ -21,7 +21,7 @@
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                 <GradientStop Color="#1e2023" Offset="0"/>
                 <GradientStop Color="#333538" Offset="0.75"/>
-                <GradientStop Color="#8A16C1" Offset="1"/>
+                <GradientStop Color="Black" Offset="1"/>
             </LinearGradientBrush>
             </Border.BorderBrush>
         <Border.Background>
@@ -34,6 +34,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="150"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="100"/>
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
             <Border Grid.Row="0" BorderThickness="0 0 0 1" BorderBrush="Black">
@@ -50,24 +51,65 @@
                 <Grid Grid.Column="1" x:Name="EngineContainer">
                 </Grid>
             </Grid>
-            <Border Grid.Row="2" BorderThickness="0 1 0 0" BorderBrush="Black">
+            <Border Grid.Row="2" BorderThickness="0 1 0 0" BorderBrush="#141518">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="100" />
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0" BorderThickness="0 0 1 0" BorderBrush="Black">
+                        <TextBox x:Name="CommandWindow" Background="Transparent" Foreground="White" />
+                    </Border>
+                    <Border Grid.Column="1" BorderThickness="0 0 1 0" BorderBrush="Black">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="2*" />
+                                <RowDefinition Height="1*" />
+                            </Grid.RowDefinitions>
+                            <Button Grid.Column="0" Grid.Row="0" BorderBrush="White" Background="Transparent" Foreground="White" x:Name="TL" Content="" Click="TL_click" />
+                            <Button Grid.Column="1" Grid.Row="0" BorderBrush="White" Background="Transparent" Foreground="White" x:Name="TM" Content="" Click="TM_click" />
+                            <Button Grid.Column="2" Grid.Row="0" BorderBrush="White" Background="Transparent" Foreground="White" x:Name="TR" Content="" Click="TR_click" />
+                            <Button Grid.Column="0" Grid.Row="1" BorderBrush="White" Background="Transparent" Foreground="White" x:Name="ML" Content="" Click="ML_click" />
+                            <Grid Grid.Column="1" Grid.Row="1" >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Button Grid.Row="0" BorderBrush="White" Background="Transparent" Foreground="White" x:Name="TMM" Content="" Click="TMM_click" />
+                                <Button Grid.Row="1" BorderBrush="White" Background="Transparent" Foreground="White" x:Name="BMM" Content="" Click="BMM_click" />
+                            </Grid>
+                            <Button Grid.Column="2" Grid.Row="1" BorderBrush="White" Background="Transparent" Foreground="White" x:Name="MR" Content="" Click="MR_click" />
+                            <Button Grid.Column="0" Grid.Row="2" BorderBrush="White" Background="Transparent" Foreground="White" x:Name="BL" Content="" Click="BL_click" />
+                            <Button Grid.Column="1" Grid.Row="2" BorderBrush="White" Background="Transparent" Foreground="White" x:Name="BM" Content="" Click="BM_click" />
+                            <Button Grid.Column="2" Grid.Row="2" BorderBrush="White" Background="Transparent" Foreground="White" x:Name="BR" Content="" Click="BR_click" />
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Border>
+            <Border Grid.Row="3" BorderThickness="0 1 0 0" BorderBrush="Black">
                 <Grid Margin="0 0 0 0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="200"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" Orientation="Horizontal">
-                        <Button x:Name="btnOrthor" Content="Orthor" Width="80" Margin="10" />
-                        <Button x:Name="btnStop" Content="Stop" Width="80" Margin="10" />
+                        <Button BorderBrush="White" Background="Transparent" Foreground="White" x:Name="btnOrthor" Content="Orthor" Width="80" Margin="10" />
+                        <Button BorderBrush="White" Background="Transparent" Foreground="White" x:Name="btnStop" Content="Stop" Width="80" Margin="10" />
                     </StackPanel>
                     <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 7 0">
-                        <Border BorderThickness="1" Width="50" Height="30" BorderBrush="White" Margin="0 0 3 0">
+                        <Border BorderThickness="1 0 0 0" Width="50" Height="30" BorderBrush="White" Margin="0 0 3 0">
                             <TextBlock Foreground="White" Text="{Binding EngineName}" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" />
                         </Border>
-                        <Border BorderThickness="1" Width="50" Height="30" BorderBrush="White" Margin="0 0 3 0">
+                        <Border BorderThickness="1 0 0 0" Width="50" Height="30" BorderBrush="White" Margin="0 0 3 0">
                             <TextBlock Foreground="White" Text="{Binding MouseX}" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" />
                         </Border>
-                        <Border BorderThickness="1" Width="50" Height="30" BorderBrush="White">
+                        <Border BorderThickness="1 0 0 0" Width="50" Height="30" BorderBrush="White">
                             <TextBlock Foreground="White" Text="{Binding MouseY}" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" />
                         </Border>
                     </StackPanel>
