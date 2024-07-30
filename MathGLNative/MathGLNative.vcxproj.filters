@@ -13,6 +13,21 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="RenderEntities">
+      <UniqueIdentifier>{cd44c5a9-e04a-4a07-8a98-c1404d0dd161}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RenderEntities\Line">
+      <UniqueIdentifier>{2d543cc7-3f6d-43b7-bed3-075e215366a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Jig">
+      <UniqueIdentifier>{10be491f-0724-412a-97e6-26516994c727}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FullEntities">
+      <UniqueIdentifier>{1b3df477-97d0-4436-a330-26025c039708}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FullEntities\Line">
+      <UniqueIdentifier>{1da374c5-61b6-4d3e-a8c1-993e0899db75}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -24,6 +39,12 @@
     <ClInclude Include="GLEngineNative.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GLLine.h">
+      <Filter>RenderEntities\Line</Filter>
+    </ClInclude>
+    <ClInclude Include="MathLine.h">
+      <Filter>FullEntities\Line</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -31,6 +52,12 @@
     </ClCompile>
     <ClCompile Include="GLEngineNative.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GLLine.cpp">
+      <Filter>RenderEntities\Line</Filter>
+    </ClCompile>
+    <ClCompile Include="MathLine.cpp">
+      <Filter>FullEntities\Line</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

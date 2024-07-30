@@ -6,6 +6,7 @@
 
 namespace MathGL
 {
+	using namespace MathCore::Geom;
 	GLEngine::GLEngine() : m_pEngine(GLEngineNative::GetInstance())
 	{
 	}
@@ -69,5 +70,9 @@ namespace MathGL
 	void GLEngine::BRViewport()
 	{
 		m_pEngine->BRViewport();
+	}
+	void GLEngine::AddLine(Point3d startPnt, Point3d endPnt)
+	{
+		m_pEngine->AddLine(startPnt.ToNative(), endPnt.ToNative());
 	}
 }

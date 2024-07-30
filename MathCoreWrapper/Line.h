@@ -1,6 +1,8 @@
 #pragma once
 #include "ObjectBase.h"
 #include "Point3d.h"
+#include <OdDbLine.h>
+#include <json.hpp>
 
 
 namespace MathCore
@@ -53,20 +55,19 @@ namespace MathCore
             {
                 System::String^ get()
                 {
-                   /* nlohmann::json json = GetImpObj()->ToJson();
+					nlohmann::json json = GetImpObj()->ToJson();
                     std::string jsonString = json.dump();
-                    return gcnew System::String(jsonString.c_str());*/
-					return gcnew System::String("abl");
+                    return gcnew System::String(jsonString.c_str());
                 }
             }
 
         private:
-            //LineNative* GetImpObj()
-            //{
-            //    void* obj = DisposableWrapper::GetImpObj();
-            //    LineNative* line = static_cast<LineNative*>(obj);
-            //    return line;
-            //}
+            OdDbLine* GetImpObj()
+            {
+                void* obj = DisposableWrapper::GetImpObj();
+                OdDbLine* line = static_cast<OdDbLine*>(obj);
+                return line;
+            }
         };
     }
 }

@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "GLEngineNative.h"
 #include <corecrt_math.h>
+#include "MathLine.h"
 
 
 GLEngineNative* GLEngineNative::m_instance = nullptr;
@@ -165,6 +166,16 @@ void GLEngineNative::Setup3DViewport(int width, int height) {
     }
 }
 
+void GLEngineNative::Setup2DViewport(int width, int height)
+{
+	glViewport(0, 0, width, height);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(0, width, height, 0, -1, 1);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+}
+
 void GLEngineNative::TLViewport()
 {
     zoomFactor = 45.0f;
@@ -272,13 +283,19 @@ void GLEngineNative::Draw3DGrid(float size, float step)
 	glPopMatrix();
 }
 
+void GLEngineNative::AddLine(OdGePoint3d startPnt, OdGePoint3d endPnt)
+{
+	MathLine* line = new MathLine();
+	line->setStartPnt(startPnt);
+	line->setEndPnt(endPnt);
+	m_entities.push_back(line->m_renderMethod);
+}
+
 void GLEngineNative::RenderScene()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
     glTranslatef(0.0f, 0.0f, -5.0f);
-    // Rotate the cube
-    glRotatef(0, 1.0f, 1.0f, 1.0f);
 
     float radius = 10.0f;
     float camX = radius * cos(angleY * 3.14159 / 180) * cos(angleX * 3.14159 / 180);
@@ -287,61 +304,14 @@ void GLEngineNative::RenderScene()
 
     gluLookAt(camX, camY, camZ, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
-	Draw3DGrid(10, 1);
-
-    glBegin(GL_QUADS);
-    // Front face (z = 1.0f)
-    glColor3f(1.0f, 0.0f, 0.0f);
-    glVertex3f(-1.0f, -1.0f, 1.0f);
-    glVertex3f(1.0f, -1.0f, 1.0f);
-    glVertex3f(1.0f, 1.0f, 1.0f);
-    glVertex3f(-1.0f, 1.0f, 1.0f);
-
-    // Back face (z = -1.0f)
-    glColor3f(0.0f, 1.0f, 0.0f);
-    glVertex3f(-1.0f, -1.0f, -1.0f);
-    glVertex3f(-1.0f, 1.0f, -1.0f);
-    glVertex3f(1.0f, 1.0f, -1.0f);
-    glVertex3f(1.0f, -1.0f, -1.0f);
-
-    // Top face (y = 1.0f)
-    glColor3f(0.0f, 0.0f, 1.0f);
-    glVertex3f(-1.0f, 1.0f, -1.0f);
-    glVertex3f(-1.0f, 1.0f, 1.0f);
-    glVertex3f(1.0f, 1.0f, 1.0f);
-    glVertex3f(1.0f, 1.0f, -1.0f);
-
-    // Bottom face (y = -1.0f)
-    glColor3f(1.0f, 1.0f, 0.0f);
-    glVertex3f(-1.0f, -1.0f, -1.0f);
-    glVertex3f(1.0f, -1.0f, -1.0f);
-    glVertex3f(1.0f, -1.0f, 1.0f);
-    glVertex3f(-1.0f, -1.0f, 1.0f);
-
-    // Right face (x = 1.0f)
-    glColor3f(1.0f, 0.0f, 1.0f);
-    glVertex3f(1.0f, -1.0f, -1.0f);
-    glVertex3f(1.0f, 1.0f, -1.0f);
-    glVertex3f(1.0f, 1.0f, 1.0f);
-    glVertex3f(1.0f, -1.0f, 1.0f);
-
-    // Left face (x = -1.0f)
-    glColor3f(0.0f, 1.0f, 1.0f);
-    glVertex3f(-1.0f, -1.0f, -1.0f);
-    glVertex3f(-1.0f, -1.0f, 1.0f);
-    glVertex3f(-1.0f, 1.0f, 1.0f);
-    glVertex3f(-1.0f, 1.0f, -1.0f);
-
-    glEnd();
-
-    glBegin(GL_LINE_LOOP);
-    for (int i = 0; i < 50; i++) {
-        float angle = 2.0f * 3.14159f * float(i) / float(50);
-        float x = radius * cosf(angle);
-        float y = radius * sinf(angle);
-        glVertex2f(x, y);
+	Draw3DGrid(100, 1);
+    for (RenderEntity* ent : m_entities)
+	{
+		if (ent != nullptr)
+        {
+			ent->render();
+		}
     }
-    glEnd();
 }
 
 void GLEngineNative::GetCurrentViewport(int& x, int& y, int& width, int& height)

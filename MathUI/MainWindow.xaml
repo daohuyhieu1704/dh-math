@@ -57,8 +57,15 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="100" />
                     </Grid.ColumnDefinitions>
-                    <Border Grid.Column="0" BorderThickness="0 0 1 0" BorderBrush="Black">
-                        <TextBox x:Name="CommandWindow" Background="Transparent" Foreground="White" />
+                    <Border Grid.Column="0" BorderThickness="1" BorderBrush="#2c2d2f">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="30"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" x:Name="HistoryWindow" Background="Transparent" Foreground="White" />
+                            <TextBox Grid.Row="1" BorderThickness="0 1 0 0" BorderBrush="#2c2d2f" x:Name="CommandWindow" Background="Transparent" Foreground="White" />
+                        </Grid>
                     </Border>
                     <Border Grid.Column="1" BorderThickness="0 0 1 0" BorderBrush="Black">
                         <Grid>

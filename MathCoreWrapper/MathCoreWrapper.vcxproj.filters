@@ -31,8 +31,8 @@
     <Filter Include="Entities">
       <UniqueIdentifier>{653a9181-44d8-4ffe-87d0-56e6bea8605a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Entities\Line">
-      <UniqueIdentifier>{1f06a24e-e7c4-4d93-933e-b67552143908}</UniqueIdentifier>
+    <Filter Include="HostAppService">
+      <UniqueIdentifier>{a9eb0c77-1860-460d-ba1f-d959757cac25}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -57,8 +57,8 @@
     <ClInclude Include="DisposableWrapper.h">
       <Filter>DisposableWrapper</Filter>
     </ClInclude>
-    <ClInclude Include="Line.h">
-      <Filter>Entities\Line</Filter>
+    <ClInclude Include="HostAppService.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -80,8 +80,8 @@
     <ClCompile Include="DisposableWrapper.cpp">
       <Filter>DisposableWrapper</Filter>
     </ClCompile>
-    <ClCompile Include="Line.cpp">
-      <Filter>Entities\Line</Filter>
+    <ClCompile Include="HostAppService.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

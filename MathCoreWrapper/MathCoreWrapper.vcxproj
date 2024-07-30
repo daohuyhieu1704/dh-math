@@ -75,6 +75,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)Libraries</OutDir>
+    <AllProjectBMIsArePublic>true</AllProjectBMIsArePublic>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -150,7 +151,7 @@
   <ItemGroup>
     <ClInclude Include="DisposableWrapper.h" />
     <ClInclude Include="framework.h" />
-    <ClInclude Include="Line.h" />
+    <ClInclude Include="HostAppService.h" />
     <ClInclude Include="ObjectBase.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Point2d.h" />
@@ -159,7 +160,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DisposableWrapper.cpp" />
-    <ClCompile Include="Line.cpp" />
+    <ClCompile Include="HostAppService.cpp" />
     <ClCompile Include="ObjectBase.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

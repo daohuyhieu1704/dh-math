@@ -1,8 +1,10 @@
 #pragma once
 #include "pch.h"
 #include "GLEngineNative.h"
+#include "Point3d.h"
 
 using namespace System;
+using namespace MathCore::Geom;
 
 namespace MathGL
 {
@@ -38,6 +40,7 @@ namespace MathGL
 		void BLViewport();
 		void BMViewport();
 		void BRViewport();
+		void AddLine(Point3d startPnt, Point3d endPnt);
 	protected:
 		GLEngineNative* m_pEngine;
 	};

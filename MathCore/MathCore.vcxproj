@@ -143,24 +143,48 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CommandPrompt.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="OdHostAppService.h" />
+    <ClInclude Include="IActionCmd.h" />
     <ClInclude Include="IEngine.h" />
+    <ClInclude Include="MathSession.h" />
+    <ClInclude Include="OdDbEntity.h" />
+    <ClInclude Include="OdDbLine.h" />
+    <ClInclude Include="OdDbObject.h" />
+    <ClInclude Include="OdDrawable.h" />
+    <ClInclude Include="OdGeExtend2d.h" />
     <ClInclude Include="OdGePoint2d.h" />
     <ClInclude Include="OdGePoint3d.h" />
     <ClInclude Include="OdGeVector3d.h" />
+    <ClInclude Include="OdJig.h" />
+    <ClInclude Include="OdObjectBase.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="RenderEntity.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CommandPrompt.cpp" />
+    <ClCompile Include="OdHostAppService.cpp" />
+    <ClCompile Include="IActionCmd.cpp" />
     <ClCompile Include="IEngine.cpp" />
+    <ClCompile Include="MathSession.cpp" />
+    <ClCompile Include="OdDbEntity.cpp" />
+    <ClCompile Include="OdDbLine.cpp" />
+    <ClCompile Include="OdDbObject.cpp" />
+    <ClCompile Include="OdDrawable.cpp" />
+    <ClCompile Include="OdGeExtend2d.cpp" />
     <ClCompile Include="OdGePoint2d.cpp" />
     <ClCompile Include="OdGePoint3d.cpp" />
     <ClCompile Include="OdGeVector3d.cpp" />
+    <ClCompile Include="OdJig.cpp" />
+    <ClCompile Include="OdObjectBase.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="RenderEntity.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

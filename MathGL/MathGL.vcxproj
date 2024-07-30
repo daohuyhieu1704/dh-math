@@ -118,7 +118,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)MathGLNative;$(SolutionDir)MathCore;$(SolutionDir)Libraries\GLEW\include;$(SolutionDir)Libraries\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)MathGLNative;$(SolutionDir)MathCore;$(SolutionDir)Libraries\GLEW\include;$(SolutionDir)Libraries\GLFW\include;$(SolutionDir)Libraries\nlohmann;$(SolutionDir)MathCoreWrapper;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -154,10 +154,12 @@
   <ItemGroup>
     <ClInclude Include="framework.h" />
     <ClInclude Include="GLEngine.h" />
+    <ClInclude Include="Line.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GLEngine.cpp" />
+    <ClCompile Include="Line.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

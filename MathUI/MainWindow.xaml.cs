@@ -46,6 +46,7 @@ namespace MathUI
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            CommandAction((model) => model.LoadAppService());
             CommandAction((model) => model.LoadEngine(this));
         }
 

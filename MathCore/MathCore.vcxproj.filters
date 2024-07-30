@@ -34,6 +34,54 @@
     <Filter Include="Geometry\Vector3d">
       <UniqueIdentifier>{8c60509c-f55b-4d61-8fc4-75c9efd201a6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ObjectBase">
+      <UniqueIdentifier>{1846de56-1a29-42ee-88ae-1f7a8181f525}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Drawing">
+      <UniqueIdentifier>{0adfcee8-3748-4b34-b06d-63d9dd02bab9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Drawing\Drawable">
+      <UniqueIdentifier>{071f8a14-29b0-4b39-962f-2dca8de80833}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Drawing\Jig">
+      <UniqueIdentifier>{742ee8b8-c4ac-466a-8d13-58c54ff7a2cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Geometry\Extend2d">
+      <UniqueIdentifier>{a49b1ca5-191b-419d-a04b-171cc790085b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DatabaseService\Entities">
+      <UniqueIdentifier>{3e6b0219-4f99-42f8-bd32-c885e401cf3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DatabaseService\Entities\Line">
+      <UniqueIdentifier>{1e7d7df7-a75b-4202-bc2c-ed11e90422e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DatabaseService\Entities\Circle">
+      <UniqueIdentifier>{df2a2689-3fb5-4dea-bb3e-960279bab2d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EditorInput">
+      <UniqueIdentifier>{a79a92d5-17e5-4fb4-a6ea-73d2a07b0205}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EditorInput\CommandPrompt">
+      <UniqueIdentifier>{4e6eb2a6-d983-4108-a942-8cd4e7d71f49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AbstractEngine\IEngine">
+      <UniqueIdentifier>{d98ab809-2218-45cd-b39b-f77e76722cbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AbstractEngine\RenderEntity">
+      <UniqueIdentifier>{5f606bd2-1470-4b8c-b389-b1a1df30ee16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DatabaseService\DbObject">
+      <UniqueIdentifier>{f6bf0243-6015-4c3d-9162-a5240610be62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EditorInput\IActionCmd">
+      <UniqueIdentifier>{138c4918-b128-41a0-bdc7-0be6415348ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AbstractEngine\MathSession">
+      <UniqueIdentifier>{bf68bbb5-38a2-4585-a5c9-bc6b738eb2f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AbstractEngine\HostAppService">
+      <UniqueIdentifier>{2f4ecc61-abd4-48b5-9297-09d6f0b5fd74}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -41,9 +89,6 @@
     </ClInclude>
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="IEngine.h">
-      <Filter>AbstractEngine</Filter>
     </ClInclude>
     <ClInclude Include="OdGePoint2d.h">
       <Filter>Geometry\Point2d</Filter>
@@ -54,13 +99,49 @@
     <ClInclude Include="OdGePoint3d.h">
       <Filter>Geometry\Point3d</Filter>
     </ClInclude>
+    <ClInclude Include="OdObjectBase.h">
+      <Filter>ObjectBase</Filter>
+    </ClInclude>
+    <ClInclude Include="OdDrawable.h">
+      <Filter>Drawing\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="OdJig.h">
+      <Filter>Drawing\Jig</Filter>
+    </ClInclude>
+    <ClInclude Include="OdDbEntity.h">
+      <Filter>DatabaseService\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="OdGeExtend2d.h">
+      <Filter>Geometry\Extend2d</Filter>
+    </ClInclude>
+    <ClInclude Include="OdDbLine.h">
+      <Filter>DatabaseService\Entities\Line</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandPrompt.h">
+      <Filter>EditorInput\CommandPrompt</Filter>
+    </ClInclude>
+    <ClInclude Include="IEngine.h">
+      <Filter>AbstractEngine\IEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderEntity.h">
+      <Filter>AbstractEngine\RenderEntity</Filter>
+    </ClInclude>
+    <ClInclude Include="OdDbObject.h">
+      <Filter>DatabaseService\DbObject</Filter>
+    </ClInclude>
+    <ClInclude Include="IActionCmd.h">
+      <Filter>EditorInput\IActionCmd</Filter>
+    </ClInclude>
+    <ClInclude Include="MathSession.h">
+      <Filter>AbstractEngine\MathSession</Filter>
+    </ClInclude>
+    <ClInclude Include="OdHostAppService.h">
+      <Filter>AbstractEngine\HostAppService</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="IEngine.cpp">
-      <Filter>AbstractEngine</Filter>
     </ClCompile>
     <ClCompile Include="OdGePoint2d.cpp">
       <Filter>Geometry\Point2d</Filter>
@@ -70,6 +151,45 @@
     </ClCompile>
     <ClCompile Include="OdGePoint3d.cpp">
       <Filter>Geometry\Point3d</Filter>
+    </ClCompile>
+    <ClCompile Include="OdObjectBase.cpp">
+      <Filter>ObjectBase</Filter>
+    </ClCompile>
+    <ClCompile Include="OdDrawable.cpp">
+      <Filter>Drawing\Drawable</Filter>
+    </ClCompile>
+    <ClCompile Include="OdJig.cpp">
+      <Filter>Drawing\Jig</Filter>
+    </ClCompile>
+    <ClCompile Include="OdDbEntity.cpp">
+      <Filter>DatabaseService\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="OdGeExtend2d.cpp">
+      <Filter>Geometry\Extend2d</Filter>
+    </ClCompile>
+    <ClCompile Include="OdDbLine.cpp">
+      <Filter>DatabaseService\Entities\Line</Filter>
+    </ClCompile>
+    <ClCompile Include="CommandPrompt.cpp">
+      <Filter>EditorInput\CommandPrompt</Filter>
+    </ClCompile>
+    <ClCompile Include="IEngine.cpp">
+      <Filter>AbstractEngine\IEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderEntity.cpp">
+      <Filter>AbstractEngine\RenderEntity</Filter>
+    </ClCompile>
+    <ClCompile Include="OdDbObject.cpp">
+      <Filter>DatabaseService\DbObject</Filter>
+    </ClCompile>
+    <ClCompile Include="IActionCmd.cpp">
+      <Filter>EditorInput\IActionCmd</Filter>
+    </ClCompile>
+    <ClCompile Include="MathSession.cpp">
+      <Filter>AbstractEngine\MathSession</Filter>
+    </ClCompile>
+    <ClCompile Include="OdHostAppService.cpp">
+      <Filter>AbstractEngine\HostAppService</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

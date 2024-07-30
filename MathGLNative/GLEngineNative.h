@@ -1,6 +1,12 @@
 #pragma once
 #include "pch.h"
 #include "IEngine.h"
+#include <vector>
+#include <RenderEntity.h>
+#include <OdGePoint3d.h>
+#include <OdHostAppService.h>
+
+using namespace Geometry;
 
 enum class ViewportType
 {
@@ -19,6 +25,8 @@ enum class ViewportType
 class GLEngineNative : public IEngine
 {
 	static GLEngineNative* m_instance;
+	std::vector<RenderEntity*> m_entities;
+	OdHostAppService* m_appServices;
 public:
 	static GLEngineNative* GetInstance()
 	{
@@ -28,7 +36,10 @@ public:
 		}
 		return m_instance;
 	}
-	GLEngineNative() : m_window(nullptr), m_framebuffer(0), m_texture(0), m_rbo(0), m_glWindow(nullptr), m_hdc(nullptr), m_hglrc(nullptr) {}
+	GLEngineNative() : m_window(nullptr), m_framebuffer(0), m_texture(0), m_rbo(0), m_glWindow(nullptr), m_hdc(nullptr), m_hglrc(nullptr) 
+	{
+		m_appServices = OdHostAppService::getInstance();
+	}
 	static LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 	// Inherited via IEngine
 	HWND InitializeWindow(HINSTANCE hInstance, int nCmdShow, HWND parentHwnd) override;
@@ -38,6 +49,7 @@ public:
 	void EnableOpenGL(HWND hWnd, HDC* hDC, HGLRC* hRC);
 	void DisableOpenGL(HWND hWnd, HDC hDC, HGLRC hRC);
 	void Draw3DGrid(float size, float step);
+	void AddLine(OdGePoint3d startPnt, OdGePoint3d endPnt);
 
 	// Viewport functions
 #pragma region Viewport

@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using MathCore;
 
 namespace MathUI.ViewModels.MainWindow
 {
@@ -64,54 +65,59 @@ namespace MathUI.ViewModels.MainWindow
             }
         }
 
-        internal void TL()
+        public void TL()
         {
             GLEngine.Instance.TLViewport();
         }
 
-        internal void TM()
+        public void TM()
         {
             GLEngine.Instance.TMViewport();
         }
 
-        internal void TR()
+        public void TR()
         {
             GLEngine.Instance.TRViewport();
         }
 
-        internal void ML()
+        public void ML()
         {
             GLEngine.Instance.MLViewport();
         }
 
-        internal void TMM()
+        public void TMM()
         {
             GLEngine.Instance.TMMViewport();
         }
 
-        internal void BMM()
+        public void BMM()
         {
             GLEngine.Instance.BMMViewport();
         }
 
-        internal void MR()
+        public void MR()
         {
             GLEngine.Instance.MRViewport();
         }
 
-        internal void BL()
+        public void BL()
         {
             GLEngine.Instance.BLViewport();
         }
 
-        internal void BM()
+        public void BM()
         {
             GLEngine.Instance.BMViewport();
         }
 
-        internal void BR()
+        public void BR()
         {
             GLEngine.Instance.BRViewport();
+        }
+
+        public void LoadAppService()
+        {
+            // _ = HostAppService.Instance;
         }
     }
 }
