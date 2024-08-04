@@ -1,24 +1,13 @@
 #include "pch.h"
 #include "CommandPrompt.h"
-#include <sstream>
 #include <stdexcept>
+#include <iostream>
 
 namespace EditorInput
 {
 	CommandPrompt::CommandPrompt()
 	{
-	}
-
-	static std::vector<std::string> split(const std::string& str) {
-		std::istringstream iss(str);
-		std::vector<std::string> result;
-		std::string word;
-
-		while (iss >> word) {
-			result.push_back(word);
-		}
-
-		return result;
+		commandMap = std::map<std::string, IActionCmd*>();
 	}
 
 	void CommandPrompt::processInput(std::string& input)
@@ -36,14 +25,33 @@ namespace EditorInput
 		}
 
 		commandMap[command]->serialize(words);
+		commandMap[command]->execute();
 	}
 	void CommandPrompt::registerCommand(const std::string& command, IActionCmd* func)
 	{
-		if (commandMap.find(command) != commandMap.end())
-		{
-			throw std::runtime_error("Command already exists");
+		auto& commandMap = this->commandMap;
+		try {
+			if (func == nullptr)
+			{
+				throw std::runtime_error("Command function is null");
+			}
+			if (commandMap.find(command) != commandMap.end())
+			{
+				throw std::runtime_error("Command already exists");
+			}
+			commandMap.insert(std::make_pair(command, func));
 		}
-		commandMap.insert(std::make_pair(command, func));
+		catch (const std::exception& e) {
+			std::cerr << e.what() << std::endl;
+		}
+	}
+
+
+	void CommandPrompt::appendCommand(const std::string& input)
+	{
+		std::string inputCopy = input;
+		processInput(inputCopy);
+		History.push_back(input);
 	}
 
 	bool CommandPrompt::executeAllCommand()

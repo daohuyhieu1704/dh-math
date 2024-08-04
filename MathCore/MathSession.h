@@ -7,10 +7,14 @@ using namespace EditorInput;
 class MathSession
 {
 public:
-    MathSession() : mathPrompt() {}
+    MathSession()
+	{
+		mathPrompt = CommandPrompt();
+	}
 	void undo();
 	void redo();
-private:
+	CommandPrompt& getPrompts() { return mathPrompt; }
     CommandPrompt mathPrompt;
+private:
 };
 

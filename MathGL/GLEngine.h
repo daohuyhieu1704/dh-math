@@ -41,6 +41,7 @@ namespace MathGL
 		void BMViewport();
 		void BRViewport();
 		void AddLine(Point3d startPnt, Point3d endPnt);
+		void AppendCommand(String^ command);
 	protected:
 		GLEngineNative* m_pEngine;
 	};

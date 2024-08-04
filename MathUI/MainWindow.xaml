@@ -64,7 +64,15 @@
                                 <RowDefinition Height="30"/>
                             </Grid.RowDefinitions>
                             <TextBlock Grid.Row="0" x:Name="HistoryWindow" Background="Transparent" Foreground="White" />
-                            <TextBox Grid.Row="1" BorderThickness="0 1 0 0" BorderBrush="#2c2d2f" x:Name="CommandWindow" Background="Transparent" Foreground="White" />
+                            <TextBox 
+                                Grid.Row="1" 
+                                BorderThickness="0 1 0 0" 
+                                BorderBrush="#2c2d2f" 
+                                x:Name="CommandWindow" 
+                                Background="Transparent" 
+                                Foreground="White"
+                                KeyDown="CommandTextBox_KeyDown"
+                                />
                         </Grid>
                     </Border>
                     <Border Grid.Column="1" BorderThickness="0 0 1 0" BorderBrush="Black">

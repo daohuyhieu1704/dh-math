@@ -46,7 +46,6 @@ namespace MathUI
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            CommandAction((model) => model.LoadAppService());
             CommandAction((model) => model.LoadEngine(this));
         }
 
@@ -103,6 +102,17 @@ namespace MathUI
         private void BR_click(object sender, RoutedEventArgs e)
         {
             CommandAction((model) => model.BR());
+        }
+
+        private void CommandTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                string command = CommandWindow.Text;
+                MessageBox.Show($"Bạn đã nhập lệnh: {command}");
+                GLEngine.Instance.AppendCommand(command);
+                CommandWindow.Clear();
+            }
         }
     }
 }

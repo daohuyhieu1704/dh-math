@@ -2,6 +2,7 @@
 #include "GLEngineNative.h"
 #include <corecrt_math.h>
 #include "MathLine.h"
+#include <string>
 
 
 GLEngineNative* GLEngineNative::m_instance = nullptr;
@@ -289,6 +290,11 @@ void GLEngineNative::AddLine(OdGePoint3d startPnt, OdGePoint3d endPnt)
 	line->setStartPnt(startPnt);
 	line->setEndPnt(endPnt);
 	m_entities.push_back(line->m_renderMethod);
+}
+
+void GLEngineNative::AppendCommand(const std::string command)
+{
+	m_appServices->getCurrentSession()->getPrompts().appendCommand(command);
 }
 
 void GLEngineNative::RenderScene()

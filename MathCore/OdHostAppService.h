@@ -14,6 +14,7 @@ public:
     std::shared_ptr<MathSession> createSession(const std::string& sessionId) {
         auto session = std::make_shared<MathSession>();
         sessions[sessionId] = session;
+		currentSessionId = sessionId;
         return session;
     }
 
@@ -28,12 +29,21 @@ public:
         sessions.erase(sessionId);
     }
 
+    std::shared_ptr<MathSession> getCurrentSession() {
+		return getSession(currentSessionId);
+	}
+
 private:
-    OdHostAppService() = default;
+    OdHostAppService()
+    {
+		sessions = std::unordered_map<std::string, std::shared_ptr<MathSession>>();
+        createSession("default");
+    };
     ~OdHostAppService() = default;
     OdHostAppService(const OdHostAppService&) = delete;
     OdHostAppService& operator=(const OdHostAppService&) = delete;
 
     std::unordered_map<std::string, std::shared_ptr<MathSession>> sessions;
+	std::string currentSessionId;
 };
 

@@ -82,6 +82,9 @@
     <Filter Include="AbstractEngine\HostAppService">
       <UniqueIdentifier>{2f4ecc61-abd4-48b5-9297-09d6f0b5fd74}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Commands">
+      <UniqueIdentifier>{47a422cf-565e-43e4-87b8-ae79401125df}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">

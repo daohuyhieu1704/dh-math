@@ -3,6 +3,8 @@
 
 #include "pch.h"
 #include "GLEngine.h"
+#include <msclr/marshal.h>
+#include <msclr/marshal_cppstd.h>
 
 namespace MathGL
 {
@@ -74,5 +76,10 @@ namespace MathGL
 	void GLEngine::AddLine(Point3d startPnt, Point3d endPnt)
 	{
 		m_pEngine->AddLine(startPnt.ToNative(), endPnt.ToNative());
+	}
+	void GLEngine::AppendCommand(String^ command)
+	{
+		std::string standardStr = msclr::interop::marshal_as<std::string>(command);
+		m_pEngine->AppendCommand(standardStr);
 	}
 }

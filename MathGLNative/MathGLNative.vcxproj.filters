@@ -28,6 +28,12 @@
     <Filter Include="FullEntities\Line">
       <UniqueIdentifier>{1da374c5-61b6-4d3e-a8c1-993e0899db75}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Commands">
+      <UniqueIdentifier>{cf3aa7c1-ba56-4838-a770-7a7e3df034d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Commands\LineCmd">
+      <UniqueIdentifier>{1d5759b5-96d3-4446-9ed4-f9e01faaf807}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -45,6 +51,9 @@
     <ClInclude Include="MathLine.h">
       <Filter>FullEntities\Line</Filter>
     </ClInclude>
+    <ClInclude Include="LineCmd.h">
+      <Filter>Commands\LineCmd</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -58,6 +67,9 @@
     </ClCompile>
     <ClCompile Include="MathLine.cpp">
       <Filter>FullEntities\Line</Filter>
+    </ClCompile>
+    <ClCompile Include="LineCmd.cpp">
+      <Filter>Commands\LineCmd</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

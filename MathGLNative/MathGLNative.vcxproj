@@ -150,12 +150,14 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="GLEngineNative.h" />
     <ClInclude Include="GLLine.h" />
+    <ClInclude Include="LineCmd.h" />
     <ClInclude Include="MathLine.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GLEngineNative.cpp" />
     <ClCompile Include="GLLine.cpp" />
+    <ClCompile Include="LineCmd.cpp" />
     <ClCompile Include="MathLine.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

@@ -114,10 +114,5 @@ namespace MathUI.ViewModels.MainWindow
         {
             GLEngine.Instance.BRViewport();
         }
-
-        public void LoadAppService()
-        {
-            // _ = HostAppService.Instance;
-        }
     }
 }

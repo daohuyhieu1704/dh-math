@@ -5,6 +5,8 @@
 #include <RenderEntity.h>
 #include <OdGePoint3d.h>
 #include <OdHostAppService.h>
+#include <string>
+#include "LineCmd.h"
 
 using namespace Geometry;
 
@@ -25,9 +27,9 @@ enum class ViewportType
 class GLEngineNative : public IEngine
 {
 	static GLEngineNative* m_instance;
-	std::vector<RenderEntity*> m_entities;
 	OdHostAppService* m_appServices;
 public:
+	std::vector<RenderEntity*> m_entities;
 	static GLEngineNative* GetInstance()
 	{
 		if (m_instance == nullptr)
@@ -39,6 +41,8 @@ public:
 	GLEngineNative() : m_window(nullptr), m_framebuffer(0), m_texture(0), m_rbo(0), m_glWindow(nullptr), m_hdc(nullptr), m_hglrc(nullptr) 
 	{
 		m_appServices = OdHostAppService::getInstance();
+		LineCmd* lineCmd = new LineCmd();
+		m_appServices->getCurrentSession()->getPrompts().registerCommand("LINE", lineCmd);
 	}
 	static LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 	// Inherited via IEngine
@@ -50,6 +54,7 @@ public:
 	void DisableOpenGL(HWND hWnd, HDC hDC, HGLRC hRC);
 	void Draw3DGrid(float size, float step);
 	void AddLine(OdGePoint3d startPnt, OdGePoint3d endPnt);
+	void AppendCommand(const std::string command);
 
 	// Viewport functions
 #pragma region Viewport
