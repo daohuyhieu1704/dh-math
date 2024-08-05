@@ -3,7 +3,7 @@
 
 MathLine::~MathLine()
 {
-	
+	delete m_renderMethod;
 }
 
 void MathLine::setStartPnt(OdGePoint3d startPnt)

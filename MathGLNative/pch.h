@@ -10,6 +10,7 @@
 #define GLFW_EXPOSE_NATIVE_WIN32
 
 #define IDC_MAIN_EDIT 102 
+#define MATH_PI 3.14159265358979323846
 // add headers that you want to pre-compile here
 #include "framework.h"
 #include <GL/glew.h>

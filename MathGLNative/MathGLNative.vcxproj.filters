@@ -34,6 +34,27 @@
     <Filter Include="Commands\LineCmd">
       <UniqueIdentifier>{1d5759b5-96d3-4446-9ed4-f9e01faaf807}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Commands\CircleCmd">
+      <UniqueIdentifier>{d6e8f507-c4b4-4463-94cd-029be1e25492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FullEntities\Circle">
+      <UniqueIdentifier>{810d4e9b-8e07-44db-8c4d-930dd1d9014a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RenderEntities\Circle">
+      <UniqueIdentifier>{d2d7411d-dfd3-40d0-acb8-b04c997b3e62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RenderEntities\Square">
+      <UniqueIdentifier>{2af335db-5753-48d1-98e2-4d15a9799687}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FullEntities\Square">
+      <UniqueIdentifier>{084429f7-247f-4bc4-89f0-09a311c9fc6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Commands\SquareCmd">
+      <UniqueIdentifier>{39d2fef2-18f2-4015-a105-f240aacff723}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PromptSelection">
+      <UniqueIdentifier>{d12e07a3-f5ae-40a2-88a1-59dad6125073}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -54,6 +75,27 @@
     <ClInclude Include="LineCmd.h">
       <Filter>Commands\LineCmd</Filter>
     </ClInclude>
+    <ClInclude Include="CircleCmd.h">
+      <Filter>Commands\CircleCmd</Filter>
+    </ClInclude>
+    <ClInclude Include="MathCircle.h">
+      <Filter>FullEntities\Circle</Filter>
+    </ClInclude>
+    <ClInclude Include="GLCircle.h">
+      <Filter>RenderEntities\Circle</Filter>
+    </ClInclude>
+    <ClInclude Include="GLSquare.h">
+      <Filter>RenderEntities\Square</Filter>
+    </ClInclude>
+    <ClInclude Include="MathSquare.h">
+      <Filter>FullEntities\Square</Filter>
+    </ClInclude>
+    <ClInclude Include="SquareCmd.h">
+      <Filter>Commands\SquareCmd</Filter>
+    </ClInclude>
+    <ClInclude Include="PromptPointSelection.h">
+      <Filter>PromptSelection</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -70,6 +112,27 @@
     </ClCompile>
     <ClCompile Include="LineCmd.cpp">
       <Filter>Commands\LineCmd</Filter>
+    </ClCompile>
+    <ClCompile Include="CircleCmd.cpp">
+      <Filter>Commands\CircleCmd</Filter>
+    </ClCompile>
+    <ClCompile Include="MathCircle.cpp">
+      <Filter>FullEntities\Circle</Filter>
+    </ClCompile>
+    <ClCompile Include="GLCircle.cpp">
+      <Filter>RenderEntities\Circle</Filter>
+    </ClCompile>
+    <ClCompile Include="GLSquare.cpp">
+      <Filter>RenderEntities\Square</Filter>
+    </ClCompile>
+    <ClCompile Include="MathSquare.cpp">
+      <Filter>FullEntities\Square</Filter>
+    </ClCompile>
+    <ClCompile Include="SquareCmd.cpp">
+      <Filter>Commands\SquareCmd</Filter>
+    </ClCompile>
+    <ClCompile Include="PromptPointSelection.cpp">
+      <Filter>PromptSelection</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

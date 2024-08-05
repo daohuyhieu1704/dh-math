@@ -115,7 +115,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\GLEW\include;$(SolutionDir)Libraries\GLFW\include;$(SolutionDir)MathCore;$(SolutionDir)Libraries\GLM;$(SolutionDir)Libraries\nlohmann;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\GLEW\include;$(SolutionDir)Libraries\GLFW\include;$(SolutionDir)MathCore;$(SolutionDir)Libraries\GLM;$(SolutionDir)Libraries\nlohmann;$(SolutionDir)Libraries\GLUT\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -123,8 +123,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)Libraries\GLEW\lib\Release\x64;$(SolutionDir)Libraries\GLFW\lib-vc2022;$(SolutionDir)Libraries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;glu32.lib;MathCore.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Libraries\GLEW\lib\Release\x64;$(SolutionDir)Libraries\GLFW\lib-vc2022;$(SolutionDir)Libraries;$(SolutionDir)Libraries\GLUT\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;glu32.lib;MathCore.lib;freeglut.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -147,24 +147,38 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CircleCmd.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="GLCircle.h" />
     <ClInclude Include="GLEngineNative.h" />
     <ClInclude Include="GLLine.h" />
+    <ClInclude Include="GLSquare.h" />
     <ClInclude Include="LineCmd.h" />
+    <ClInclude Include="MathCircle.h" />
     <ClInclude Include="MathLine.h" />
+    <ClInclude Include="MathSquare.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="PromptPointSelection.h" />
+    <ClInclude Include="SquareCmd.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CircleCmd.cpp" />
+    <ClCompile Include="GLCircle.cpp" />
     <ClCompile Include="GLEngineNative.cpp" />
     <ClCompile Include="GLLine.cpp" />
+    <ClCompile Include="GLSquare.cpp" />
     <ClCompile Include="LineCmd.cpp" />
+    <ClCompile Include="MathCircle.cpp" />
     <ClCompile Include="MathLine.cpp" />
+    <ClCompile Include="MathSquare.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="PromptPointSelection.cpp" />
+    <ClCompile Include="SquareCmd.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

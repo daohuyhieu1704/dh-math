@@ -12,7 +12,6 @@ public:
 	~MathLine();
 
 	void setStartPnt(OdGePoint3d startPnt) override;
-
 	void setEndPnt(OdGePoint3d endPnt) override;
 };
 

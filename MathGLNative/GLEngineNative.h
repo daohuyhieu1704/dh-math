@@ -7,6 +7,8 @@
 #include <OdHostAppService.h>
 #include <string>
 #include "LineCmd.h"
+#include "CircleCmd.h"
+#include "SquareCmd.h"
 
 using namespace Geometry;
 
@@ -40,9 +42,7 @@ public:
 	}
 	GLEngineNative() : m_window(nullptr), m_framebuffer(0), m_texture(0), m_rbo(0), m_glWindow(nullptr), m_hdc(nullptr), m_hglrc(nullptr) 
 	{
-		m_appServices = OdHostAppService::getInstance();
-		LineCmd* lineCmd = new LineCmd();
-		m_appServices->getCurrentSession()->getPrompts().registerCommand("LINE", lineCmd);
+		RegisterCommandPattern();
 	}
 	static LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 	// Inherited via IEngine
@@ -55,6 +55,7 @@ public:
 	void Draw3DGrid(float size, float step);
 	void AddLine(OdGePoint3d startPnt, OdGePoint3d endPnt);
 	void AppendCommand(const std::string command);
+	void RegisterCommandPattern();
 
 	// Viewport functions
 #pragma region Viewport
@@ -89,5 +90,6 @@ public:
 	int lastMouseX, lastMouseY;
 	bool isDragging = false;
 	ViewportType m_viewportType = ViewportType::TL;
+	std::vector<std::pair<GLfloat, GLfloat>> points;
 };
 

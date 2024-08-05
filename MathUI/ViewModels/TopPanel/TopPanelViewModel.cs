@@ -18,6 +18,8 @@ namespace MathUI.ViewModels.TopPanel
 
         public void DrawLine()
         {
+            PointSelection pointSelection = new();
+            Point3d pnt = pointSelection.getPoints(2);
             //Trans trans = new();
             //trans.StartTransaction();
             //Line line = new(new Point3d(0, 0, 0), new Point3d(100, 100, 0));

@@ -82,8 +82,8 @@
     <Filter Include="AbstractEngine\HostAppService">
       <UniqueIdentifier>{2f4ecc61-abd4-48b5-9297-09d6f0b5fd74}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Commands">
-      <UniqueIdentifier>{47a422cf-565e-43e4-87b8-ae79401125df}</UniqueIdentifier>
+    <Filter Include="DatabaseService\Entities\Square">
+      <UniqueIdentifier>{3ff086a1-44bd-4b23-87cd-dd73f3cd5a90}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -141,6 +141,15 @@
     <ClInclude Include="OdHostAppService.h">
       <Filter>AbstractEngine\HostAppService</Filter>
     </ClInclude>
+    <ClInclude Include="OdDbCircle.h">
+      <Filter>DatabaseService\Entities\Circle</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OdDbSquare.h">
+      <Filter>DatabaseService\Entities\Square</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -194,5 +203,16 @@
     <ClCompile Include="OdHostAppService.cpp">
       <Filter>AbstractEngine\HostAppService</Filter>
     </ClCompile>
+    <ClCompile Include="OdDbCircle.cpp">
+      <Filter>DatabaseService\Entities\Circle</Filter>
+    </ClCompile>
+    <ClCompile Include="OdDbSquare.cpp">
+      <Filter>DatabaseService\Entities\Square</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MathCore.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

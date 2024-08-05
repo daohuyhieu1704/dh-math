@@ -7,6 +7,7 @@ OdDbLine::OdDbLine() : OdDbEntity()
 
 OdDbLine::~OdDbLine()
 {
+	delete m_renderMethod;
 }
 
 OdGePoint3d OdDbLine::getStartPnt() const

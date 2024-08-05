@@ -145,6 +145,8 @@
   <ItemGroup>
     <ClInclude Include="CommandPrompt.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="OdDbCircle.h" />
+    <ClInclude Include="OdDbSquare.h" />
     <ClInclude Include="OdHostAppService.h" />
     <ClInclude Include="IActionCmd.h" />
     <ClInclude Include="IEngine.h" />
@@ -161,9 +163,12 @@
     <ClInclude Include="OdObjectBase.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="RenderEntity.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CommandPrompt.cpp" />
+    <ClCompile Include="OdDbCircle.cpp" />
+    <ClCompile Include="OdDbSquare.cpp" />
     <ClCompile Include="OdHostAppService.cpp" />
     <ClCompile Include="IActionCmd.cpp" />
     <ClCompile Include="IEngine.cpp" />
@@ -185,6 +190,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="RenderEntity.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MathCore.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

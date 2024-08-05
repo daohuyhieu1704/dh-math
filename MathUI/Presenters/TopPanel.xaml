@@ -85,19 +85,39 @@
                             </Grid.RowDefinitions>
                             <Border Grid.Row="0" BorderThickness="0 0 0 1" BorderBrush="Black">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                    <Grid Width="40">
+                                    <Border BorderThickness="0 0 1 0" BorderBrush="Black">
+                                        <Grid Width="40">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="33" />
+                                                <RowDefinition Height="18" />
+                                            </Grid.RowDefinitions>
+                                            <Button Grid.Row="1" BorderThickness="0" Background="Transparent" Foreground="White" Content="Line" FontSize="10" Click="DrawLine_Click" />
+                                        </Grid>
+                                    </Border>
+                                    <Border BorderThickness="0 0 1 0" BorderBrush="Black">
+                                        <Grid Width="40">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="33" />
+                                                <RowDefinition Height="18" />
+                                            </Grid.RowDefinitions>
+                                            <Button Grid.Row="1" BorderThickness="0" Background="Transparent" Foreground="White" Content="Circle" FontSize="10" />
+                                        </Grid>
+                                    </Border>
+                                    <Border BorderThickness="0 0 1 0" BorderBrush="Black">
+                                        <Grid Width="40">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="33" />
+                                                <RowDefinition Height="18" />
+                                            </Grid.RowDefinitions>
+                                            <Button Grid.Row="1" BorderThickness="0" Background="Transparent" Foreground="White" Content="Square" FontSize="10" />
+                                        </Grid>
+                                    </Border>
+                                    <Grid Width="50">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="33" />
                                             <RowDefinition Height="18" />
                                         </Grid.RowDefinitions>
-                                        <Button Grid.Row="1" BorderThickness="0" Background="Transparent" Foreground="White" Content="Line" FontSize="10" Click="DrawLine_Click" />
-                                    </Grid>
-                                    <Grid Width="40">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="33" />
-                                            <RowDefinition Height="18" />
-                                        </Grid.RowDefinitions>
-                                        <Button Grid.Row="1" BorderThickness="0" Background="Transparent" Foreground="White" Content="Circle" FontSize="10" />
+                                        <Button Grid.Row="1" BorderThickness="0" Background="Transparent" Foreground="White" Content="Polyline" FontSize="10" />
                                     </Grid>
                                 </StackPanel>
                             </Border>
@@ -111,7 +131,35 @@
                                 <RowDefinition Height="18" />
                             </Grid.RowDefinitions>
                             <Border Grid.Row="0" BorderThickness="0 0 0 1" BorderBrush="Black">
-
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                    <Border BorderThickness="0 0 1 0" BorderBrush="Black">
+                                        <Grid Width="50">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="33" />
+                                                <RowDefinition Height="18" />
+                                            </Grid.RowDefinitions>
+                                            <Button Grid.Row="1" BorderThickness="0" Background="Transparent" Foreground="White" Content="Distance" FontSize="10" />
+                                        </Grid>
+                                    </Border>
+                                    <Border BorderThickness="0 0 1 0" BorderBrush="Black">
+                                        <Grid Width="40">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="33" />
+                                                <RowDefinition Height="18" />
+                                            </Grid.RowDefinitions>
+                                            <Button Grid.Row="1" BorderThickness="0" Background="Transparent" Foreground="White" Content="History" FontSize="10" />
+                                        </Grid>
+                                    </Border>
+                                    <Border BorderThickness="0 0 1 0" BorderBrush="Black">
+                                        <Grid Width="40">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="33" />
+                                                <RowDefinition Height="18" />
+                                            </Grid.RowDefinitions>
+                                            <Button Grid.Row="1" BorderThickness="0" Background="Transparent" Foreground="White" Content="UCS" FontSize="10" />
+                                        </Grid>
+                                    </Border>
+                                </StackPanel>
                             </Border>
                             <TextBlock Grid.Row="1" Foreground="White" FontSize="10" Text="Utilities" TextAlignment="Center" />
                         </Grid>

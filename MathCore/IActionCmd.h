@@ -12,7 +12,6 @@ public:
 	virtual ~IActionCmd() = default;
 	virtual bool execute() = 0;
 	virtual void serialize(const std::vector<std::string>& strData) = 0;
-
 	std::string m_commandName;
 };
 

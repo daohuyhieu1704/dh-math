@@ -24,11 +24,6 @@ LRESULT GLEngineNative::WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM l
             (LPARAM)"Length");
         return 0;
     }
-
-    case WM_LBUTTONDOWN:
-    {
-    }
-    break;
     case WM_MOUSEWHEEL:
     {
         int delta = GET_WHEEL_DELTA_WPARAM(wParam);
@@ -83,6 +78,31 @@ LRESULT GLEngineNative::WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM l
         int height = rect.bottom - rect.top;
         engineNative->RenderScene();
         SwapBuffers(engineNative->m_hdc);
+        return 0;
+    }
+    break;
+    case WM_LBUTTONDOWN:
+    {
+        int x = LOWORD(lParam);
+        int y = HIWORD(lParam);
+
+        GLint viewport[4];
+        GLdouble modelview[16];
+        GLdouble projection[16];
+        GLfloat winX, winY, winZ;
+        GLdouble posX, posY, posZ;
+
+        glGetDoublev(GL_MODELVIEW_MATRIX, modelview);
+        glGetDoublev(GL_PROJECTION_MATRIX, projection);
+        glGetIntegerv(GL_VIEWPORT, viewport);
+
+        winX = (float)x;
+        winY = (float)viewport[3] - (float)y;
+        glReadPixels(x, (int)winY, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &winZ);
+
+        gluUnProject(winX, winY, winZ, modelview, projection, viewport, &posX, &posY, &posZ);
+
+        engineNative->points.push_back(std::make_pair(posX, posY));
         return 0;
     }
     break;
@@ -267,21 +287,58 @@ void GLEngineNative::BRViewport()
 	Setup3DViewport(width, height);
 }
 
+void GLEngineNative::RegisterCommandPattern()
+{
+    m_appServices = OdHostAppService::getInstance();
+    LineCmd* lineCmd = new LineCmd();
+    m_appServices->getCurrentSession()->getPrompts().registerCommand("LINE", lineCmd);
+    CircleCmd* circleCmd = new CircleCmd();
+    m_appServices->getCurrentSession()->getPrompts().registerCommand("CIRCLE", circleCmd);
+    SquareCmd* squareCmd = new SquareCmd();
+    m_appServices->getCurrentSession()->getPrompts().registerCommand("SQUARE", squareCmd);
+}
+
+void CreateBitmapFont(HDC hdc) {
+    HFONT hFont;
+    HFONT hOldFont;
+
+    hFont = CreateFont(
+        -12,
+        0, 0, 0,
+        FW_NORMAL, FALSE, FALSE, FALSE,
+        ANSI_CHARSET, OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS,
+        ANTIALIASED_QUALITY, FF_DONTCARE | DEFAULT_PITCH,
+        L"Courier New"
+    );
+
+    hOldFont = (HFONT)SelectObject(hdc, hFont);
+    wglUseFontBitmaps(hdc, 0, 256, 1000);
+    SelectObject(hdc, hOldFont);
+    DeleteObject(hFont);
+}
+
+void RenderText(const char* text) {
+    glPushAttrib(GL_LIST_BIT);
+    glListBase(1000);
+    glCallLists(strlen(text), GL_UNSIGNED_BYTE, text);
+    glPopAttrib();
+}
+
 void GLEngineNative::Draw3DGrid(float size, float step)
 {
-	glPushMatrix();
-	glTranslatef(-size / 2, 0, -size / 2);
-	for (float i = 0; i <= size; i += step)
-	{
-		glBegin(GL_LINES);
-		glColor3f(0.5, 0.5, 0.5);
-		glVertex3f(i, 0, 0);
-		glVertex3f(i, 0, size);
-		glVertex3f(0, 0, i);
-		glVertex3f(size, 0, i);
-		glEnd();
-	}
-	glPopMatrix();
+    glPushMatrix();
+    glTranslatef(-size / 2, 0, -size / 2);
+    for (float i = 0; i <= size; i += step)
+    {
+        glBegin(GL_LINES);
+        glColor3f(0.5, 0.5, 0.5);
+        glVertex3f(i, 0, 0);
+        glVertex3f(i, 0, size);
+        glVertex3f(0, 0, i);
+        glVertex3f(size, 0, i);
+        glEnd();
+    }
+    glPopMatrix();
 }
 
 void GLEngineNative::AddLine(OdGePoint3d startPnt, OdGePoint3d endPnt)
@@ -302,7 +359,6 @@ void GLEngineNative::RenderScene()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
     glTranslatef(0.0f, 0.0f, -5.0f);
-
     float radius = 10.0f;
     float camX = radius * cos(angleY * 3.14159 / 180) * cos(angleX * 3.14159 / 180);
     float camY = radius * sin(angleX * 3.14159 / 180);
@@ -311,6 +367,7 @@ void GLEngineNative::RenderScene()
     gluLookAt(camX, camY, camZ, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
 	Draw3DGrid(100, 1);
+	RenderCube(10, 10);
     for (RenderEntity* ent : m_entities)
 	{
 		if (ent != nullptr)

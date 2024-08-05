@@ -30,6 +30,9 @@
     <ClInclude Include="Line.h">
       <Filter>Entities</Filter>
     </ClInclude>
+    <ClInclude Include="PointSelection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GLEngine.cpp">
@@ -40,6 +43,9 @@
     </ClCompile>
     <ClCompile Include="Line.cpp">
       <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="PointSelection.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
