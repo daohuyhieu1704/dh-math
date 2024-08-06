@@ -51,3 +51,4 @@ bld/
 [Ll]og/
 [Ll]ogs/
 Libraries/
+vcpkg_installed/
