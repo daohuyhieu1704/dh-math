@@ -100,7 +100,7 @@
                                                 <RowDefinition Height="33" />
                                                 <RowDefinition Height="18" />
                                             </Grid.RowDefinitions>
-                                            <Button Grid.Row="1" BorderThickness="0" Background="Transparent" Foreground="White" Content="Circle" FontSize="10" />
+                                            <Button Grid.Row="1" BorderThickness="0" Background="Transparent" Foreground="White" Content="Circle" FontSize="10" Click="DrawCircle_Click" />
                                         </Grid>
                                     </Border>
                                     <Border BorderThickness="0 0 1 0" BorderBrush="Black">
@@ -109,7 +109,7 @@
                                                 <RowDefinition Height="33" />
                                                 <RowDefinition Height="18" />
                                             </Grid.RowDefinitions>
-                                            <Button Grid.Row="1" BorderThickness="0" Background="Transparent" Foreground="White" Content="Square" FontSize="10" />
+                                            <Button Grid.Row="1" BorderThickness="0" Background="Transparent" Foreground="White" Content="Square" FontSize="10" Click="DrawSquare_Click" />
                                         </Grid>
                                     </Border>
                                     <Grid Width="50">

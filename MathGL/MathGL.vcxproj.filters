@@ -16,6 +16,18 @@
     <Filter Include="Entities">
       <UniqueIdentifier>{ca6450dc-792b-4c3a-82d3-a3cb7c98a132}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Entities\Line">
+      <UniqueIdentifier>{691e2b18-6c51-42e1-a076-d60758ffa5d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities\Circle">
+      <UniqueIdentifier>{3facc178-041e-497a-bd1d-0bdad7570c7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities\Square">
+      <UniqueIdentifier>{af3a906a-3310-4f41-b489-5b0190911230}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Prompts">
+      <UniqueIdentifier>{3656a98f-5627-4559-b997-0574ee05fc11}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -28,10 +40,16 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Line.h">
-      <Filter>Entities</Filter>
+      <Filter>Entities\Line</Filter>
+    </ClInclude>
+    <ClInclude Include="Circle.h">
+      <Filter>Entities\Circle</Filter>
+    </ClInclude>
+    <ClInclude Include="Square.h">
+      <Filter>Entities\Square</Filter>
     </ClInclude>
     <ClInclude Include="PointSelection.h">
-      <Filter>Header Files</Filter>
+      <Filter>Prompts</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -42,10 +60,16 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Line.cpp">
-      <Filter>Entities</Filter>
+      <Filter>Entities\Line</Filter>
+    </ClCompile>
+    <ClCompile Include="Circle.cpp">
+      <Filter>Entities\Circle</Filter>
+    </ClCompile>
+    <ClCompile Include="Square.cpp">
+      <Filter>Entities\Square</Filter>
     </ClCompile>
     <ClCompile Include="PointSelection.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Prompts</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,6 +1,7 @@
 #pragma once
 #include "OdGePoint2d.h"
 
+using namespace System;
 using namespace Geometry;
 
 namespace MathCore
@@ -49,6 +50,11 @@ namespace MathCore
             {
                 return Point2d(point.x, point.y);
             }
+
+			String^ ToString() override
+			{
+				return String::Format("{0},{1}", x, y);
+			}
 		};
 	}
 }

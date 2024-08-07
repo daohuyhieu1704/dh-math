@@ -48,5 +48,15 @@ namespace MathUI.Presenters
         {
             CommandAction((model) => model.DrawLine());
         }
+
+        private void DrawCircle_Click(object sender, RoutedEventArgs e)
+        {
+            CommandAction((model) => model.DrawCircle());
+        }
+
+        private void DrawSquare_Click(object sender, RoutedEventArgs e)
+        {
+            CommandAction((model) => model.DrawSquare());
+        }
     }
 }
