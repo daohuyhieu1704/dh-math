@@ -5,6 +5,7 @@
 
 using namespace System;
 using namespace MathCore::Geom;
+using namespace System::Collections::Generic;
 
 namespace MathGL
 {
@@ -26,6 +27,22 @@ namespace MathGL
 					m_instance = gcnew GLEngine();
 				}
 				return m_instance;
+			}
+		}
+		property List<Point3d>^ Points
+		{
+			List<Point3d>^ get();
+		}
+
+		property double ZoomFactor
+		{
+			double get()
+			{
+				return m_pEngine->zoomFactor;
+			}
+			void set(double value)
+			{
+				m_pEngine->zoomFactor = value;
 			}
 		}
 

@@ -19,4 +19,5 @@
 #include <GLFW/glfw3.h>
 #include <GLFW/glfw3native.h>
 
+#define WM_MY_MESSAGE (WM_USER + 1)
 #endif //PCH_H

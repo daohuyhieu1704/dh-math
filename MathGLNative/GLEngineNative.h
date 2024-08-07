@@ -72,7 +72,7 @@ public:
 	void BMViewport();
 	void BRViewport();
 #pragma endregion
-
+	void MoveCamera(float dx, float dy);
 	void GetCurrentViewport(int& x, int& y, int& width, int& height);
 	void RenderScene();
 
@@ -91,5 +91,6 @@ public:
 	bool isDragging = false;
 	ViewportType m_viewportType = ViewportType::TL;
 	std::vector<std::pair<GLfloat, GLfloat>> points;
+	OdGePoint3d m_camPosition;
 };
 

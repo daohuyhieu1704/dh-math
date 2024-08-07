@@ -24,6 +24,16 @@ namespace MathGL
 		return IntPtr(m_hwnd);
 	}
 
+	List<Point3d>^ GLEngine::Points::get()
+	{
+		List<Point3d>^ points = gcnew List<Point3d>(m_pEngine->points.size());
+		for (auto& point : m_pEngine->points)
+		{
+			points->Add(Point3d(point.first, point.second, 0));
+		}
+		return points;
+	}
+
 	void GLEngine::TLViewport()
 	{
 		m_pEngine->TLViewport();

@@ -1,6 +1,5 @@
 ﻿using MathDX;
 using MathGL;
-using MathUI.Utils.GLHost;
 using MathUI.ViewModels.MainWindow;
 using System.Text;
 using System.Windows;
@@ -12,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace MathUI
 {
@@ -25,6 +25,41 @@ namespace MathUI
             InitializeComponent();
             DataContext = new MainWindowViewModel();
             this.Loaded += MainWindow_Loaded;
+            //StartBackgroundCheck();
+        }
+
+        //private async void StartBackgroundCheck()
+        private void StartBackgroundCheck()
+        {
+            UpdateUI();
+            //await Task.Run(async () =>
+            //{
+            //    while (true)
+            //    {
+            //        bool hasUpdates = CheckForUpdatesFromCppCli();
+
+            //        if (hasUpdates)
+            //        {
+            //            await Dispatcher.InvokeAsync(() => UpdateUI());
+            //        }
+
+            //        await Task.Delay(500);
+            //    }
+            //});
+        }
+
+        private void UpdateUI()
+        {
+            CommandAction((model) => model.RealtimeHandle());
+        }
+
+        private bool CheckForUpdatesFromCppCli()
+        {
+            if (GLEngine.Instance == null)
+            {
+                return false;
+            }
+            return true;
         }
 
         private void CommandAction(Action<MainWindowViewModel> callback)
@@ -49,9 +84,18 @@ namespace MathUI
             CommandAction((model) => model.LoadEngine(this));
         }
 
+
+
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            if (e.MiddleButton == MouseButtonState.Pressed)
+            {
+            }
+        }
 
+        private void Window_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            CommandAction((model) => model.ZoomViewport(e));
         }
 
         private void TL_click(object sender, RoutedEventArgs e)

@@ -75,6 +75,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)Libraries</OutDir>
+    <IncludePath>$(SolutionDir)vcpkg_installed\x64-windows\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -118,14 +119,14 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)MathGLNative;$(SolutionDir)MathCore;$(SolutionDir)Libraries\GLEW\include;$(SolutionDir)Libraries\GLFW\include;$(SolutionDir)Libraries\nlohmann;$(SolutionDir)MathCoreWrapper;$(SolutionDir)Libraries\GLUT\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)MathGLNative;$(SolutionDir)MathCore;$(SolutionDir)Libraries\GLEW\include;$(SolutionDir)Libraries\GLFW\include;$(SolutionDir)Libraries\nlohmann;$(SolutionDir)MathCoreWrapper;$(SolutionDir)CoreGLConverter;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
       </SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)Libraries;$(SolutionDir)Libraries\GLEW\lib\Release\x64;$(SolutionDir)Libraries\GLFW\lib-vc2022;$(SolutionDir)Libraries\GLUT\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;glu32.lib;glfw3.lib;MathCore.lib;MathGLNative.lib;freeglut.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;glu32.lib;glfw3.lib;MathCore.lib;MathGLNative.lib;CoreGLConverter.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)Libraries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>

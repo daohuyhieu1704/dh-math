@@ -20,6 +20,9 @@ namespace Geometry
 		bool operator==(const OdGePoint3d& other) const;
 		OdGePoint3d operator*(float scalar) const;
 
+		OdGePoint3d operator+(const OdGePoint3d& other) const;
+		OdGeVector3d operator-(const OdGePoint3d& other) const;
+
 		float x;
 		float y;
 		float z;

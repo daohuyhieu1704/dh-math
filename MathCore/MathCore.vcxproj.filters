@@ -150,6 +150,9 @@
     <ClInclude Include="OdDbSquare.h">
       <Filter>DatabaseService\Entities\Square</Filter>
     </ClInclude>
+    <ClInclude Include="MathLog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">

@@ -1,7 +1,6 @@
 ﻿using MathDX;
 using MathGL;
 using MathUI.Utils.EngineHost;
-using MathUI.Utils.GLHost;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,30 +10,35 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using MathCore;
+using MathCore.Geom;
+using System.Windows.Threading;
+using System.Windows.Input;
 
 namespace MathUI.ViewModels.MainWindow
 {
     class MainWindowViewModel : ViewModelBase
     {
-        int _MouseX;
-        public int MouseX
+        private DispatcherTimer _timer;
+
+        string _MouseX;
+        public string MouseX
         {
             get => _MouseX;
             set
             {
                 _MouseX = value;
-                OnPropertyChanged(nameof(_MouseX));
+                OnPropertyChanged("MouseX");
             }
         }
 
-        int _MouseY;
-        public int MouseY
+        string _MouseY;
+        public string MouseY
         {
             get => _MouseY;
             set
             {
                 _MouseY = value;
-                OnPropertyChanged(nameof(_MouseY));
+                OnPropertyChanged("MouseY");
             }
         }
 
@@ -45,7 +49,7 @@ namespace MathUI.ViewModels.MainWindow
             set
             {
                 _engineName = value;
-                OnPropertyChanged(nameof(_engineName));
+                OnPropertyChanged("EngineName");
             }
         }
 
@@ -113,6 +117,31 @@ namespace MathUI.ViewModels.MainWindow
         public void BR()
         {
             GLEngine.Instance.BRViewport();
+        }
+
+        internal void RealtimeHandle()
+        {
+            List<Point3d> point3Ds = GLEngine.Instance.Points;
+            if (point3Ds.Count == 0)
+            {
+                return;
+            }
+            MouseX = point3Ds.Last().X.ToString();
+            MouseY = point3Ds.Last().Y.ToString();
+        }
+
+        internal void ZoomViewport(MouseWheelEventArgs e)
+        {
+            if (e.Delta > 0)
+            {
+                GLEngine.Instance.ZoomFactor -= 1.0f;
+            }
+            else
+            {
+                // Zoom out
+                GLEngine.Instance.ZoomFactor += 1.0f;
+            }
+
         }
     }
 }

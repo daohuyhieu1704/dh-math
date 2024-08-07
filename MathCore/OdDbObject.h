@@ -1,6 +1,6 @@
 #pragma once
 #include "OdDrawable.h"
-#include "json.hpp"
+#include "nlohmann/json.hpp"
 
 class OdDbObject : public OdDrawable {
 public:

@@ -1,11 +1,82 @@
 #include "pch.h"
+#include <iostream>
+#include <fstream>
+#include <sstream>
 #include "GLEngineNative.h"
 #include <corecrt_math.h>
 #include "MathLine.h"
 #include <string>
-
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include "APIGLConverter.h"
+#include <glm/gtc/type_ptr.hpp>
+#include <MathLog.h>
 
 GLEngineNative* GLEngineNative::m_instance = nullptr;
+POINT prevMousePos;
+
+//std::string LoadShaderSource(const std::string& filePath)
+//{
+//    std::ifstream shaderFile(filePath);
+//    if (!shaderFile.is_open())
+//    {
+//        MathLog::LogFunction("Failed to open shader file: " + filePath);
+//        return "";
+//    }
+//
+//    std::stringstream shaderStream;
+//    shaderStream << shaderFile.rdbuf();
+//    shaderFile.close();
+//    return shaderStream.str();
+//}
+//
+//GLuint CompileShader(const std::string& source, GLenum shaderType)
+//{
+//    const char* sourceCStr = source.c_str();
+//    GLuint shaderID = glCreateShader(shaderType);
+//    glShaderSource(shaderID, 1, &sourceCStr, nullptr);
+//    glCompileShader(shaderID);
+//
+//    GLint success;
+//    GLchar infoLog[512];
+//    glGetShaderiv(shaderID, GL_COMPILE_STATUS, &success);
+//    if (!success)
+//    {
+//        glGetShaderInfoLog(shaderID, 512, nullptr, infoLog);
+//        std::string logMessage(infoLog);
+//        MathLog::LogFunction("ERROR::SHADER::COMPILATION_FAILED" + logMessage);
+//    }
+//
+//    return shaderID;
+//}
+//
+//GLuint CreateShaderProgram()
+//{
+//    GLuint vertexShader = CompileShader("../directional_shadow_map.vert", GL_VERTEX_SHADER);
+//    GLuint fragmentShader = CompileShader("../Shaders/directional_shadow_map.frag", GL_FRAGMENT_SHADER);
+//
+//    GLuint shaderProgram = glCreateProgram();
+//    glAttachShader(shaderProgram, vertexShader);
+//    glAttachShader(shaderProgram, fragmentShader);
+//    glLinkProgram(shaderProgram);
+//
+//    // Check for linking errors
+//    GLint success;
+//    GLchar infoLog[512];
+//    glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
+//    if (!success)
+//    {
+//        glGetProgramInfoLog(shaderProgram, 512, nullptr, infoLog);
+//
+//        std::string logMessage(infoLog);
+//        MathLog::LogFunction("ERROR::SHADER::PROGRAM::LINKING_FAILED" + logMessage);
+//    }
+//
+//    glDeleteShader(vertexShader);
+//    glDeleteShader(fragmentShader);
+//
+//    return shaderProgram;
+//}
 
 LRESULT GLEngineNative::WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
@@ -42,7 +113,28 @@ LRESULT GLEngineNative::WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM l
         return 0;
     }
     case WM_MOUSEMOVE:
-        break;
+    {
+        if (engineNative->isDragging)
+        {
+            int x = LOWORD(lParam);
+            int y = HIWORD(lParam);
+
+            float dx = static_cast<float>(x - prevMousePos.x);
+            float dy = static_cast<float>(y - prevMousePos.y);
+
+            engineNative->MoveCamera(0.1, 0.1);
+
+            prevMousePos.x = x;
+            prevMousePos.y = y;
+
+            RECT rect;
+            GetClientRect(hwnd, &rect);
+            engineNative->ResizeChild(rect.right - rect.left, rect.bottom - rect.top);
+            InvalidateRect(hwnd, nullptr, FALSE);
+        }
+        return 0;
+    }
+    break;
     case WM_DESTROY:
         PostQuitMessage(0);
         return 0;
@@ -50,7 +142,7 @@ LRESULT GLEngineNative::WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM l
     {
         int width = LOWORD(lParam);
         int height = HIWORD(lParam);
-        engineNative->ResizeChild(width, height);
+        // engineNative->ResizeChild(width, height);
         return 0;
     }
     case WM_DPICHANGED:
@@ -83,8 +175,10 @@ LRESULT GLEngineNative::WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM l
     break;
     case WM_LBUTTONDOWN:
     {
-        int x = LOWORD(lParam);
-        int y = HIWORD(lParam);
+        engineNative->isDragging = true;
+
+        prevMousePos.x = LOWORD(lParam);
+        prevMousePos.y = HIWORD(lParam);
 
         GLint viewport[4];
         GLdouble modelview[16];
@@ -96,13 +190,20 @@ LRESULT GLEngineNative::WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM l
         glGetDoublev(GL_PROJECTION_MATRIX, projection);
         glGetIntegerv(GL_VIEWPORT, viewport);
 
-        winX = (float)x;
-        winY = (float)viewport[3] - (float)y;
-        glReadPixels(x, (int)winY, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &winZ);
+        winX = (float)prevMousePos.x;
+        winY = (float)viewport[3] - (float)prevMousePos.y;
+        glReadPixels(prevMousePos.x, (int)winY, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &winZ);
 
         gluUnProject(winX, winY, winZ, modelview, projection, viewport, &posX, &posY, &posZ);
 
         engineNative->points.push_back(std::make_pair(posX, posY));
+
+        PostMessage(GetParent(hwnd), WM_MY_MESSAGE, wParam, lParam);
+        return 0;
+    }
+    case WM_MBUTTONUP:
+    {
+        engineNative->isDragging = false;
         return 0;
     }
     break;
@@ -114,78 +215,88 @@ LRESULT GLEngineNative::WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM l
     return 0;
 }
 
+void GLEngineNative::MoveCamera(float dx, float dy)
+{
+    m_camPosition.x += dx;
+    m_camPosition.y += dy;
+}
+
 void GLEngineNative::Setup3DViewport(int width, int height) {
-    switch (m_viewportType) 
+    glViewport(0, 0, width, height);
+
+    switch (m_viewportType)
     {
     case ViewportType::TL:
     {
-        glViewport(0, 0, width, height);
-        glMatrixMode(GL_PROJECTION);
-        glLoadIdentity();
-        angleX = 45.0f;
-        angleY = 45.0f;
-        gluPerspective(zoomFactor, (GLfloat)width / (GLfloat)height, 0.1f, 100.0f);
-        glMatrixMode(GL_MODELVIEW);
-        glLoadIdentity();
+        m_camPosition = OdGePoint3d(-10.0, 10.0, 10.0);
     }
     break;
     case ViewportType::TM:
     {
-        glViewport(0, 0, width, height);
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-		angleX = 0.0f;
-		angleY = 45.0f;
-		gluPerspective(zoomFactor, (GLfloat)width / (GLfloat)height, 0.1f, 100.0f);
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
+        m_camPosition = OdGePoint3d(0.0, 10.0, 10.0);
     }
     break;
     case ViewportType::TR:
-        break;
+    {
+        m_camPosition = OdGePoint3d(10.0, 10.0, 10.0);
+    }
+    break;
     case ViewportType::ML:
-        break;
+    {
+        m_camPosition = OdGePoint3d(-10.0, 0.0, 10.0);
+    }
+    break;
     case ViewportType::TMM:
     {
-        glMatrixMode(GL_PROJECTION);
-        glLoadIdentity();
-        gluPerspective(zoomFactor, (GLfloat)width / (GLfloat)height, 0.1f, 100.0f);
-		angleX = 0.0f;
-		angleY = 90.0f;
-        glMatrixMode(GL_MODELVIEW);
-        glLoadIdentity();
+        m_camPosition = OdGePoint3d(0.0, 0.0, 10.0);
     }
     break;
     case ViewportType::BMM:
     {
-        glMatrixMode(GL_PROJECTION);
-        glLoadIdentity();
-        gluPerspective(zoomFactor, (GLfloat)width / (GLfloat)height, 0.1f, 100.0f);
-        angleX = 0.0f;
-        angleY = -90.0f;
-        glMatrixMode(GL_MODELVIEW);
-        glLoadIdentity();
+        m_camPosition = OdGePoint3d(0.0, -10.0, 10.0);
     }
     break;
     case ViewportType::MR:
-        break;
+    {
+        m_camPosition = OdGePoint3d(10.0, 0.0, 10.0);
+    }
+    break;
     case ViewportType::BL:
-        break;
+    {
+        m_camPosition = OdGePoint3d(-10.0, -10.0, 10.0);
+    }
+    break;
     case ViewportType::BM:
-        glMatrixMode(GL_PROJECTION);
-        glLoadIdentity();
-        gluPerspective(zoomFactor, (GLfloat)width / (GLfloat)height, 0.1f, 100.0f);
-        angleX = 90.0f;
-        angleY = 0.0f;
-        glMatrixMode(GL_MODELVIEW);
-        glLoadIdentity();
-        break;
+    {
+        m_camPosition = OdGePoint3d(0.0, -10.0, 10.0);
+    }
+    break;
     case ViewportType::BR:
-        break;
+    {
+        m_camPosition = OdGePoint3d(10.0, -10.0, 10.0);
+    }
+    break;
     default:
+        m_camPosition = OdGePoint3d(0.0, 0.0, 10.0);
         break;
     }
+
+	m_camPosition += (m_camPosition - OdGePoint3d(0, 0, 0)).Normalize() * zoomFactor;
+
+    glm::vec3 cameraPos = APIGLConverter::OdGePoint3dToVec3(m_camPosition);
+    glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
+    glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+    glm::mat4 view = glm::lookAt(cameraPos, cameraTarget, cameraUp);
+
+    glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)width / (float)height, 0.1f, 100.0f);
+
+    glMatrixMode(GL_PROJECTION);
+    glLoadMatrixf(glm::value_ptr(projection));
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadMatrixf(glm::value_ptr(view));
 }
+
 
 void GLEngineNative::Setup2DViewport(int width, int height)
 {
@@ -357,23 +468,54 @@ void GLEngineNative::AppendCommand(const std::string command)
 void GLEngineNative::RenderScene()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glLoadIdentity();
-    glTranslatef(0.0f, 0.0f, -5.0f);
-    float radius = 10.0f;
-    float camX = radius * cos(angleY * 3.14159 / 180) * cos(angleX * 3.14159 / 180);
-    float camY = radius * sin(angleX * 3.14159 / 180);
-    float camZ = radius * sin(angleY * 3.14159 / 180) * cos(angleX * 3.14159 / 180);
 
-    gluLookAt(camX, camY, camZ, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+ //   glm::mat4 model = glm::mat4(1.0f);
 
-	Draw3DGrid(100, 1);
-	RenderCube(10, 10);
+ //   float radius = 10.0f;
+ //   m_camPosition = OdGePoint3d(
+ //       radius * cos(glm::radians(angleY)) * cos(glm::radians(angleX)),
+ //       radius * sin(glm::radians(angleX)),
+ //       radius * sin(glm::radians(angleY)) * cos(glm::radians(angleX))
+ //   );
+
+ //   glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
+
+ //   glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+
+ //   glm::mat4 view = glm::lookAt(
+ //       APIGLConverter::OdGePoint3dToVec3(m_camPosition),
+ //       cameraTarget,
+ //       cameraUp
+ //   );
+
+	//int dx = 0, dy = 0, width = 0, height = 0;
+	//GetCurrentViewport(dx, dy, width, height);
+ //   glm::mat4 projection = glm::perspective(
+ //       glm::radians(45.0f),
+ //       (float)width / (float)height,
+ //       0.1f,
+ //       100.0f
+ //   );
+
+    //GLuint shaderProgram = CreateShaderProgram();
+    //glUseProgram(shaderProgram);
+    //GLuint modelLoc = glGetUniformLocation(shaderProgram, "model");
+    //GLuint viewLoc = glGetUniformLocation(shaderProgram, "view");
+    //GLuint projLoc = glGetUniformLocation(shaderProgram, "projection");
+
+    //glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+    //glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+    //glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+
+    Draw3DGrid(100, 1);
+    RenderCube(10, 10);
+
     for (RenderEntity* ent : m_entities)
-	{
-		if (ent != nullptr)
+    {
+        if (ent != nullptr)
         {
-			ent->render();
-		}
+            ent->render();
+        }
     }
 }
 
@@ -434,7 +576,6 @@ HWND GLEngineNative::InitializeWindow(HINSTANCE hInstance, int nCmdShow, HWND pa
 
     while (!quit)
     {
-
         if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
         {
             if (msg.message == WM_QUIT)
@@ -446,7 +587,6 @@ HWND GLEngineNative::InitializeWindow(HINSTANCE hInstance, int nCmdShow, HWND pa
                 TranslateMessage(&msg);
                 DispatchMessage(&msg);
             }
-
         }
         else
         {
@@ -454,7 +594,6 @@ HWND GLEngineNative::InitializeWindow(HINSTANCE hInstance, int nCmdShow, HWND pa
             SwapBuffers(m_hdc);
             glfwPollEvents();
         }
-
     }
 
     DisableOpenGL(hwnd, m_hdc, m_hglrc);

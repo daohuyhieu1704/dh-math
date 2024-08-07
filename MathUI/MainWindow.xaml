@@ -10,8 +10,9 @@
         WindowStartupLocation="CenterScreen"
         Background="Transparent"
         WindowStyle="None"
-        ResizeMode="NoResize"
         MouseDown="Window_MouseDown"
+        MouseWheel="Window_MouseWheel"
+        ResizeMode="NoResize"
         Name="MainView"
         Title="MathUI" Height="960" Width="1400">
     <Border 
