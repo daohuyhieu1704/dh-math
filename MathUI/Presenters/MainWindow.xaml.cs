@@ -13,7 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
-namespace MathUI
+namespace MathUI.Presenters
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

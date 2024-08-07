@@ -22,6 +22,7 @@ namespace Geometry
 
 		OdGePoint3d operator+(const OdGePoint3d& other) const;
 		OdGeVector3d operator-(const OdGePoint3d& other) const;
+		bool IsEqual(const OdGePoint3d& other) const;
 
 		float x;
 		float y;

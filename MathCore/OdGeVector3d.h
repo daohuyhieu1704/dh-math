@@ -17,11 +17,15 @@ namespace Geometry
 		OdGeVector3d CrossProduct(const OdGeVector3d& other) const;
 		float DotProduct(const OdGeVector3d& other) const;
 
+		OdGeVector3d operator-() const;
 		void operator+=(const OdGeVector3d& other);
 		void operator-=(const OdGeVector3d& other);
 		OdGeVector3d operator+(const OdGeVector3d& other) const;
 		OdGeVector3d operator-(const OdGeVector3d& other) const;
 		OdGeVector3d operator*(float scalar) const;
+		OdGeVector3d operator/=(const float scale);
+
+		bool IsEqual(const OdGeVector3d& other) const;
 
 		float x;
 		float y;

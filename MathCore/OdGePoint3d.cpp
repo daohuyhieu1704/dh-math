@@ -67,4 +67,10 @@ namespace Geometry
 	{
 		return OdGeVector3d(x - other.x, y - other.y, z - other.z);
 	}
+
+	bool OdGePoint3d::IsEqual(const OdGePoint3d& other) const
+	{
+		const float EPSILON = 0.00001f;
+		return fabs(x - other.x) < EPSILON && fabs(y - other.y) < EPSILON && fabs(z - other.z) < EPSILON;
+	}
 }

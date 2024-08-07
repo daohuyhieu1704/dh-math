@@ -147,8 +147,12 @@
     <ClInclude Include="CommandPrompt.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="MathLog.h" />
+    <ClInclude Include="Matrices.h" />
     <ClInclude Include="OdDbCircle.h" />
     <ClInclude Include="OdDbSquare.h" />
+    <ClInclude Include="OdGeQuaternion.h" />
+    <ClInclude Include="OdGeVector2d.h" />
+    <ClInclude Include="OdGeVector4d.h" />
     <ClInclude Include="OdHostAppService.h" />
     <ClInclude Include="IActionCmd.h" />
     <ClInclude Include="IEngine.h" />
@@ -169,8 +173,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CommandPrompt.cpp" />
+    <ClCompile Include="Matrices.cpp" />
     <ClCompile Include="OdDbCircle.cpp" />
     <ClCompile Include="OdDbSquare.cpp" />
+    <ClCompile Include="OdGeQuaternion.cpp" />
+    <ClCompile Include="OdGeVector2d.cpp" />
+    <ClCompile Include="OdGeVector4d.cpp" />
     <ClCompile Include="OdHostAppService.cpp" />
     <ClCompile Include="IActionCmd.cpp" />
     <ClCompile Include="IEngine.cpp" />

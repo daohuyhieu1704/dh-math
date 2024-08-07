@@ -55,7 +55,13 @@ public:
 	void RenderCube(int windowWidth, int windowHeight);
 	void EnableOpenGL(HWND hWnd, HDC* hDC, HGLRC* hRC);
 	void DisableOpenGL(HWND hWnd, HDC hDC, HGLRC hRC);
+
+
+	void drawAxis(float size = 2.5f);
+	void drawGridXZ(float size = 10.0f, float step = 1.0f);
+	void drawGridXY(float size = 10.0f, float step = 1.0f);
 	void Draw3DGrid(float size, float step);
+
 	void AddLine(OdGePoint3d startPnt, OdGePoint3d endPnt);
 	void AppendCommand(const std::string command);
 	void RegisterCommandPattern();
@@ -79,6 +85,23 @@ public:
 	void MoveCamera(float dx, float dy);
 	void GetCurrentViewport(int& x, int& y, int& width, int& height);
 	void RenderScene();
+
+	void initLights()
+	{
+		// set up light colors (ambient, diffuse, specular)
+		GLfloat lightKa[] = { .2f, .2f, .2f, 1.0f };  // ambient light
+		GLfloat lightKd[] = { .7f, .7f, .7f, 1.0f };  // diffuse light
+		GLfloat lightKs[] = { 1, 1, 1, 1 };           // specular light
+		glLightfv(GL_LIGHT0, GL_AMBIENT, lightKa);
+		glLightfv(GL_LIGHT0, GL_DIFFUSE, lightKd);
+		glLightfv(GL_LIGHT0, GL_SPECULAR, lightKs);
+
+		// position the light
+		float lightPos[4] = { 0, 1, 1, 0 }; // directional light
+		glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
+
+		glEnable(GL_LIGHT0);                        // MUST enable each light source after configuration
+	}
 
 	void SetPointPickedCallback(PointPickedCallback callback);
 	void TriggerPointPicked(std::vector<OdGePoint2d> resPnt);

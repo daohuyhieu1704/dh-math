@@ -34,6 +34,18 @@
     <Filter Include="HostAppService">
       <UniqueIdentifier>{a9eb0c77-1860-460d-ba1f-d959757cac25}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Geometry\Point2d">
+      <UniqueIdentifier>{7f6b480e-97ae-4913-95c6-5b98fa3b3f47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Geometry\Point3d">
+      <UniqueIdentifier>{388f3af7-e3ea-4522-b4fb-840fb386a303}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Geometry\Vector2d">
+      <UniqueIdentifier>{3db76019-7450-4002-8a3b-b041d7943f94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Geometry\Vector3d">
+      <UniqueIdentifier>{7b31e11c-9c55-4bf9-a0ed-dfd1e3f593b3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -41,12 +53,6 @@
     </ClInclude>
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Point2d.h">
-      <Filter>Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="Point3d.h">
-      <Filter>Geometry</Filter>
     </ClInclude>
     <ClInclude Include="Trans.h">
       <Filter>DatabaseServices\Transaction</Filter>
@@ -60,16 +66,16 @@
     <ClInclude Include="HostAppService.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Point2d.h">
+      <Filter>Geometry\Point2d</Filter>
+    </ClInclude>
+    <ClInclude Include="Point3d.h">
+      <Filter>Geometry\Point3d</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Point2d.cpp">
-      <Filter>Geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="Point3d.cpp">
-      <Filter>Geometry</Filter>
     </ClCompile>
     <ClCompile Include="Trans.cpp">
       <Filter>DatabaseServices\Transaction</Filter>
@@ -82,6 +88,12 @@
     </ClCompile>
     <ClCompile Include="HostAppService.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Point2d.cpp">
+      <Filter>Geometry\Point2d</Filter>
+    </ClCompile>
+    <ClCompile Include="Point3d.cpp">
+      <Filter>Geometry\Point3d</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

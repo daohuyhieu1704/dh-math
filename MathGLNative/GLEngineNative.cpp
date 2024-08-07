@@ -439,6 +439,113 @@ void RenderText(const char* text) {
     glPopAttrib();
 }
 
+void GLEngineNative::drawGridXZ(float size, float step)
+{
+    // disable lighting
+    glDisable(GL_LIGHTING);
+
+    glBegin(GL_LINES);
+
+    glColor4f(0.5f, 0.5f, 0.5f, 0.5f);
+    for (float i = step; i <= size; i += step)
+    {
+        glVertex3f(-size, 0, i);   // lines parallel to X-axis
+        glVertex3f(size, 0, i);
+        glVertex3f(-size, 0, -i);   // lines parallel to X-axis
+        glVertex3f(size, 0, -i);
+
+        glVertex3f(i, 0, -size);   // lines parallel to Z-axis
+        glVertex3f(i, 0, size);
+        glVertex3f(-i, 0, -size);   // lines parallel to Z-axis
+        glVertex3f(-i, 0, size);
+    }
+
+    // x-axis
+    glColor3f(1, 0, 0);
+    glVertex3f(-size, 0, 0);
+    glVertex3f(size, 0, 0);
+
+    // z-axis
+    glColor3f(0, 0, 1);
+    glVertex3f(0, 0, -size);
+    glVertex3f(0, 0, size);
+
+    glEnd();
+
+    // enable lighting back
+    glEnable(GL_LIGHTING);
+}
+
+
+void GLEngineNative::drawGridXY(float size, float step)
+{
+    glDisable(GL_LIGHTING);
+
+    glBegin(GL_LINES);
+
+    glColor4f(0.5f, 0.5f, 0.5f, 0.5f);
+    for (float i = step; i <= size; i += step)
+    {
+        glVertex3f(-size, i, 0);   // lines parallel to X-axis
+        glVertex3f(size, i, 0);
+        glVertex3f(-size, -i, 0);   // lines parallel to X-axis
+        glVertex3f(size, -i, 0);
+
+        glVertex3f(i, -size, 0);   // lines parallel to Y-axis
+        glVertex3f(i, size, 0);
+        glVertex3f(-i, -size, 0);   // lines parallel to Y-axis
+        glVertex3f(-i, size, 0);
+    }
+
+    glColor3f(1, 0, 0);
+    glVertex3f(-size, 0, 0);
+    glVertex3f(size, 0, 0);
+
+    // y-axis
+    glColor3f(0, 1, 0);
+    glVertex3f(0, -size, 0);
+    glVertex3f(0, size, 0);
+
+    glEnd();
+
+    glEnable(GL_LIGHTING);
+}
+
+void GLEngineNative::drawAxis(float size)
+{
+    glDepthFunc(GL_ALWAYS);     // to avoid visual artifacts with grid lines
+    glDisable(GL_LIGHTING);
+
+    glLineWidth(5);
+    glBegin(GL_LINES);
+    glColor3f(1, 0, 0);
+    glVertex3f(0, 0, 0);
+    glVertex3f(size, 0, 0);
+    glColor3f(0, 1, 0);
+    glVertex3f(0, 0, 0);
+    glVertex3f(0, size, 0);
+    glColor3f(0, 0, 1);
+    glVertex3f(0, 0, 0);
+    glVertex3f(0, 0, size);
+    glEnd();
+    glLineWidth(1);
+
+    glPointSize(10);
+    glBegin(GL_POINTS);
+    glColor3f(1, 0, 0);
+    glVertex3f(size, 0, 0);
+    glColor3f(0, 1, 0);
+    glVertex3f(0, size, 0);
+    glColor3f(0, 0, 1);
+    glVertex3f(0, 0, size);
+    glEnd();
+    glPointSize(1);
+
+    glEnable(GL_LIGHTING);
+    glDepthFunc(GL_LEQUAL);
+}
+
+
 void GLEngineNative::Draw3DGrid(float size, float step)
 {
     glPushMatrix();
@@ -511,7 +618,10 @@ void GLEngineNative::RenderScene()
     //glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
     //glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
-    Draw3DGrid(100, 1);
+    // Draw3DGrid(100, 1);
+    drawAxis();                         // for origin (0,0,0)
+    drawGridXZ(20);                     // draw XZ-grid at origin (world space)
+    drawGridXY(20);                     // draw XY-grid at origin (world space)
     RenderCube(10, 10);
 
     for (RenderEntity* ent : m_entities)
@@ -821,6 +931,38 @@ void GLEngineNative::EnableOpenGL(HWND hWnd, HDC* hDC, HGLRC* hRC)
 
     *hRC = wglCreateContext(*hDC);
     wglMakeCurrent(*hDC, *hRC);
+
+    glShadeModel(GL_SMOOTH);                    // shading mathod: GL_SMOOTH or GL_FLAT
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 4);      // 4-byte pixel alignment
+
+    // enable /disable features
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_LIGHTING);
+    glEnable(GL_TEXTURE_2D);
+    glEnable(GL_CULL_FACE);
+
+    // enable /disable features
+    glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+    glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+    glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_LIGHTING);
+    glEnable(GL_TEXTURE_2D);
+    glEnable(GL_CULL_FACE);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable(GL_LINE_SMOOTH);
+
+    // track material ambient and diffuse from surface color, call it before glEnable(GL_COLOR_MATERIAL)
+    glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+    glEnable(GL_COLOR_MATERIAL);
+
+    glClearColor(0, 0, 0, 0);                   // background color
+    glClearStencil(0);                          // clear stencil buffer
+    glClearDepth(1.0f);                         // 0 is near, 1 is far
+    glDepthFunc(GL_LEQUAL);
+
+    initLights();
 }
 
 void GLEngineNative::DisableOpenGL(HWND hWnd, HDC hDC, HGLRC hRC)

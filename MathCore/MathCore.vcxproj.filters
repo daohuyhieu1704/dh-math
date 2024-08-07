@@ -28,12 +28,6 @@
     <Filter Include="Geometry\Point3d">
       <UniqueIdentifier>{131d2013-dd8c-47b8-85f0-3c82755e31e3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Geometry\Vector2d">
-      <UniqueIdentifier>{32b4f43d-6a0c-4b0d-a02f-da04ad01f70b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometry\Vector3d">
-      <UniqueIdentifier>{8c60509c-f55b-4d61-8fc4-75c9efd201a6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ObjectBase">
       <UniqueIdentifier>{1846de56-1a29-42ee-88ae-1f7a8181f525}</UniqueIdentifier>
     </Filter>
@@ -85,6 +79,24 @@
     <Filter Include="DatabaseService\Entities\Square">
       <UniqueIdentifier>{3ff086a1-44bd-4b23-87cd-dd73f3cd5a90}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Geometry\Quaternion">
+      <UniqueIdentifier>{fe6882ac-409d-4d76-9855-079330839faf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Geometry\Vectors">
+      <UniqueIdentifier>{ecfcde62-6b16-4d8f-8b1c-c266066b7019}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Geometry\Vectors\Vector2d">
+      <UniqueIdentifier>{32b4f43d-6a0c-4b0d-a02f-da04ad01f70b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Geometry\Vectors\Vector3d">
+      <UniqueIdentifier>{8c60509c-f55b-4d61-8fc4-75c9efd201a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Geometry\Vectors\Vector4d">
+      <UniqueIdentifier>{cfc41ccc-d56f-4a80-b763-f932689efe27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Geometry\Matrices">
+      <UniqueIdentifier>{6c58fb95-e347-4bcf-92f8-cc9be279d642}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -97,7 +109,7 @@
       <Filter>Geometry\Point2d</Filter>
     </ClInclude>
     <ClInclude Include="OdGeVector3d.h">
-      <Filter>Geometry\Vector3d</Filter>
+      <Filter>Geometry\Vectors\Vector3d</Filter>
     </ClInclude>
     <ClInclude Include="OdGePoint3d.h">
       <Filter>Geometry\Point3d</Filter>
@@ -153,6 +165,18 @@
     <ClInclude Include="MathLog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="OdGeVector2d.h">
+      <Filter>Geometry\Vectors\Vector2d</Filter>
+    </ClInclude>
+    <ClInclude Include="OdGeQuaternion.h">
+      <Filter>Geometry\Quaternion</Filter>
+    </ClInclude>
+    <ClInclude Include="OdGeVector4d.h">
+      <Filter>Geometry\Vectors\Vector4d</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrices.h">
+      <Filter>Geometry\Matrices</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -162,7 +186,7 @@
       <Filter>Geometry\Point2d</Filter>
     </ClCompile>
     <ClCompile Include="OdGeVector3d.cpp">
-      <Filter>Geometry\Vector3d</Filter>
+      <Filter>Geometry\Vectors\Vector3d</Filter>
     </ClCompile>
     <ClCompile Include="OdGePoint3d.cpp">
       <Filter>Geometry\Point3d</Filter>
@@ -211,6 +235,18 @@
     </ClCompile>
     <ClCompile Include="OdDbSquare.cpp">
       <Filter>DatabaseService\Entities\Square</Filter>
+    </ClCompile>
+    <ClCompile Include="OdGeVector2d.cpp">
+      <Filter>Geometry\Vectors\Vector2d</Filter>
+    </ClCompile>
+    <ClCompile Include="OdGeQuaternion.cpp">
+      <Filter>Geometry\Quaternion</Filter>
+    </ClCompile>
+    <ClCompile Include="OdGeVector4d.cpp">
+      <Filter>Geometry\Vectors\Vector4d</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrices.cpp">
+      <Filter>Geometry\Matrices</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

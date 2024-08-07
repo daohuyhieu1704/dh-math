@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "OdGeVector3d.h"
+#include <cfloat>
 
 namespace Geometry
 {
@@ -46,6 +47,11 @@ namespace Geometry
 		return x * other.x + y * other.y + z * other.z;
 	}
 
+	OdGeVector3d OdGeVector3d::operator-() const
+	{
+		return OdGeVector3d(-x, -y, -z);
+	}
+
 	void OdGeVector3d::operator+=(const OdGeVector3d& other)
 	{
 		x += other.x;
@@ -73,6 +79,19 @@ namespace Geometry
 	OdGeVector3d OdGeVector3d::operator*(float scalar) const
 	{
 		return OdGeVector3d(x * scalar, y * scalar, z * scalar);
+	}
+
+	OdGeVector3d OdGeVector3d::operator/=(const float scale)
+	{
+		x /= scale;
+		y /= scale;
+		z /= scale;
+		return *this;
+	}
+
+	bool OdGeVector3d::IsEqual(const OdGeVector3d& other) const
+	{
+		return (fabs(x - other.x) < FLT_EPSILON) && (fabs(y - other.y) < FLT_EPSILON) && (fabs(z - other.z) < FLT_EPSILON);
 	}
 }
 

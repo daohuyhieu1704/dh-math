@@ -58,7 +58,7 @@ namespace MathUI.ViewModels.MainWindow
             EngineName = "OpenGL";
         }
 
-        public void LoadEngine(MathUI.MainWindow mainWindow)
+        public void LoadEngine(MathUI.Presenters.MainWindow mainWindow)
         {
             var grid = mainWindow.FindName("EngineContainer");
             EngineName = "OpenGL";
