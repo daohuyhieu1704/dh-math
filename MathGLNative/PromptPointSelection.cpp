@@ -9,6 +9,11 @@ OdGePoint3d PromptPointSelection::getPoints()
 	{
 		return OdGePoint3d(0.0, 0.0, 0.0);
 	}
-	std::pair<GLfloat, GLfloat> lastPoint = points[points.size() - 1];
-    return OdGePoint3d(lastPoint.first, lastPoint.second, 0.0);
+	OdGePoint2d lastPoint = points[points.size() - 1];
+    return OdGePoint3d(lastPoint.x, lastPoint.y, 0.0);
+}
+
+
+void PromptPointSelection::Focus()
+{
 }

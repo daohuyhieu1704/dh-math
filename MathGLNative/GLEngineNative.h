@@ -26,6 +26,8 @@ enum class ViewportType
 	BR = 9
 };
 
+using PointPickedCallback = void(*)(std::vector<Geometry::OdGePoint2d> resPnt);
+
 class GLEngineNative : public IEngine
 {
 	static GLEngineNative* m_instance;
@@ -47,6 +49,7 @@ public:
 	static LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 	// Inherited via IEngine
 	HWND InitializeWindow(HINSTANCE hInstance, int nCmdShow, HWND parentHwnd) override;
+	void PickPoint();
 	void ResizeChild(int width, int height);
 	HRESULT InitializeCore(HWND hwnd);
 	void RenderCube(int windowWidth, int windowHeight);
@@ -72,10 +75,16 @@ public:
 	void BMViewport();
 	void BRViewport();
 #pragma endregion
+
 	void MoveCamera(float dx, float dy);
 	void GetCurrentViewport(int& x, int& y, int& width, int& height);
 	void RenderScene();
 
+	void SetPointPickedCallback(PointPickedCallback callback);
+	void TriggerPointPicked(std::vector<OdGePoint2d> resPnt);
+
+	bool pointPicked = false;
+	int m_totalPick = 1;
 	GLFWwindow* m_window;
 	GLuint m_framebuffer;
 	GLuint m_texture;
@@ -90,7 +99,10 @@ public:
 	int lastMouseX, lastMouseY;
 	bool isDragging = false;
 	ViewportType m_viewportType = ViewportType::TL;
-	std::vector<std::pair<GLfloat, GLfloat>> points;
+	std::vector<OdGePoint2d> points;
 	OdGePoint3d m_camPosition;
+
+private:
+	PointPickedCallback pointPickedCallback = nullptr;
 };
 

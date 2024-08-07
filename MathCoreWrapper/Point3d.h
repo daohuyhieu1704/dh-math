@@ -3,6 +3,7 @@
 #include "Point2d.h"
 
 using namespace Geometry;
+using namespace System;
 
 namespace MathCore
 {
@@ -95,6 +96,11 @@ namespace MathCore
             {
                 return Point3d(point.x, point.y, point.z);
             }
+
+			String^ ToString() override
+			{
+				return String::Format("{0},{1},{2}", x, y, z);
+			}
         };
     }
 }

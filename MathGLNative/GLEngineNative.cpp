@@ -11,6 +11,7 @@
 #include "APIGLConverter.h"
 #include <glm/gtc/type_ptr.hpp>
 #include <MathLog.h>
+#include "GLCircle.h"
 
 GLEngineNative* GLEngineNative::m_instance = nullptr;
 POINT prevMousePos;
@@ -122,14 +123,14 @@ LRESULT GLEngineNative::WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM l
             float dx = static_cast<float>(x - prevMousePos.x);
             float dy = static_cast<float>(y - prevMousePos.y);
 
-            engineNative->MoveCamera(0.1, 0.1);
+            engineNative->MoveCamera(dx, dy);
 
             prevMousePos.x = x;
             prevMousePos.y = y;
 
             RECT rect;
             GetClientRect(hwnd, &rect);
-            engineNative->ResizeChild(rect.right - rect.left, rect.bottom - rect.top);
+            engineNative->Setup3DViewport(rect.right - rect.left, rect.bottom - rect.top);
             InvalidateRect(hwnd, nullptr, FALSE);
         }
         return 0;
@@ -196,12 +197,12 @@ LRESULT GLEngineNative::WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM l
 
         gluUnProject(winX, winY, winZ, modelview, projection, viewport, &posX, &posY, &posZ);
 
-        engineNative->points.push_back(std::make_pair(posX, posY));
+        engineNative->points.push_back(OdGePoint2d(posX, posY));
 
         PostMessage(GetParent(hwnd), WM_MY_MESSAGE, wParam, lParam);
         return 0;
     }
-    case WM_MBUTTONUP:
+    case WM_LBUTTONUP:
     {
         engineNative->isDragging = false;
         return 0;
@@ -217,8 +218,11 @@ LRESULT GLEngineNative::WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM l
 
 void GLEngineNative::MoveCamera(float dx, float dy)
 {
-    m_camPosition.x += dx;
-    m_camPosition.y += dy;
+	m_camPosition = OdGePoint3d(
+		m_camPosition.x + dx,
+		m_camPosition.y + dy,
+		m_camPosition.z
+	);
 }
 
 void GLEngineNative::Setup3DViewport(int width, int height) {
@@ -285,7 +289,7 @@ void GLEngineNative::Setup3DViewport(int width, int height) {
 
     glm::vec3 cameraPos = APIGLConverter::OdGePoint3dToVec3(m_camPosition);
     glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
-    glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+    glm::vec3 cameraUp = glm::vec3(0.0f, 0.0f, 1.0f);
     glm::mat4 view = glm::lookAt(cameraPos, cameraTarget, cameraUp);
 
     glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)width / (float)height, 0.1f, 100.0f);
@@ -576,6 +580,10 @@ HWND GLEngineNative::InitializeWindow(HINSTANCE hInstance, int nCmdShow, HWND pa
 
     while (!quit)
     {
+        if (pointPicked)
+        {
+            PickPoint();
+        }
         if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
         {
             if (msg.message == WM_QUIT)
@@ -599,6 +607,91 @@ HWND GLEngineNative::InitializeWindow(HINSTANCE hInstance, int nCmdShow, HWND pa
     DisableOpenGL(hwnd, m_hdc, m_hglrc);
     DestroyWindow(hwnd);
     return hwnd;
+}
+
+void GLEngineNative::PickPoint()
+{
+    MSG msg;
+    GLCircle* circle = new GLCircle();
+	GLLine* line = new GLLine();
+    m_entities.push_back(circle);
+	m_entities.push_back(line);
+    while (pointPicked && m_totalPick >= points.size())
+    {
+        if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+        {
+            if (msg.message == WM_QUIT)
+            {
+                PostQuitMessage(0);
+                return;
+            }
+            else
+            {
+                int mouseX = LOWORD(msg.lParam);
+                int mouseY = HIWORD(msg.lParam);
+
+                GLint viewport[4];
+                GLdouble modelview[16];
+                GLdouble projection[16];
+                GLfloat winX, winY, winZ;
+                GLdouble posX, posY, posZ;
+
+                glGetIntegerv(GL_VIEWPORT, viewport);
+                glGetDoublev(GL_MODELVIEW_MATRIX, modelview);
+                glGetDoublev(GL_PROJECTION_MATRIX, projection);
+
+                winX = (float)mouseX;
+                winY = (float)viewport[3] - (float)mouseY;
+                glReadPixels(mouseX, int(winY), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &winZ);
+
+                gluUnProject(winX, winY, winZ, modelview, projection, viewport, &posX, &posY, &posZ);
+                OdGePoint3d projectPoint = OdGePoint3d(posX, posY, 0);
+                if (msg.message == WM_LBUTTONDOWN)
+                {
+
+                    points.push_back(projectPoint.ConvertTo2d());
+                    if (m_totalPick == points.size())
+                    {
+                        pointPicked = false;
+                    }
+                }
+                else if (msg.message == WM_MOUSEMOVE)
+                {
+                    circle->setCenter(projectPoint);
+                    circle->setRadius(5);
+
+					line->setStartPnt(OdGePoint3d(projectPoint.x, projectPoint.y, 0));
+                    line->setEndPnt(OdGePoint3d(winX, winY, 0));
+                }
+                else
+                {
+                    TranslateMessage(&msg);
+                    DispatchMessage(&msg);
+                }
+
+                RenderScene();
+                SwapBuffers(m_hdc);
+                glfwPollEvents();
+            }
+        }
+    }
+	TriggerPointPicked(points);
+
+	m_entities.pop_back();
+	m_entities.pop_back();
+	delete circle;
+	delete line;
+}
+
+void GLEngineNative::SetPointPickedCallback(PointPickedCallback callback)
+{
+    pointPickedCallback = callback;
+}
+
+void GLEngineNative::TriggerPointPicked(std::vector<OdGePoint2d> resPnt) {
+    if (pointPickedCallback) {
+        pointPickedCallback(resPnt);
+    }
 }
 
 void GLEngineNative::ResizeChild(int width, int height)

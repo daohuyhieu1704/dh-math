@@ -16,18 +16,12 @@ namespace MathUI.ViewModels.TopPanel
         {
         }
 
-        public void DrawLine()
+        public async void DrawLine()
         {
             PointSelection pointSelection = new();
-            Point3d pnt = pointSelection.getPoints(2);
-            //Trans trans = new();
-            //trans.StartTransaction();
-            //Line line = new(new Point3d(0, 0, 0), new Point3d(100, 100, 0));
-            //trans.AddNewlyObject(line);
-            //trans.Commit();
-            GLEngine.Instance.AddLine(new Point3d(0, 0, 0), new Point3d(1, 1, 0));
-            GLEngine.Instance.AddLine(new Point3d(1, 1, 0), new Point3d(-1, -1, 0));
-            GLEngine.Instance.AddLine(new Point3d(1, 1, 0), new Point3d(1, 1, 1));
+            List<Point3d> pnt = await pointSelection.getPoints(2);
+            Line line = new(pnt[0], pnt[1]);
+            line.Draw();
         }
     }
 }
