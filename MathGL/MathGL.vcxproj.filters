@@ -51,6 +51,9 @@
     <ClInclude Include="PointSelection.h">
       <Filter>Prompts</Filter>
     </ClInclude>
+    <ClInclude Include="DoubleSelection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GLEngine.cpp">
@@ -70,6 +73,9 @@
     </ClCompile>
     <ClCompile Include="PointSelection.cpp">
       <Filter>Prompts</Filter>
+    </ClCompile>
+    <ClCompile Include="DoubleSelection.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -154,6 +154,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Circle.h" />
+    <ClInclude Include="DoubleSelection.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GLEngine.h" />
     <ClInclude Include="Line.h" />
@@ -163,6 +164,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Circle.cpp" />
+    <ClCompile Include="DoubleSelection.cpp" />
     <ClCompile Include="GLEngine.cpp" />
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="pch.cpp">

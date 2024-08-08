@@ -16,7 +16,7 @@ using System.Windows.Input;
 
 namespace MathUI.ViewModels.MainWindow
 {
-    class MainWindowViewModel : ViewModelBase
+    public class MainWindowViewModel : ViewModelBase
     {
         private DispatcherTimer _timer;
 
@@ -53,9 +53,21 @@ namespace MathUI.ViewModels.MainWindow
             }
         }
 
+        private string _historyWindow;
+        public string HistoryWindow
+        {
+            get => _historyWindow;
+            set
+            {
+                _historyWindow = value;
+                OnPropertyChanged("HistoryWindow");
+            }
+        }
+
         public MainWindowViewModel()
         {
             EngineName = "OpenGL";
+            HistoryWindow = "";
         }
 
         public void LoadEngine(MathUI.Presenters.MainWindow mainWindow)
@@ -66,6 +78,8 @@ namespace MathUI.ViewModels.MainWindow
             {
                 engineContainer.Children.Add(new EngineHost(typeof(GLEngine)));
                 // engineContainer.Children.Add(new EngineHost(typeof(DXEngine)));
+
+                HistoryWindow += "Engine started\n";
             }
         }
 
@@ -119,7 +133,7 @@ namespace MathUI.ViewModels.MainWindow
             GLEngine.Instance.BRViewport();
         }
 
-        internal void RealtimeHandle()
+        public void RealtimeHandle()
         {
             List<Point3d> point3Ds = GLEngine.Instance.Points;
             if (point3Ds.Count == 0)
@@ -130,7 +144,7 @@ namespace MathUI.ViewModels.MainWindow
             MouseY = point3Ds.Last().Y.ToString();
         }
 
-        internal void ZoomViewport(MouseWheelEventArgs e)
+        public void ZoomViewport(MouseWheelEventArgs e)
         {
             if (e.Delta > 0)
             {
@@ -142,6 +156,42 @@ namespace MathUI.ViewModels.MainWindow
                 GLEngine.Instance.ZoomFactor += 1.0f;
             }
 
+        }
+
+        public async void DrawLine()
+        {
+            PointSelection pointSelection = new();
+            HistoryWindow += "Pick 2 points:" + "\n";
+            List<Point3d> pnt = await pointSelection.getPoints(2);
+            Line line = new(pnt[0], pnt[1]);
+            line.Draw();
+            HistoryWindow += line.GetCommand() + "\n";
+        }
+
+        public async void DrawCircle()
+        {
+            PointSelection pointSelection = new();
+            HistoryWindow += "Pick 1 points:" + "\n";
+            List<Point3d> pnt = await pointSelection.getPoints(1);
+            Circle circle = new(pnt[0], 6);
+            circle.Draw();
+            HistoryWindow += circle.GetCommand() + "\n";
+        }
+
+        public async void DrawSquare()
+        {
+            PointSelection pointSelection = new();
+            HistoryWindow += "Pick 2 points:" + "\n";
+            List<Point3d> pnt = await pointSelection.getPoints(2);
+            Square square = new(pnt[0].ConvertTo2d(), pnt[1].ConvertTo2d(), 10);
+            square.Draw();
+            HistoryWindow += square.GetCommand() + "\n";
+        }
+
+        internal void AppendCommand(string command)
+        {
+            GLEngine.Instance.AppendCommand(command);
+            HistoryWindow += command + "\n";
         }
     }
 }

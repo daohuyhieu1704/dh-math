@@ -153,8 +153,7 @@ namespace MathUI.Presenters
             if (e.Key == Key.Enter)
             {
                 string command = CommandWindow.Text;
-                MessageBox.Show($"Bạn đã nhập lệnh: {command}");
-                GLEngine.Instance.AppendCommand(command);
+                CommandAction((model) => model.AppendCommand(command));
                 CommandWindow.Clear();
             }
         }

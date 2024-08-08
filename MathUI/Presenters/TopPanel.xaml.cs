@@ -22,16 +22,23 @@ namespace MathUI.Presenters
     /// </summary>
     public partial class TopPanel : UserControl
     {
+        public static readonly DependencyProperty ViewModelProperty =
+        DependencyProperty.Register("ViewModel", typeof(MainWindowViewModel), typeof(TopPanel), new PropertyMetadata(null));
+
+        public MainWindowViewModel ViewModel
+        {
+            get { return (MainWindowViewModel)GetValue(ViewModelProperty); }
+            set { SetValue(ViewModelProperty, value); }
+        }
         public TopPanel()
         {
             InitializeComponent();
-            DataContext = new TopPanelViewModel();
         }
-        private void CommandAction(Action<TopPanelViewModel> callback)
+        private void CommandAction(Action<MainWindowViewModel> callback)
         {
             try
             {
-                if (DataContext is not TopPanelViewModel model)
+                if (DataContext is not MainWindowViewModel model)
                 {
                     return;
                 }
@@ -46,17 +53,17 @@ namespace MathUI.Presenters
 
         private void DrawLine_Click(object sender, RoutedEventArgs e)
         {
-            CommandAction((model) => model.DrawLine());
+            CommandAction((model) => ViewModel.DrawLine());
         }
 
         private void DrawCircle_Click(object sender, RoutedEventArgs e)
         {
-            CommandAction((model) => model.DrawCircle());
+            CommandAction((model) => ViewModel.DrawCircle());
         }
 
         private void DrawSquare_Click(object sender, RoutedEventArgs e)
         {
-            CommandAction((model) => model.DrawSquare());
+            CommandAction((model) => ViewModel.DrawSquare());
         }
     }
 }
