@@ -51,4 +51,5 @@ bld/
 [Ll]og/
 [Ll]ogs/
 Libraries/
+packages/
 vcpkg_installed/

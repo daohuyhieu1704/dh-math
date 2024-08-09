@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="Point3dTest.cpp">
+      <Filter>CoreTest</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CoreTest">
+      <UniqueIdentifier>{e017a692-5c28-48eb-9fe5-1e496e0e057a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
