@@ -10,6 +10,7 @@
 #include "CircleCmd.h"
 #include "SquareCmd.h"
 #include <OdJig.h>
+#include "glm/glm.hpp"
 
 using namespace Geometry;
 
@@ -34,7 +35,8 @@ class GLEngineNative : public IEngine
 	static GLEngineNative* m_instance;
 	OdHostAppService* m_appServices;
 public:
-	std::vector<RenderEntity*> m_entities;
+	std::vector<OdDbEntity*> m_entities;
+	std::vector<RenderEntity*> m_tempRenders;
 	std::vector<OdJig*> m_jigs;
 	static GLEngineNative* GetInstance()
 	{
@@ -67,7 +69,7 @@ public:
 	void AddLine(OdGePoint3d startPnt, OdGePoint3d endPnt);
 	void AppendCommand(const std::string command);
 	void RegisterCommandPattern();
-
+	void SelectEntity(int mouseX, int mouseY, int screenWidth, int screenHeight, glm::mat4 viewMatrix, glm::mat4 projectionMatrix);
 	// Viewport functions
 #pragma region Viewport
 	void Setup3DViewport(int width, int height);

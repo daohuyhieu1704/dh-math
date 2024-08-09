@@ -8,7 +8,7 @@ bool LineCmd::execute()
     MathLine* line = new MathLine();
     line->setStartPnt(startPnt);
     line->setEndPnt(endPnt);
-    GLEngineNative::GetInstance()->m_entities.push_back(line->m_renderMethod);
+    GLEngineNative::GetInstance()->m_entities.push_back(line);
     return true;
 }
 

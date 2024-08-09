@@ -12,5 +12,5 @@ public:
     ~MathCircle();
 
     void setCenter(OdGePoint3d center) override;
-    void setRadius(double radius) override;
+    void setRadius(float radius) override;
 };

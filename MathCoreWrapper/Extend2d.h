@@ -10,40 +10,42 @@ namespace Geom
     public value class Extend2d
     {
     private:
-        OdGeExtend2d* m_pExtend2d;
+        Point2d minPnt;
+        Point2d maxPnt;
     public:
         Extend2d(Point2d minPnt, Point2d maxPnt)
         {
-            m_pExtend2d = new OdGeExtend2d(minPnt.ToNative(), maxPnt.ToNative());
+			this->minPnt = minPnt;
+			this->maxPnt = maxPnt;
         }
 
         property Point2d MinPnt
         {
             Point2d get()
             {
-                return Point2d::FromNative(m_pExtend2d->GetMinPnt());
+				return minPnt;
             }
             void set(Point2d value)
             {
-                m_pExtend2d->SetMinPnt(value.ToNative());
+				minPnt = value;
             }
         }
 
-        property Point2d MaxPnt
-        {
-			Point2d get()
-			{
-				return Point2d::FromNative(m_pExtend2d->GetMaxPnt());
-			}
-			void set(Point2d value)
-			{
-				m_pExtend2d->SetMaxPnt(value.ToNative());
-			}
-        }
+		property Point2d MaxPnt
+		{
+            Point2d get()
+            {
+				return maxPnt;
+            }
+            void set(Point2d value)
+            {
+				maxPnt = value;
+            }
+		}
 
         OdGeExtend2d ToNative()
         {
-			return *m_pExtend2d;
+			return OdGeExtend2d(minPnt.ToNative(), maxPnt.ToNative());
         }
 
         static Extend2d FromNative(OdGeExtend2d point)

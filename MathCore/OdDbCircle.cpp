@@ -20,12 +20,12 @@ void OdDbCircle::setCenter(OdGePoint3d center)
     m_center = center;
 }
 
-double OdDbCircle::getRadius() const
+float OdDbCircle::getRadius() const
 {
     return m_radius;
 }
 
-void OdDbCircle::setRadius(double radius)
+void OdDbCircle::setRadius(float radius)
 {
     m_radius = radius;
 }
@@ -40,4 +40,5 @@ nlohmann::json OdDbCircle::ToJson() const
 
 void OdDbCircle::WorldDraw()
 {
+	m_boundary = OdGeExtend3d(OdGePoint3d({ m_center.x - m_radius, m_center.y - m_radius, 0 }), OdGePoint3d({ m_center.x + m_radius, m_center.y + m_radius, 0 }));
 }

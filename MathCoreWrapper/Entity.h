@@ -3,7 +3,7 @@
 #include "OdDbEntity.h"
 #include "DisposableWrapper.h"
 #include "DbObject.h"
-#include "Extend2d.h"
+#include "Extend3d.h"
 
 namespace MathCore
 {
@@ -13,14 +13,14 @@ namespace MathCore
 		Entity(System::IntPtr UnmanagedObject, bool autoDelete)
 			: DbObject(UnmanagedObject, autoDelete) {};
 
-        property Extend2d Boundary
+        property Extend3d Boundary
         {
-            Extend2d get()
+            Extend3d get()
             {
-                return Extend2d::FromNative(GetImpObj()->GetBoundary());
+                return Extend3d::FromNative(GetImpObj()->GetBoundary());
             }
 
-            void set(Extend2d value)
+            void set(Extend3d value)
             {
                 static_cast<OdDbEntity*>(GetImpObj())->SetBoundary(value.ToNative());
             }

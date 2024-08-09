@@ -5,7 +5,7 @@ class OdDbCircle :
     public OdDbEntity
 {
     OdGePoint3d m_center;
-    double m_radius;
+    float m_radius;
 public:
     OdDbCircle();
     ~OdDbCircle();
@@ -13,8 +13,8 @@ public:
     virtual OdGePoint3d getCenter() const;
     virtual void setCenter(OdGePoint3d center);
 
-    virtual double getRadius() const;
-    virtual void setRadius(double radius);
+    virtual float getRadius() const;
+    virtual void setRadius(float radius);
 
     nlohmann::json ToJson() const override;
     void WorldDraw() override;

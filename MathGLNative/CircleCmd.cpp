@@ -33,7 +33,7 @@ bool CircleCmd::execute()
     circle->setCenter(center);
     circle->setRadius(radius);
 
-    GLEngineNative::GetInstance()->m_entities.push_back(circle->m_renderMethod);
+    GLEngineNative::GetInstance()->m_entities.push_back(circle);
 
     return true;
 }

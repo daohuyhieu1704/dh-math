@@ -18,4 +18,8 @@ namespace Geometry
 	OdGePoint2d::~OdGePoint2d()
 	{
 	}
+	double OdGePoint2d::DistanceTo(OdGePoint2d point)
+	{
+		return sqrt(pow(point.x - x, 2) + pow(point.y - y, 2));
+	}
 }

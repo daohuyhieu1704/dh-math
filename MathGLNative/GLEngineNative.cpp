@@ -568,7 +568,7 @@ void GLEngineNative::AddLine(OdGePoint3d startPnt, OdGePoint3d endPnt)
 	MathLine* line = new MathLine();
 	line->setStartPnt(startPnt);
 	line->setEndPnt(endPnt);
-	m_entities.push_back(line->m_renderMethod);
+	m_entities.push_back(line);
 }
 
 void GLEngineNative::AppendCommand(const std::string command)
@@ -624,12 +624,104 @@ void GLEngineNative::RenderScene()
     drawGridXY(20);                     // draw XY-grid at origin (world space)
     // RenderCube(10, 10);
 
-    for (RenderEntity* ent : m_entities)
+    for (OdDbEntity* ent : m_entities)
     {
         if (ent != nullptr)
         {
-            ent->render();
+            OdDrawable* drawable = static_cast<OdDrawable*>(ent);
+            if (drawable != nullptr && drawable->m_renderMethod != nullptr)
+            {
+				drawable->m_renderMethod->render();
+            }
         }
+    }
+    for (RenderEntity* ent : m_tempRenders)
+    {
+        if (ent != nullptr)
+        {
+			ent->render();
+        }
+    }
+}
+
+bool RayIntersectsSphere(glm::vec3 rayOrigin, glm::vec3 rayDirection, glm::vec3 sphereCenter, float sphereRadius, float& intersectionDistance)
+{
+    glm::vec3 oc = rayOrigin - sphereCenter;
+    float a = glm::dot(rayDirection, rayDirection);
+    float b = 2.0f * glm::dot(oc, rayDirection);
+    float c = glm::dot(oc, oc) - sphereRadius * sphereRadius;
+    float discriminant = b * b - 4 * a * c;
+
+    if (discriminant < 0)
+    {
+        return false;  // No intersection
+    }
+    else
+    {
+        discriminant = sqrt(discriminant);
+        float t1 = (-b - discriminant) / (2.0f * a);
+        float t2 = (-b + discriminant) / (2.0f * a);
+
+        intersectionDistance = (t1 < t2) ? t1 : t2;
+        return true;  // Intersection occurs
+    }
+}
+
+void CalculateRay(int mouseX, int mouseY, int screenWidth, int screenHeight, glm::mat4 viewMatrix, glm::mat4 projectionMatrix, glm::vec3& rayOrigin, glm::vec3& rayDirection)
+{
+    // Convert mouse coordinates to normalized device coordinates (NDC)
+    float x = (2.0f * mouseX) / screenWidth - 1.0f;
+    float y = 1.0f - (2.0f * mouseY) / screenHeight;
+    float z = 1.0f;  // In NDC, we start with z = 1.0 for ray direction
+
+    glm::vec3 rayNDC(x, y, z);
+
+    // Convert from NDC to clip coordinates
+    glm::vec4 rayClip(rayNDC.x, rayNDC.y, -1.0f, 1.0f);
+
+    // Convert from clip coordinates to eye coordinates
+    glm::vec4 rayEye = glm::inverse(projectionMatrix) * rayClip;
+    rayEye = glm::vec4(rayEye.x, rayEye.y, -1.0f, 0.0f);  // We set w = 0.0 to represent a direction vector
+
+    // Convert from eye coordinates to world coordinates
+    glm::vec4 rayWorld = glm::inverse(viewMatrix) * rayEye;
+    rayDirection = glm::normalize(glm::vec3(rayWorld));
+
+    // Ray origin is the camera position
+    rayOrigin = glm::vec3(glm::inverse(viewMatrix)[3]);
+}
+
+void GLEngineNative::SelectEntity(int mouseX, int mouseY, int screenWidth, int screenHeight, glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
+{
+    glm::vec3 rayOrigin, rayDirection;
+    CalculateRay(mouseX, mouseY, screenWidth, screenHeight, viewMatrix, projectionMatrix, rayOrigin, rayDirection);
+
+    float closestDistance = FLT_MAX;
+	OdDbEntity* selectedEntity = nullptr;
+    for (auto& entity : m_entities)
+    {
+        float intersectionDistance;
+        if (RayIntersectsSphere(rayOrigin, rayDirection, APIGLConverter::OdGePoint3dToVec3(entity->GetPosition()), entity->getSphereRadius(), intersectionDistance))
+        {
+            if (intersectionDistance < closestDistance)
+            {
+                closestDistance = intersectionDistance;
+                selectedEntity = entity;
+            }
+        }
+    }
+
+    for (auto& entity : m_entities)
+    {
+		if (entity == selectedEntity)
+		{
+			entity->setIsSelected(true);
+		}
+		else
+		{
+			entity->setIsSelected(false);
+		}
+
     }
 }
 
@@ -724,8 +816,8 @@ void GLEngineNative::PickPoint()
     MSG msg;
     GLCircle* circle = new GLCircle();
 	GLLine* line = new GLLine();
-    m_entities.push_back(circle);
-	m_entities.push_back(line);
+    m_tempRenders.push_back(circle);
+    m_tempRenders.push_back(line);
 
     for (OdJig* jig : m_jigs)
     {
@@ -800,11 +892,11 @@ void GLEngineNative::PickPoint()
 
 	for (OdJig* jig : m_jigs)
 	{
-        m_entities.pop_back();
+        m_tempRenders.pop_back();
 	}
 	m_jigs.clear();
-	m_entities.pop_back();
-	m_entities.pop_back();
+    m_tempRenders.pop_back();
+    m_tempRenders.pop_back();
 	delete circle;
 	delete line;
 }

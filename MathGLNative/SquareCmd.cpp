@@ -3,7 +3,7 @@
 #include "GLEngineNative.h"
 
 void SquareCmd::serialize(const std::vector<std::string>& strData) {
-    if (strData.size() < 4) {
+    if (strData.size() != 4) {
         throw std::runtime_error("Invalid input for SQUARE command");
     }
 
@@ -32,7 +32,7 @@ bool SquareCmd::execute() {
     square->setMaxPnt(maxPnt);
     square->setHeight(height);
 
-    GLEngineNative::GetInstance()->m_entities.push_back(square->m_renderMethod);
+    GLEngineNative::GetInstance()->m_entities.push_back(square);
 
     return true;
 }

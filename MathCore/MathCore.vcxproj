@@ -150,6 +150,7 @@
     <ClInclude Include="Matrices.h" />
     <ClInclude Include="OdDbCircle.h" />
     <ClInclude Include="OdDbSquare.h" />
+    <ClInclude Include="OdGeExtend3d.h" />
     <ClInclude Include="OdGeQuaternion.h" />
     <ClInclude Include="OdGeVector2d.h" />
     <ClInclude Include="OdGeVector4d.h" />
@@ -176,6 +177,7 @@
     <ClCompile Include="Matrices.cpp" />
     <ClCompile Include="OdDbCircle.cpp" />
     <ClCompile Include="OdDbSquare.cpp" />
+    <ClCompile Include="OdGeExtend3d.cpp" />
     <ClCompile Include="OdGeQuaternion.cpp" />
     <ClCompile Include="OdGeVector2d.cpp" />
     <ClCompile Include="OdGeVector4d.cpp" />

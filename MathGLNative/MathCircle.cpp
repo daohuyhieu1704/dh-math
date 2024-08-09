@@ -12,7 +12,7 @@ void MathCircle::setCenter(OdGePoint3d center)
     ((GLCircle*)m_renderMethod)->setCenter(center);
 }
 
-void MathCircle::setRadius(double radius)
+void MathCircle::setRadius(float radius)
 {
     OdDbCircle::setRadius(radius);
     ((GLCircle*)m_renderMethod)->setRadius(radius);

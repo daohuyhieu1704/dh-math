@@ -27,6 +27,7 @@
     <None Remove="Icons\rect.png" />
     <None Remove="Icons\redo.png" />
     <None Remove="Icons\save.png" />
+    <None Remove="Icons\square.png" />
     <None Remove="Icons\undo.png" />
   </ItemGroup>
 
@@ -44,6 +45,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Icons\redo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Icons\square.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Icons\undo.png">

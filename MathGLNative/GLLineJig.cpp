@@ -28,7 +28,7 @@ bool GLLineJig::update()
 
 bool GLLineJig::Preview()
 {
-	GLEngineNative::GetInstance()->m_entities.push_back(&m_Line);
+	GLEngineNative::GetInstance()->m_tempRenders.push_back(&m_Line);
 	return true;
 }
 

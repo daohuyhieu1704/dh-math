@@ -97,6 +97,9 @@
     <Filter Include="Geometry\Matrices">
       <UniqueIdentifier>{6c58fb95-e347-4bcf-92f8-cc9be279d642}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Geometry\Extend3d">
+      <UniqueIdentifier>{f5844737-fea4-4839-b6fa-0c179710aa98}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -177,6 +180,9 @@
     <ClInclude Include="Matrices.h">
       <Filter>Geometry\Matrices</Filter>
     </ClInclude>
+    <ClInclude Include="OdGeExtend3d.h">
+      <Filter>Geometry\Extend3d</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -247,6 +253,9 @@
     </ClCompile>
     <ClCompile Include="Matrices.cpp">
       <Filter>Geometry\Matrices</Filter>
+    </ClCompile>
+    <ClCompile Include="OdGeExtend3d.cpp">
+      <Filter>Geometry\Extend3d</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

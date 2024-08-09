@@ -119,7 +119,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)MathGLNative;$(SolutionDir)MathCore;$(SolutionDir)Libraries\GLEW\include;$(SolutionDir)Libraries\GLFW\include;$(SolutionDir)Libraries\nlohmann;$(SolutionDir)MathCoreWrapper;$(SolutionDir)CoreGLConverter;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)MathGLNative;$(SolutionDir)MathCore;$(SolutionDir)Libraries\GLEW\include;$(SolutionDir)Libraries\GLFW\include;$(SolutionDir)Libraries\nlohmann;$(SolutionDir)MathCoreWrapper;$(SolutionDir)CoreGLConverter;$(SolutionDir)Libraries\GLM;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
