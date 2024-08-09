@@ -22,7 +22,12 @@
   <ItemGroup>
     <None Remove="Icons\circle.png" />
     <None Remove="Icons\line.png" />
+    <None Remove="Icons\new.png" />
+    <None Remove="Icons\open.png" />
     <None Remove="Icons\rect.png" />
+    <None Remove="Icons\redo.png" />
+    <None Remove="Icons\save.png" />
+    <None Remove="Icons\undo.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,7 +37,16 @@
     <Content Include="Icons\line.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Icons\new.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Icons\rect.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Icons\redo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Icons\undo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -40,6 +54,18 @@
   <ItemGroup>
     <ProjectReference Include="..\MathDX\MathDX.vcxproj" />
     <ProjectReference Include="..\MathGL\MathGL.vcxproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Icons\open.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Icons\save.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

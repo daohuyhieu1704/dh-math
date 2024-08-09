@@ -60,9 +60,39 @@ namespace MathUI.Presenters
             CommandAction((model) => ViewModel.DrawCircle());
         }
 
+        private void DrawRect_Click(object sender, RoutedEventArgs e)
+        {
+            CommandAction((model) => ViewModel.DrawRect());
+        }
+
         private void DrawSquare_Click(object sender, RoutedEventArgs e)
         {
             CommandAction((model) => ViewModel.DrawSquare());
+        }
+
+        private void Undo_Click(object sender, RoutedEventArgs e)
+        {
+            CommandAction((model) => ViewModel.Undo());
+        }
+
+        private void Redo_Click(object sender, RoutedEventArgs e)
+        {
+            CommandAction((model) => ViewModel.Redo());
+        }
+
+        private void New_Click(object sender, RoutedEventArgs e)
+        {
+            CommandAction((model) => ViewModel.NewFile());
+        }
+
+        private void Open_Click(object sender, RoutedEventArgs e)
+        {
+            CommandAction((model) => ViewModel.OpenFile());
+        }
+
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
+            CommandAction((model) => ViewModel.SaveFile());
         }
     }
 }

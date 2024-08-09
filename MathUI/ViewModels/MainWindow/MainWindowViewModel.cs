@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -13,13 +14,14 @@ using MathCore;
 using MathCore.Geom;
 using System.Windows.Threading;
 using System.Windows.Input;
+using MathUI.Utils;
 
 namespace MathUI.ViewModels.MainWindow
 {
     public class MainWindowViewModel : ViewModelBase
     {
         private DispatcherTimer _timer;
-
+        public Presenters.MainWindow context;
         string _MouseX;
         public string MouseX
         {
@@ -64,10 +66,34 @@ namespace MathUI.ViewModels.MainWindow
             }
         }
 
-        public MainWindowViewModel()
+        private string commandWindow;
+
+        public string CommandWindow 
+        { 
+            get => commandWindow;
+            set
+            {
+                commandWindow = value;
+                OnPropertyChanged("CommandWindow");
+            }
+        }
+
+        private TextBox _InputCommandWindow;
+        public TextBox InputCommandWindow
+        {
+            get => _InputCommandWindow;
+            set
+            {
+                _InputCommandWindow = value;
+                OnPropertyChanged("InputCommandWindow");
+            }
+        }
+
+        public MainWindowViewModel(Presenters.MainWindow mainWindow)
         {
             EngineName = "OpenGL";
             HistoryWindow = "";
+            context = mainWindow;
         }
 
         public void LoadEngine(MathUI.Presenters.MainWindow mainWindow)
@@ -180,21 +206,74 @@ namespace MathUI.ViewModels.MainWindow
             circle.Draw();
             HistoryWindow += circle.GetCommand() + "\n";
         }
+        internal async void DrawRect()
+        {
+            PointSelection pointSelection = new();
+            HistoryWindow += "Pick 2 points:" + "\n";
+            List<Point3d> pnt = await pointSelection.getPoints(2);
+            Line line1 = new(new Point3d(pnt[0].X, pnt[1].Y, 0), pnt[1]);
+            line1.Draw();
+
+            Line line2 = new(pnt[1], new Point3d(pnt[1].X, pnt[0].Y, 0));
+            line2.Draw();
+
+            Line line3 = new(new Point3d(pnt[1].X, pnt[0].Y, 0), pnt[0]);
+            line3.Draw();
+
+            Line line4 = new(pnt[0], new Point3d(pnt[0].X, pnt[1].Y, 0));
+            line4.Draw();
+
+            HistoryWindow += line1.GetCommand() + "\n";
+            HistoryWindow += line2.GetCommand() + "\n";
+            HistoryWindow += line3.GetCommand() + "\n";
+            HistoryWindow += line4.GetCommand() + "\n";
+        }
 
         public async void DrawSquare()
         {
             PointSelection pointSelection = new();
             HistoryWindow += "Pick 2 points:" + "\n";
             List<Point3d> pnt = await pointSelection.getPoints(2);
-            Square square = new(pnt[0].ConvertTo2d(), pnt[1].ConvertTo2d(), 10);
-            square.Draw();
-            HistoryWindow += square.GetCommand() + "\n";
+            TextInput textInp = new(this);
+            string text = await textInp.GetText();
+            if (double.TryParse(text, out var z))
+            {
+                Square square = new(pnt[0].ConvertTo2d(), pnt[1].ConvertTo2d(), z);
+                square.Draw();
+                HistoryWindow += square.GetCommand() + "\n";
+            }
         }
 
-        internal void AppendCommand(string command)
+        internal void AppendCommand()
         {
-            GLEngine.Instance.AppendCommand(command);
-            HistoryWindow += command + "\n";
+            GLEngine.Instance.AppendCommand(CommandWindow);
+            CommandWindow = "";
+            HistoryWindow += CommandWindow + "\n";
+        }
+
+        internal void Undo()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void Redo()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void NewFile()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void OpenFile()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void SaveFile()
+        {
+            throw new NotImplementedException();
         }
     }
 }

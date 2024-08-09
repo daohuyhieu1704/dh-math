@@ -20,11 +20,14 @@ namespace MathUI.Presenters
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MainWindowViewModel vm;
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainWindowViewModel();
+            vm = new MainWindowViewModel(this);
+            DataContext = vm;
             this.Loaded += MainWindow_Loaded;
+            vm.InputCommandWindow = this.InputCommandWindow;
             //StartBackgroundCheck();
         }
 
@@ -152,9 +155,7 @@ namespace MathUI.Presenters
         {
             if (e.Key == Key.Enter)
             {
-                string command = CommandWindow.Text;
-                CommandAction((model) => model.AppendCommand(command));
-                CommandWindow.Clear();
+                CommandAction((model) => model.AppendCommand());
             }
         }
     }
