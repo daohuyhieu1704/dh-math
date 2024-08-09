@@ -228,72 +228,73 @@ void GLEngineNative::MoveCamera(float dx, float dy)
 
 void GLEngineNative::Setup3DViewport(int width, int height) {
     glViewport(0, 0, width, height);
-
+    glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
+    glm::vec3 cameraUp = glm::vec3(0.0f, 0.0f, 1.0f);
+    glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)width / (float)height, 0.1f, 100.0f);
     switch (m_viewportType)
     {
     case ViewportType::TL:
     {
-        m_camPosition = OdGePoint3d(-10.0, 10.0, 10.0);
+        m_camPosition = OdGePoint3d(-1.0, 1.0, 1.0);
     }
     break;
     case ViewportType::TM:
     {
-        m_camPosition = OdGePoint3d(0.0, 10.0, 10.0);
+        m_camPosition = OdGePoint3d(0.0, 1.0, 1.0);
     }
     break;
     case ViewportType::TR:
     {
-        m_camPosition = OdGePoint3d(10.0, 10.0, 10.0);
+        m_camPosition = OdGePoint3d(1.0, 1.0, 1.0);
     }
     break;
     case ViewportType::ML:
     {
-        m_camPosition = OdGePoint3d(-10.0, 0.0, 10.0);
+        m_camPosition = OdGePoint3d(-1.0, 0.0, 1.0);
     }
     break;
     case ViewportType::TMM:
     {
-        m_camPosition = OdGePoint3d(0.0, 0.0, 10.0);
+		m_camPosition = OdGePoint3d(0.0, 0.0, 1.0);
+		cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+        projection = glm::perspective(glm::radians(45.0f), (float)width / (float)height, 0.1f, 100.0f);
+        return;
     }
     break;
     case ViewportType::BMM:
     {
-        m_camPosition = OdGePoint3d(0.0, -10.0, 10.0);
+        m_camPosition = OdGePoint3d(0.0, 0.0, -1.0);
     }
     break;
     case ViewportType::MR:
     {
-        m_camPosition = OdGePoint3d(10.0, 0.0, 10.0);
+        m_camPosition = OdGePoint3d(1.0, 0.0, 1.0);
     }
     break;
     case ViewportType::BL:
     {
-        m_camPosition = OdGePoint3d(-10.0, -10.0, 10.0);
+        m_camPosition = OdGePoint3d(-1.0, -1.0, 1.0);
     }
     break;
     case ViewportType::BM:
     {
-        m_camPosition = OdGePoint3d(0.0, -10.0, 10.0);
+        m_camPosition = OdGePoint3d(0.0, -1.0, 1.0);
     }
     break;
     case ViewportType::BR:
     {
-        m_camPosition = OdGePoint3d(10.0, -10.0, 10.0);
+        m_camPosition = OdGePoint3d(10.0, -1.0, 1.0);
     }
     break;
     default:
-        m_camPosition = OdGePoint3d(0.0, 0.0, 10.0);
+        m_camPosition = OdGePoint3d(0.0, 0.0, 1.0);
         break;
     }
 
 	m_camPosition += (m_camPosition - OdGePoint3d(0, 0, 0)).Normalize() * zoomFactor;
 
     glm::vec3 cameraPos = APIGLConverter::OdGePoint3dToVec3(m_camPosition);
-    glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
-    glm::vec3 cameraUp = glm::vec3(0.0f, 0.0f, 1.0f);
     glm::mat4 view = glm::lookAt(cameraPos, cameraTarget, cameraUp);
-
-    glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)width / (float)height, 0.1f, 100.0f);
 
     glMatrixMode(GL_PROJECTION);
     glLoadMatrixf(glm::value_ptr(projection));
@@ -586,50 +587,9 @@ void GLEngineNative::AppendCommand(const std::string command)
 void GLEngineNative::RenderScene()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
- //   glm::mat4 model = glm::mat4(1.0f);
-
- //   float radius = 10.0f;
- //   m_camPosition = OdGePoint3d(
- //       radius * cos(glm::radians(angleY)) * cos(glm::radians(angleX)),
- //       radius * sin(glm::radians(angleX)),
- //       radius * sin(glm::radians(angleY)) * cos(glm::radians(angleX))
- //   );
-
- //   glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
-
- //   glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
-
- //   glm::mat4 view = glm::lookAt(
- //       APIGLConverter::OdGePoint3dToVec3(m_camPosition),
- //       cameraTarget,
- //       cameraUp
- //   );
-
-	//int dx = 0, dy = 0, width = 0, height = 0;
-	//GetCurrentViewport(dx, dy, width, height);
- //   glm::mat4 projection = glm::perspective(
- //       glm::radians(45.0f),
- //       (float)width / (float)height,
- //       0.1f,
- //       100.0f
- //   );
-
-    //GLuint shaderProgram = CreateShaderProgram();
-    //glUseProgram(shaderProgram);
-    //GLuint modelLoc = glGetUniformLocation(shaderProgram, "model");
-    //GLuint viewLoc = glGetUniformLocation(shaderProgram, "view");
-    //GLuint projLoc = glGetUniformLocation(shaderProgram, "projection");
-
-    //glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-    //glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-    //glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
-
-    // Draw3DGrid(100, 1);
-    drawAxis();                         // for origin (0,0,0)
-    // drawGridXZ(20);                     // draw XZ-grid at origin (world space)
-    drawGridXY(20);                     // draw XY-grid at origin (world space)
-    // RenderCube(10, 10);
+    drawAxis();
+    // drawGridXZ(20);
+    drawGridXY(20);
 
     for (OdDbEntity* ent : m_entities)
     {
