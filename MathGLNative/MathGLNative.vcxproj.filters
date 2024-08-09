@@ -58,6 +58,15 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{258644f9-7fff-4628-9d4d-a64a05b107c8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{623435a1-7da0-47cb-9e33-245f7c794053}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Jig\Line">
+      <UniqueIdentifier>{e35f0442-eab6-4fde-8fc7-28e30ecced25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Jig\Circle">
+      <UniqueIdentifier>{c5c85c0d-c729-4d53-a6d9-41a0a15e79b4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -99,8 +108,17 @@
     <ClInclude Include="PromptPointSelection.h">
       <Filter>PromptSelection</Filter>
     </ClInclude>
+    <ClInclude Include="GLNativeConverter.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="PromptEntitySelection.h">
+      <Filter>PromptSelection</Filter>
+    </ClInclude>
     <ClInclude Include="GLLineJig.h">
-      <Filter>Jig</Filter>
+      <Filter>Jig\Line</Filter>
+    </ClInclude>
+    <ClInclude Include="GLCircleJig.h">
+      <Filter>Jig\Circle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -140,8 +158,17 @@
     <ClCompile Include="PromptPointSelection.cpp">
       <Filter>PromptSelection</Filter>
     </ClCompile>
+    <ClCompile Include="GLNativeConverter.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="PromptEntitySelection.cpp">
+      <Filter>PromptSelection</Filter>
+    </ClCompile>
     <ClCompile Include="GLLineJig.cpp">
-      <Filter>Jig</Filter>
+      <Filter>Jig\Line</Filter>
+    </ClCompile>
+    <ClCompile Include="GLCircleJig.cpp">
+      <Filter>Jig\Circle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

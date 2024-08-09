@@ -4,6 +4,7 @@
 OdDbSquare::OdDbSquare()
     : m_minPnt(OdGePoint2d(0, 0)), m_maxPnt(OdGePoint2d(1, 1)), m_height(1.0)
 {
+	m_shape = "Square";
 }
 
 OdDbSquare::~OdDbSquare()
@@ -18,6 +19,7 @@ OdGePoint2d OdDbSquare::getMinPnt() const
 void OdDbSquare::setMinPnt(OdGePoint2d minPnt)
 {
     m_minPnt = minPnt;
+    WorldDraw();
 }
 
 OdGePoint2d OdDbSquare::getMaxPnt() const
@@ -28,6 +30,7 @@ OdGePoint2d OdDbSquare::getMaxPnt() const
 void OdDbSquare::setMaxPnt(OdGePoint2d maxPnt)
 {
     m_maxPnt = maxPnt;
+    WorldDraw();
 }
 
 double OdDbSquare::getHeight() const
@@ -38,6 +41,7 @@ double OdDbSquare::getHeight() const
 void OdDbSquare::setHeight(double height)
 {
     m_height = height;
+    WorldDraw();
 }
 
 nlohmann::json OdDbSquare::ToJson() const
@@ -51,4 +55,5 @@ nlohmann::json OdDbSquare::ToJson() const
 
 void OdDbSquare::WorldDraw()
 {
+	m_boundary = OdGeExtend3d(OdGePoint3d({ m_minPnt.x, m_minPnt.y, 0 }), OdGePoint3d({ m_maxPnt.x, m_maxPnt.y, 0 }));
 }

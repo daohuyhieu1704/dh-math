@@ -2,8 +2,9 @@
 #include "OdDbCircle.h"
 
 OdDbCircle::OdDbCircle()
-    : m_center(OdGePoint3d(0, 0, 0)), m_radius(0)
+	: OdDbEntity(), m_center(OdGePoint3d(0, 0, 0)), m_radius(0)
 {
+    m_shape = "Circle";
 }
 
 OdDbCircle::~OdDbCircle()
@@ -17,7 +18,9 @@ OdGePoint3d OdDbCircle::getCenter() const
 
 void OdDbCircle::setCenter(OdGePoint3d center)
 {
+	SetPosition(center);
     m_center = center;
+    WorldDraw();
 }
 
 float OdDbCircle::getRadius() const
@@ -28,6 +31,7 @@ float OdDbCircle::getRadius() const
 void OdDbCircle::setRadius(float radius)
 {
     m_radius = radius;
+    WorldDraw();
 }
 
 nlohmann::json OdDbCircle::ToJson() const

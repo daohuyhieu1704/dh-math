@@ -2,15 +2,16 @@
 #include "SquareCmd.h"
 #include "GLEngineNative.h"
 
-void SquareCmd::serialize(const std::vector<std::string>& strData) {
+bool SquareCmd::serialize(const std::vector<std::string>& strData) {
     if (strData.size() != 4) {
-        throw std::runtime_error("Invalid input for SQUARE command");
+		return false;
     }
 
     std::vector<std::string> minCoords = EditorInput::CommandPrompt::split(strData[1], ',');
     std::vector<std::string> maxCoords = EditorInput::CommandPrompt::split(strData[2], ',');
+
     if (minCoords.size() != 2 || maxCoords.size() != 2) {
-        throw std::runtime_error("Invalid coordinates for SQUARE command");
+		return false;
     }
 
     minPnt = {
@@ -24,6 +25,7 @@ void SquareCmd::serialize(const std::vector<std::string>& strData) {
     };
 
     height = std::stod(strData[3]);
+	return true;
 }
 
 bool SquareCmd::execute() {

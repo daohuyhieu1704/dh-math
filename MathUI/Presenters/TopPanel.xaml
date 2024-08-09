@@ -134,6 +134,16 @@
                                                 <RowDefinition Height="33" />
                                                 <RowDefinition Height="18" />
                                             </Grid.RowDefinitions>
+                                            <Image Grid.Row="0" Height="33" Source="../Icons/select.png" />
+                                            <Button Grid.Row="1" BorderThickness="0" Background="Transparent" Foreground="White" Content="Select" FontSize="10" Click="Select_Click" />
+                                        </Grid>
+                                    </Border>
+                                    <Border  BorderBrush="Black">
+                                        <Grid Width="40">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="33" />
+                                                <RowDefinition Height="18" />
+                                            </Grid.RowDefinitions>
                                             <Image Grid.Row="0" Height="33" Source="../Icons/undo.png" />
                                             <Button Grid.Row="1" BorderThickness="0" Background="Transparent" Foreground="White" Content="Undo" FontSize="10" Click="Undo_Click" />
                                         </Grid>
@@ -275,7 +285,7 @@
             <TabItem Header="Setting" />
             <TabItem Header="Plugin" />
         </TabControl>
-        <TabControl Grid.Row="2" Margin="0" BorderThickness="0" Background="#2c2d2f">
+        <TabControl x:Name="FileTabControl" Grid.Row="2" Margin="0" BorderThickness="0" Background="#2c2d2f">
             <TabItem Header="Noname.txt" />
         </TabControl>
     </Grid>

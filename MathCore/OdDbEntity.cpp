@@ -25,6 +25,14 @@ void OdDbEntity::setIsSelected(bool isSelected)
 {
 	m_isSelected = isSelected;
 }
+std::string OdDbEntity::getShape() const
+{
+	return m_shape;
+}
+void OdDbEntity::setShape(std::string shape)
+{
+	m_shape = shape;
+}
 OdObjectBase* OdDbEntity::Clone() const
 {
 	return nullptr;

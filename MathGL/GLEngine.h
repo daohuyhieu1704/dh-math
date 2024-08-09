@@ -59,8 +59,11 @@ namespace MathGL
 		void BLViewport();
 		void BMViewport();
 		void BRViewport();
+		void CreateSession(String^ fileName);
 		void AppendCommand(String^ command);
 		void AddJig(Jig^ jig);
+		void Undo();
+		void Redo();
 	protected:
 		GLEngineNative* m_pEngine;
 	};

@@ -5,17 +5,17 @@
 #include "GLEngineNative.h"
 #include "MathCircle.h"
 
-void CircleCmd::serialize(const std::vector<std::string>& strData)
+bool CircleCmd::serialize(const std::vector<std::string>& strData)
 {
     if (strData.size() < 3)
-    {
-        throw std::runtime_error("Invalid input for CIRCLE command");
+	{
+		return false;
     }
 
     std::vector<std::string> centerCoords = EditorInput::CommandPrompt::split(strData[1], ',');
     if (centerCoords.size() != 3) 
-    {
-        throw std::runtime_error("Invalid center coordinates for CIRCLE command");
+	{
+		return false;
     }
 
     center = {
@@ -25,6 +25,7 @@ void CircleCmd::serialize(const std::vector<std::string>& strData)
     };
 
     radius = std::stod(strData[2]);
+    return true;
 }
 
 bool CircleCmd::execute()

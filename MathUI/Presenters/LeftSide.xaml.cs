@@ -1,4 +1,5 @@
 ﻿using MathUI.ViewModels.LeftSide;
+using MathUI.ViewModels.MainWindow;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,12 +20,20 @@ namespace MathUI.Presenters
     /// <summary>
     /// Interaction logic for LeftSide.xaml
     /// </summary>
-    public partial class LeftSide : UserControl
+    public partial class LeftSide : System.Windows.Controls.UserControl
     {
+        public static readonly DependencyProperty ViewModelProperty =
+        DependencyProperty.Register("ViewModel", typeof(MainWindowViewModel), typeof(LeftSide), new PropertyMetadata(null));
+
+        public MainWindowViewModel ViewModel
+        {
+            get { return (MainWindowViewModel)GetValue(ViewModelProperty); }
+            set { SetValue(ViewModelProperty, value); }
+        }
+
         public LeftSide()
         {
             InitializeComponent();
-            DataContext = new LeftSideViewModel();
         }
     }
 }

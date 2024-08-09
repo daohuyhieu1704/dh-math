@@ -33,6 +33,10 @@ public:
 		return getSession(currentSessionId);
 	}
 
+	void ExecuteAllPrompts() {
+		getCurrentSession()->ExecuteAllPrompts();
+	}
+
 private:
     OdHostAppService()
     {

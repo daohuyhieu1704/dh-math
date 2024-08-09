@@ -3,6 +3,7 @@
 
 OdDbLine::OdDbLine() : OdDbEntity()
 {
+	m_shape = "Line";
 }
 
 OdDbLine::~OdDbLine()
@@ -18,6 +19,7 @@ OdGePoint3d OdDbLine::getStartPnt() const
 void OdDbLine::setStartPnt(OdGePoint3d startPnt)
 {
 	m_startPnt = startPnt;
+	WorldDraw();
 }
 
 OdGePoint3d OdDbLine::getEndPnt() const
@@ -28,6 +30,7 @@ OdGePoint3d OdDbLine::getEndPnt() const
 void OdDbLine::setEndPnt(OdGePoint3d endPnt)
 {
 	m_endPnt = endPnt;
+	WorldDraw();
 }
 
 nlohmann::json OdDbLine::ToJson() const

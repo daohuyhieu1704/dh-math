@@ -10,7 +10,7 @@ class CircleCmd :
 public:
     CircleCmd() : center{ 0, 0, 0 }, radius(0) {}
 
-    void serialize(const std::vector<std::string>& strData) override;
+    bool serialize(const std::vector<std::string>& strData) override;
     bool execute() override;
 
 private:

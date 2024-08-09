@@ -15,6 +15,9 @@ using MathCore.Geom;
 using System.Windows.Threading;
 using System.Windows.Input;
 using MathUI.Utils;
+using System.Windows;
+using Microsoft.Win32;
+using System.IO;
 
 namespace MathUI.ViewModels.MainWindow
 {
@@ -78,14 +81,26 @@ namespace MathUI.ViewModels.MainWindow
             }
         }
 
-        private TextBox _InputCommandWindow;
-        public TextBox InputCommandWindow
+        private System.Windows.Controls.TextBox _InputCommandWindow;
+        public System.Windows.Controls.TextBox InputCommandWindow
         {
             get => _InputCommandWindow;
             set
             {
                 _InputCommandWindow = value;
                 OnPropertyChanged("InputCommandWindow");
+            }
+        }
+
+        private string shape;
+
+        public string Shape 
+        {
+            get => shape;
+            set
+            {
+                shape = value;
+                OnPropertyChanged("Shape");
             }
         }
 
@@ -200,9 +215,14 @@ namespace MathUI.ViewModels.MainWindow
         public async void DrawCircle()
         {
             PointSelection pointSelection = new();
-            HistoryWindow += "Pick 2 points:" + "\n";
-            List<Point3d> pnt = await pointSelection.getPoints(2);
-            Circle circle = new(pnt[0], pnt[0].DistanceTo(pnt[1]));
+            HistoryWindow += "Pick 2 center:" + "\n";
+            List<Point3d> pnt1 = await pointSelection.getPoints(1);
+            using LineJig lineJig = new(pnt1[0]);
+            using CircleJig circleJig = new(pnt1[0]);
+            lineJig.Commit();
+            circleJig.Commit();
+            List<Point3d> pnt2 = await pointSelection.getPoints(1);
+            Circle circle = new(pnt1[0], pnt1[0].DistanceTo(pnt2[0]));
             circle.Draw();
             HistoryWindow += circle.GetCommand() + "\n";
         }
@@ -253,12 +273,12 @@ namespace MathUI.ViewModels.MainWindow
 
         internal void Undo()
         {
-            throw new NotImplementedException();
+            GLEngine.Instance.Undo();
         }
 
         internal void Redo()
         {
-            throw new NotImplementedException();
+            GLEngine.Instance.Redo();
         }
 
         internal void NewFile()
@@ -268,12 +288,85 @@ namespace MathUI.ViewModels.MainWindow
 
         internal void OpenFile()
         {
-            throw new NotImplementedException();
+            var dialog = new OpenFileDialog
+            {
+                FileName = "Document",
+                DefaultExt = ".txt",
+                Filter = "Text documents (.txt)|*.txt"
+            };
+
+            bool? result = dialog.ShowDialog();
+
+            if (result == true)
+            {
+                // Open document
+                string filePath = dialog.FileName;
+
+                try
+                {
+                    string content = File.ReadAllText(filePath);
+                    MessageBox.Show(content, "File content at path: " + filePath);
+
+                    var topPnl = context.FindName("TopPanelElm") as UserControl;
+                    if (topPnl != null)
+                    {
+                        var FileTabControl = topPnl.FindName("FileTabControl") as TabControl;
+                        if (FileTabControl != null)
+                        {
+                            TabItem tabItem = new()
+                            {
+                                Header = System.IO.Path.GetFileName(filePath),
+                                Content = new TextBox
+                                {
+                                    Text = content,
+                                    IsReadOnly = true,
+                                    Background = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(44, 45, 47)),
+                                    Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.White),
+                                    BorderThickness = new System.Windows.Thickness(0),
+                                    VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
+                                    HorizontalScrollBarVisibility = ScrollBarVisibility.Auto
+                                }
+                            };
+
+                            FileTabControl.Items.Add(tabItem);
+                            FileTabControl.SelectedItem = tabItem;
+                            GLEngine.Instance.CreateSession(filePath);
+                            var cmdList = content.Split("\r\n").ToList();
+                            HistoryWindow = "";
+                            foreach (var cmd in cmdList)
+                            {
+                                GLEngine.Instance.AppendCommand(cmd);
+                                HistoryWindow += cmd + "\n";
+                            }
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("An error occurred while reading the file:");
+                    Console.WriteLine(e.Message);
+                }
+            }
+            else
+            {
+                Console.WriteLine("No file was selected.");
+            }
         }
 
         internal void SaveFile()
         {
             throw new NotImplementedException();
+        }
+
+        internal async void Select()
+        {
+            EntitySelection entitySelection = new();
+            List<Entity> entity = await entitySelection.getEntities();
+            if (entity.Count == 0)
+            {
+                return;
+            }
+            Shape = entity[0].Shape;
         }
     }
 }

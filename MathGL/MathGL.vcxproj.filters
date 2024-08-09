@@ -34,6 +34,12 @@
     <Filter Include="Drawing\Jig">
       <UniqueIdentifier>{15cfd101-f184-41fa-9b46-6ac4fc4b0989}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Drawing\Jig\Line">
+      <UniqueIdentifier>{34fc3735-0071-46e2-8e39-bbcbf0a898e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Drawing\Jig\Circle">
+      <UniqueIdentifier>{2e90e9df-031c-40a1-a46d-b416e613eeda}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -58,10 +64,16 @@
       <Filter>Prompts</Filter>
     </ClInclude>
     <ClInclude Include="DoubleSelection.h">
-      <Filter>Header Files</Filter>
+      <Filter>Prompts</Filter>
+    </ClInclude>
+    <ClInclude Include="EntitySelection.h">
+      <Filter>Prompts</Filter>
     </ClInclude>
     <ClInclude Include="LineJig.h">
-      <Filter>Drawing\Jig</Filter>
+      <Filter>Drawing\Jig\Line</Filter>
+    </ClInclude>
+    <ClInclude Include="CircleJig.h">
+      <Filter>Drawing\Jig\Circle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -83,11 +95,17 @@
     <ClCompile Include="PointSelection.cpp">
       <Filter>Prompts</Filter>
     </ClCompile>
+    <ClCompile Include="EntitySelection.cpp">
+      <Filter>Prompts</Filter>
+    </ClCompile>
     <ClCompile Include="DoubleSelection.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Prompts</Filter>
     </ClCompile>
     <ClCompile Include="LineJig.cpp">
-      <Filter>Drawing\Jig</Filter>
+      <Filter>Drawing\Jig\Line</Filter>
+    </ClCompile>
+    <ClCompile Include="CircleJig.cpp">
+      <Filter>Drawing\Jig\Circle</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -88,6 +88,19 @@ namespace MathGL
 		std::string standardStr = msclr::interop::marshal_as<std::string>(command);
 		m_pEngine->AppendCommand(standardStr);
 	}
+	void GLEngine::CreateSession(String^ fileName)
+	{
+		std::string standardStr = msclr::interop::marshal_as<std::string>(fileName);
+		m_pEngine->CreateSession(standardStr);
+	}
+	void GLEngine::Undo()
+	{
+		m_pEngine->Undo();
+	}
+	void GLEngine::Redo()
+	{
+		m_pEngine->Redo();
+	}
 	void GLEngine::AddJig(Jig^ jig)
 	{
 		m_pEngine->m_jigs.push_back(static_cast<OdJig*>(jig->GetImpObj()));

@@ -8,7 +8,7 @@ class LineCmd : public IActionCmd
 {
 public:
 	bool execute() override;
-	void serialize(const std::vector<std::string>& strData) override;
+	bool serialize(const std::vector<std::string>& strData) override;
 private:
 	Geometry::OdGePoint3d startPnt;
 	Geometry::OdGePoint3d endPnt;

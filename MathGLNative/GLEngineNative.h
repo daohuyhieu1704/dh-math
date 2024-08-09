@@ -29,6 +29,7 @@ enum class ViewportType
 };
 
 using PointPickedCallback = void(*)(std::vector<Geometry::OdGePoint2d> resPnt);
+using EntityPickedCallback = void(*)();
 
 class GLEngineNative : public IEngine
 {
@@ -54,6 +55,7 @@ public:
 	// Inherited via IEngine
 	HWND InitializeWindow(HINSTANCE hInstance, int nCmdShow, HWND parentHwnd) override;
 	void PickPoint();
+	void SelectEntityHandle();
 	void ResizeChild(int width, int height);
 	HRESULT InitializeCore(HWND hwnd);
 	void RenderCube(int windowWidth, int windowHeight);
@@ -67,9 +69,10 @@ public:
 	void Draw3DGrid(float size, float step);
 
 	void AddLine(OdGePoint3d startPnt, OdGePoint3d endPnt);
+	void CreateSession(std::string fileName);
 	void AppendCommand(const std::string command);
 	void RegisterCommandPattern();
-	void SelectEntity(int mouseX, int mouseY, int screenWidth, int screenHeight, glm::mat4 viewMatrix, glm::mat4 projectionMatrix);
+	bool SelectEntity(int mouseX, int mouseY, int screenWidth, int screenHeight, glm::mat4 viewMatrix, glm::mat4 projectionMatrix);
 	// Viewport functions
 #pragma region Viewport
 	void Setup3DViewport(int width, int height);
@@ -106,11 +109,15 @@ public:
 
 		glEnable(GL_LIGHT0);                        // MUST enable each light source after configuration
 	}
-
+	void Undo();
+	void Redo();
 	void SetPointPickedCallback(PointPickedCallback callback);
 	void TriggerPointPicked(std::vector<OdGePoint2d> resPnt);
+	void SetEntityPickedCallback(EntityPickedCallback callback);
+	void TriggerEntityPicked();
 
 	bool pointPicked = false;
+	bool isSelectMode = false;
 	int m_totalPick = 1;
 	GLFWwindow* m_window;
 	GLuint m_framebuffer;
@@ -130,5 +137,6 @@ public:
 	OdGePoint3d m_camPosition;
 private:
 	PointPickedCallback pointPickedCallback = nullptr;
+	EntityPickedCallback entityPickedCallback = nullptr;
 };
 

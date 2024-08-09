@@ -12,10 +12,19 @@ bool LineCmd::execute()
     return true;
 }
 
-void LineCmd::serialize(const std::vector<std::string>& strData)
+bool LineCmd::serialize(const std::vector<std::string>& strData)
 {
+	if (strData.size() < 3)
+	{
+		return false;
+	}
     std::vector<std::string> point1Coords = EditorInput::CommandPrompt::split(strData[1], ',');
     std::vector<std::string> point2Coords = EditorInput::CommandPrompt::split(strData[2], ',');
+
+	if (point1Coords.size() != 3 || point2Coords.size() != 3)
+    {
+		return false;
+	}
 
     startPnt =
     {
@@ -30,4 +39,6 @@ void LineCmd::serialize(const std::vector<std::string>& strData)
         std::stof(point2Coords[1]),
         std::stof(point2Coords[2])
     };
+
+	return true;
 }

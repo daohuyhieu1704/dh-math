@@ -19,7 +19,7 @@ namespace MathUI.Presenters
     /// <summary>
     /// Interaction logic for TopPanel.xaml
     /// </summary>
-    public partial class TopPanel : UserControl
+    public partial class TopPanel : System.Windows.Controls.UserControl
     {
         public static readonly DependencyProperty ViewModelProperty =
         DependencyProperty.Register("ViewModel", typeof(MainWindowViewModel), typeof(TopPanel), new PropertyMetadata(null));
@@ -93,6 +93,11 @@ namespace MathUI.Presenters
         private void Save_Click(object sender, RoutedEventArgs e)
         {
             CommandAction((model) => ViewModel.SaveFile());
+        }
+
+        private void Select_Click(object sender, RoutedEventArgs e)
+        {
+            CommandAction((model) => ViewModel.Select());
         }
     }
 }

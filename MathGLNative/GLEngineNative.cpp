@@ -12,6 +12,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <MathLog.h>
 #include "GLCircle.h"
+#include "GLNativeConverter.h"
 
 GLEngineNative* GLEngineNative::m_instance = nullptr;
 POINT prevMousePos;
@@ -441,39 +442,39 @@ void RenderText(const char* text) {
 
 void GLEngineNative::drawGridXZ(float size, float step)
 {
-    //// disable lighting
-    //glDisable(GL_LIGHTING);
+    // disable lighting
+    glDisable(GL_LIGHTING);
 
-    //glBegin(GL_LINES);
+    glBegin(GL_LINES);
 
-    //glColor4f(0.5f, 0.5f, 0.5f, 0.5f);
-    //for (float i = step; i <= size; i += step)
-    //{
-    //    glVertex3f(-size, 0, i);   // lines parallel to X-axis
-    //    glVertex3f(size, 0, i);
-    //    glVertex3f(-size, 0, -i);   // lines parallel to X-axis
-    //    glVertex3f(size, 0, -i);
+    glColor4f(0.5f, 0.5f, 0.5f, 0.5f);
+    for (float i = step; i <= size; i += step)
+    {
+        glVertex3f(-size, 0, i);   // lines parallel to X-axis
+        glVertex3f(size, 0, i);
+        glVertex3f(-size, 0, -i);   // lines parallel to X-axis
+        glVertex3f(size, 0, -i);
 
-    //    glVertex3f(i, 0, -size);   // lines parallel to Z-axis
-    //    glVertex3f(i, 0, size);
-    //    glVertex3f(-i, 0, -size);   // lines parallel to Z-axis
-    //    glVertex3f(-i, 0, size);
-    //}
+        glVertex3f(i, 0, -size);   // lines parallel to Z-axis
+        glVertex3f(i, 0, size);
+        glVertex3f(-i, 0, -size);   // lines parallel to Z-axis
+        glVertex3f(-i, 0, size);
+    }
 
-    //// x-axis
-    //glColor3f(1, 0, 0);
-    //glVertex3f(-size, 0, 0);
-    //glVertex3f(size, 0, 0);
+    // x-axis
+    glColor3f(1, 0, 0);
+    glVertex3f(-size, 0, 0);
+    glVertex3f(size, 0, 0);
 
-    //// z-axis
-    //glColor3f(0, 0, 1);
-    //glVertex3f(0, 0, -size);
-    //glVertex3f(0, 0, size);
+    // z-axis
+    glColor3f(0, 0, 1);
+    glVertex3f(0, 0, -size);
+    glVertex3f(0, 0, size);
 
-    //glEnd();
+    glEnd();
 
-    //// enable lighting back
-    //glEnable(GL_LIGHTING);
+    // enable lighting back
+    glEnable(GL_LIGHTING);
 }
 
 
@@ -545,7 +546,6 @@ void GLEngineNative::drawAxis(float size)
     glDepthFunc(GL_LEQUAL);
 }
 
-
 void GLEngineNative::Draw3DGrid(float size, float step)
 {
     glPushMatrix();
@@ -571,9 +571,16 @@ void GLEngineNative::AddLine(OdGePoint3d startPnt, OdGePoint3d endPnt)
 	m_entities.push_back(line);
 }
 
+void GLEngineNative::CreateSession(std::string fileName)
+{
+	m_appServices->createSession(fileName);
+    RegisterCommandPattern();
+}
+
 void GLEngineNative::AppendCommand(const std::string command)
 {
 	m_appServices->getCurrentSession()->getPrompts().appendCommand(command);
+    
 }
 
 void GLEngineNative::RenderScene()
@@ -623,7 +630,12 @@ void GLEngineNative::RenderScene()
     // drawGridXZ(20);                     // draw XZ-grid at origin (world space)
     drawGridXY(20);                     // draw XY-grid at origin (world space)
     // RenderCube(10, 10);
-
+	int historySize = m_appServices->getCurrentSession()->getPrompts().historySize();
+    if (historySize != m_entities.size())
+	{
+		m_entities.clear();
+		m_appServices->getCurrentSession()->ExecuteAllPrompts();
+	}
     for (OdDbEntity* ent : m_entities)
     {
         if (ent != nullptr)
@@ -691,8 +703,13 @@ void CalculateRay(int mouseX, int mouseY, int screenWidth, int screenHeight, glm
     rayOrigin = glm::vec3(glm::inverse(viewMatrix)[3]);
 }
 
-void GLEngineNative::SelectEntity(int mouseX, int mouseY, int screenWidth, int screenHeight, glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
+bool GLEngineNative::SelectEntity(int mouseX, int mouseY, int screenWidth, int screenHeight, glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
 {
+	if (m_entities.size() == 0)
+    {
+		return false;
+	}
+
     glm::vec3 rayOrigin, rayDirection;
     CalculateRay(mouseX, mouseY, screenWidth, screenHeight, viewMatrix, projectionMatrix, rayOrigin, rayDirection);
 
@@ -721,8 +738,9 @@ void GLEngineNative::SelectEntity(int mouseX, int mouseY, int screenWidth, int s
 		{
 			entity->setIsSelected(false);
 		}
-
     }
+
+    return selectedEntity == nullptr;
 }
 
 void GLEngineNative::GetCurrentViewport(int& x, int& y, int& width, int& height)
@@ -786,6 +804,10 @@ HWND GLEngineNative::InitializeWindow(HINSTANCE hInstance, int nCmdShow, HWND pa
         {
             PickPoint();
         }
+        if (isSelectMode)
+		{
+			SelectEntityHandle();
+		}
         if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
         {
             if (msg.message == WM_QUIT)
@@ -901,6 +923,72 @@ void GLEngineNative::PickPoint()
 	delete line;
 }
 
+void GLEngineNative::SelectEntityHandle()
+{
+    MSG msg;
+    GLCircle* circle = new GLCircle();
+    m_tempRenders.push_back(circle);
+
+    while (isSelectMode)
+    {
+        if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+        {
+            if (msg.message == WM_QUIT)
+            {
+                PostQuitMessage(0);
+                return;
+            }
+            else
+            {
+                int mouseX = LOWORD(msg.lParam);
+                int mouseY = HIWORD(msg.lParam);
+
+                GLint viewport[4];
+                GLdouble modelview[16];
+                GLdouble projection[16];
+                GLfloat winX, winY, winZ;
+                GLdouble posX, posY, posZ;
+
+				int xx, yy, width, height;
+				GetCurrentViewport(xx, yy, width, height);
+
+                glGetIntegerv(GL_VIEWPORT, viewport);
+                glGetDoublev(GL_MODELVIEW_MATRIX, modelview);
+                glGetDoublev(GL_PROJECTION_MATRIX, projection);
+
+                winX = (float)mouseX;
+                winY = (float)viewport[3] - (float)mouseY;
+                glReadPixels(mouseX, int(winY), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &winZ);
+
+                gluUnProject(winX, winY, winZ, modelview, projection, viewport, &posX, &posY, &posZ);
+                OdGePoint3d projectPoint = OdGePoint3d(posX, posY, 0);
+                if (msg.message == WM_LBUTTONDOWN)
+                {
+                    points.push_back(projectPoint.ConvertTo2d());
+                    isSelectMode = SelectEntity(mouseX, mouseY, width, height, GLNativeConverter::ConvertToGlmMat4(modelview), GLNativeConverter::ConvertToGlmMat4(projection));
+                }
+                else if (msg.message == WM_MOUSEMOVE)
+                {
+                    circle->setCenter(projectPoint);
+                    circle->setRadius(1);
+                }
+                else
+                {
+                    TranslateMessage(&msg);
+                    DispatchMessage(&msg);
+                }
+
+                RenderScene();
+                SwapBuffers(m_hdc);
+                glfwPollEvents();
+            }
+        }
+    }
+    TriggerEntityPicked();
+    m_tempRenders.pop_back();
+    delete circle;
+}
+
 void GLEngineNative::SetPointPickedCallback(PointPickedCallback callback)
 {
     pointPickedCallback = callback;
@@ -910,6 +998,27 @@ void GLEngineNative::TriggerPointPicked(std::vector<OdGePoint2d> resPnt) {
     if (pointPickedCallback) {
         pointPickedCallback(resPnt);
     }
+}
+
+void GLEngineNative::SetEntityPickedCallback(EntityPickedCallback callback)
+{
+    entityPickedCallback = callback;
+}
+
+void GLEngineNative::TriggerEntityPicked() {
+    if (entityPickedCallback) {
+        entityPickedCallback();
+    }
+}
+
+void GLEngineNative::Undo()
+{
+	m_appServices->getCurrentSession()->undo();
+}
+
+void GLEngineNative::Redo()
+{
+	m_appServices->getCurrentSession()->redo();
 }
 
 void GLEngineNative::ResizeChild(int width, int height)

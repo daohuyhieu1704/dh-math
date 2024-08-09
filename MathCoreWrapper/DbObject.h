@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Drawable.h"
 #include "OdGePoint3d.h"
 #include "RenderEntity.h"
@@ -19,12 +18,19 @@ namespace MathCore
         {
         }
         ~DbObject() {}
-        property String^ Json
+        virtual property String^ Json
         {
-            String^ get();
+            String^ get()
+            {
+                nlohmann::json json = GetImpObj()->ToJson();
+                std::string jsonString = json.dump();
+                return gcnew System::String(jsonString.c_str());
+            }
         }
-
-    private:
-        OdDbObject* GetImpObj();
+    protected:
+        OdDbObject* GetImpObj()
+        {
+            return static_cast<OdDbObject*>(Drawable::GetImpObj());
+        }
     };
 }

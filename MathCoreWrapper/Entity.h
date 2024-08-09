@@ -1,5 +1,4 @@
 #pragma once
-
 #include "OdDbEntity.h"
 #include "DisposableWrapper.h"
 #include "DbObject.h"
@@ -7,11 +6,19 @@
 
 namespace MathCore
 {
-	public ref class Entity : DbObject
+	public ref class Entity : public DbObject
 	{
 	public:
 		Entity(System::IntPtr UnmanagedObject, bool autoDelete)
 			: DbObject(UnmanagedObject, autoDelete) {};
+
+		property String^ Shape
+		{
+			String^ get()
+			{
+				return gcnew String(GetImpObj()->getShape().c_str());
+			}
+		}
 
         property Extend3d Boundary
         {
@@ -23,6 +30,16 @@ namespace MathCore
             void set(Extend3d value)
             {
                 static_cast<OdDbEntity*>(GetImpObj())->SetBoundary(value.ToNative());
+            }
+        }
+
+        property String^ Json
+        {
+            String^ get() override
+            {
+                nlohmann::json json = GetImpObj()->ToJson();
+                std::string jsonString = json.dump();
+                return gcnew System::String(jsonString.c_str());
             }
         }
 
