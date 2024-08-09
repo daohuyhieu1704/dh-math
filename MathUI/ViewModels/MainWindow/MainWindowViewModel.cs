@@ -136,11 +136,61 @@ namespace MathUI.ViewModels.MainWindow
             }
         }
 
+        private ObservableCollection<string> _fileItems;
+
+        public ObservableCollection<string> FileItems
+        {
+            get => _fileItems;
+            set
+            {
+                Set(ref _fileItems, value);
+                OnPropertyChanged(nameof(FileItems));
+            }
+        }
+
+        private string _fileSelected;
+        public string FileSelected
+        {
+            get => _fileSelected;
+            set
+            {
+                Set(ref _fileSelected, value);
+                OnPropertyChanged(nameof(FileSelected));
+            }
+        }
+
+        private bool _isNewFile;
+        public bool IsNewFile
+        {
+            get => _isNewFile;
+            set
+            {
+                Set(ref _isNewFile, value);
+                OnPropertyChanged(nameof(IsNewFile));
+            }
+        }
+
         public MainWindowViewModel(Presenters.MainWindow mainWindow)
         {
             EngineName = "OpenGL";
             HistoryWindow = "";
             context = mainWindow;
+            FileItems = new ObservableCollection<string>();
+            FileItems.Add("Untitled");
+            FileSelected = "Untitled";
+            CloseTabCommand = new RelayCommand<string>((fileName) => true, (fileName) => CloseTab(fileName));
+        }
+
+        private void CloseTab(string fileName)
+        {
+            if (FileItems.Contains(fileName))
+            {
+                FileItems.Remove(fileName);
+                if (FileItems.Count > 0)
+                {
+                    FileSelected = FileItems[0];
+                }
+            }
         }
 
         public void LoadEngine(MathUI.Presenters.MainWindow mainWindow)
@@ -315,7 +365,9 @@ namespace MathUI.ViewModels.MainWindow
 
         internal void NewFile()
         {
-            throw new NotImplementedException();
+            FileItems.Add("Untitled");
+            FileSelected = "Untitled";
+            IsNewFile = true;
         }
 
         internal void OpenFile()
@@ -345,23 +397,6 @@ namespace MathUI.ViewModels.MainWindow
                         var FileTabControl = topPnl.FindName("FileTabControl") as TabControl;
                         if (FileTabControl != null)
                         {
-                            TabItem tabItem = new()
-                            {
-                                Header = System.IO.Path.GetFileName(filePath),
-                                Content = new TextBox
-                                {
-                                    Text = content,
-                                    IsReadOnly = true,
-                                    Background = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(44, 45, 47)),
-                                    Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.White),
-                                    BorderThickness = new System.Windows.Thickness(0),
-                                    VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
-                                    HorizontalScrollBarVisibility = ScrollBarVisibility.Auto
-                                }
-                            };
-
-                            FileTabControl.Items.Add(tabItem);
-                            FileTabControl.SelectedItem = tabItem;
                             GLEngine.Instance.CreateSession(filePath);
                             var cmdList = content.Split("\r\n").ToList();
                             HistoryWindow = "";
@@ -370,6 +405,10 @@ namespace MathUI.ViewModels.MainWindow
                                 GLEngine.Instance.AppendCommand(cmd);
                                 HistoryWindow += cmd + "\n";
                             }
+                            var fileName = Path.GetFileName(filePath);
+                            FileItems.Add(fileName);
+                            FileSelected = fileName;
+                            IsNewFile = false;
                         }
                     }
                 }
@@ -387,7 +426,37 @@ namespace MathUI.ViewModels.MainWindow
 
         internal void SaveFile()
         {
-            throw new NotImplementedException();
+            var dialog = new SaveFileDialog
+            {
+                FileName = "Untitled",
+                DefaultExt = ".txt",
+                Filter = "Text documents (.txt)|*.txt"
+            };
+            if (!IsNewFile)
+            {
+                dialog.FileName = GLEngine.Instance.CurrentFilePath;
+            }
+            bool? result = dialog.ShowDialog();
+
+            if (!IsNewFile || result == true)
+            {
+                string filePath = dialog.FileName;
+                try
+                {
+                    string data = string.Empty;
+                    data = GLEngine.Instance.History.Aggregate(data, (current, cmd) => current + (cmd + "\r\n"));
+                    File.WriteAllText(filePath, data);
+                    Console.WriteLine("File saved successfully.");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("An error occurred while saving the file: " + ex.Message);
+                }
+            }
+            else
+            {
+                Console.WriteLine("No file was selected.");
+            }
         }
 
         internal async void Select()
@@ -403,5 +472,11 @@ namespace MathUI.ViewModels.MainWindow
             PositionY = entity[0].Position.Y;
             PositionZ = entity[0].Position.Z;
         }
+
+        internal void CloseApp()
+        {
+            context.Close();
+        }
+        public ICommand CloseTabCommand { get; }
     }
 }

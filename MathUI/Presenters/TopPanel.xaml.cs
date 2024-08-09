@@ -99,5 +99,10 @@ namespace MathUI.Presenters
         {
             CommandAction((model) => ViewModel.Select());
         }
+
+        private void CloseApp_Click(object sender, RoutedEventArgs e)
+        {
+            CommandAction((model) => ViewModel.CloseApp());
+        }
     }
 }

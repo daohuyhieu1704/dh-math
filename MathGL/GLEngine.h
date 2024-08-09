@@ -48,6 +48,26 @@ namespace MathGL
 			}
 		}
 
+		property String^ CurrentFilePath
+		{
+			String^ get()
+			{
+				return gcnew String(m_pEngine->GetCurrentFilePath().c_str());
+			}
+		}
+		property List<String^>^ History
+		{
+			List<String^>^ get()
+			{
+				List<String^>^ history = gcnew List<String^>(m_pEngine->getHistorySize());
+				for (auto& command : m_pEngine->getHistory())
+				{
+					history->Add(gcnew String(command.c_str()));
+				}
+				return history;
+			}
+		}
+
 		IntPtr InitializeWindow(IntPtr parentHandle);
 		void TLViewport();
 		void TMViewport();

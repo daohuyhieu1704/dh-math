@@ -415,6 +415,27 @@ void GLEngineNative::RegisterCommandPattern()
     m_appServices->getCurrentSession()->getPrompts().registerCommand("SQUARE", squareCmd);
 }
 
+int GLEngineNative::getHistorySize()
+{
+	return m_appServices->getCurrentSession()->getPrompts().historySize();
+}
+
+std::string GLEngineNative::GetCurrentFilePath()
+{
+    return m_appServices->getCurrentSession()->getFileName();
+}
+
+std::vector<std::string> GLEngineNative::getHistory()
+{
+	std::vector<std::string> history;
+    for (auto& command : m_appServices->getCurrentSession()->getPrompts().getHistory())
+	{
+		std::string newStr = command;
+		history.push_back(newStr);
+	}
+	return history;
+
+}
 void CreateBitmapFont(HDC hdc) {
     HFONT hFont;
     HFONT hOldFont;

@@ -72,6 +72,9 @@ public:
 	void CreateSession(std::string fileName);
 	void AppendCommand(const std::string command);
 	void RegisterCommandPattern();
+	int getHistorySize();
+	std::string GetCurrentFilePath();
+	std::vector<std::string> getHistory();
 	bool SelectEntity(int mouseX, int mouseY, int screenWidth, int screenHeight, glm::mat4 viewMatrix, glm::mat4 projectionMatrix);
 	// Viewport functions
 #pragma region Viewport
