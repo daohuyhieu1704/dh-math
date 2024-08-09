@@ -630,12 +630,7 @@ void GLEngineNative::RenderScene()
     // drawGridXZ(20);                     // draw XZ-grid at origin (world space)
     drawGridXY(20);                     // draw XY-grid at origin (world space)
     // RenderCube(10, 10);
-	int historySize = m_appServices->getCurrentSession()->getPrompts().historySize();
-    if (historySize != m_entities.size())
-	{
-		m_entities.clear();
-		m_appServices->getCurrentSession()->ExecuteAllPrompts();
-	}
+
     for (OdDbEntity* ent : m_entities)
     {
         if (ent != nullptr)
@@ -1014,11 +1009,15 @@ void GLEngineNative::TriggerEntityPicked() {
 void GLEngineNative::Undo()
 {
 	m_appServices->getCurrentSession()->undo();
+	m_entities.clear();
+    m_appServices->getCurrentSession()->ExecuteAllPrompts();
 }
 
 void GLEngineNative::Redo()
 {
 	m_appServices->getCurrentSession()->redo();
+    m_entities.clear();
+    m_appServices->getCurrentSession()->ExecuteAllPrompts();
 }
 
 void GLEngineNative::ResizeChild(int width, int height)

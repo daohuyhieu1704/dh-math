@@ -66,6 +66,7 @@ namespace EditorInput {
 		{
 			History.push_back(input);
 			saveStateForUndo();
+			redoStack = std::stack<std::string>();
 		}
     }
 
@@ -106,6 +107,7 @@ namespace EditorInput {
         if (!redoStack.empty()) {
             History.push_back(redoStack.top());
             redoStack.pop();
+			undoStack.push(History.back());
         }
     }
 

@@ -35,6 +35,8 @@
                     <TextBlock Text="{Binding PositionX}" Grid.Row="1" Grid.Column="1" Margin="5" Foreground="White"/>
                     <TextBlock Text="Position Y:" Grid.Row="2" Grid.Column="0" Margin="5" Foreground="White"/>
                     <TextBlock Text="{Binding PositionY}" Grid.Row="2" Grid.Column="1" Margin="5" Foreground="White"/>
+                    <TextBlock Text="Position Z:" Grid.Row="3" Grid.Column="0" Margin="5" Foreground="White"/>
+                    <TextBlock Text="{Binding PositionZ}" Grid.Row="3" Grid.Column="1" Margin="5" Foreground="White"/>
                 </Grid>
             </Expander>
 

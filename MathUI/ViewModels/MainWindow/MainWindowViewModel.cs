@@ -93,7 +93,6 @@ namespace MathUI.ViewModels.MainWindow
         }
 
         private string shape;
-
         public string Shape 
         {
             get => shape;
@@ -101,6 +100,39 @@ namespace MathUI.ViewModels.MainWindow
             {
                 shape = value;
                 OnPropertyChanged("Shape");
+            }
+        }
+
+        private double _positionX;
+        public double PositionX
+        {
+            get => _positionX;
+            set
+            {
+                _positionX = value;
+                OnPropertyChanged("PositionX");
+            }
+        }
+
+        private double _positionY;
+        public double PositionY
+        {
+            get => _positionY;
+            set
+            {
+                _positionY = value;
+                OnPropertyChanged("PositionY");
+            }
+        }
+
+        private double _positionZ;
+        public double PositionZ
+        {
+            get => _positionZ;
+            set
+            {
+                _positionZ = value;
+                OnPropertyChanged("PositionZ");
             }
         }
 
@@ -367,6 +399,9 @@ namespace MathUI.ViewModels.MainWindow
                 return;
             }
             Shape = entity[0].Shape;
+            PositionX = entity[0].Position.X;
+            PositionY = entity[0].Position.Y;
+            PositionZ = entity[0].Position.Z;
         }
     }
 }
