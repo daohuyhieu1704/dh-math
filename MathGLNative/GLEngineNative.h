@@ -9,6 +9,7 @@
 #include "LineCmd.h"
 #include "CircleCmd.h"
 #include "SquareCmd.h"
+#include <OdJig.h>
 
 using namespace Geometry;
 
@@ -34,6 +35,7 @@ class GLEngineNative : public IEngine
 	OdHostAppService* m_appServices;
 public:
 	std::vector<RenderEntity*> m_entities;
+	std::vector<OdJig*> m_jigs;
 	static GLEngineNative* GetInstance()
 	{
 		if (m_instance == nullptr)
@@ -124,7 +126,6 @@ public:
 	ViewportType m_viewportType = ViewportType::TL;
 	std::vector<OdGePoint2d> points;
 	OdGePoint3d m_camPosition;
-
 private:
 	PointPickedCallback pointPickedCallback = nullptr;
 };

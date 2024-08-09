@@ -99,6 +99,9 @@
     <ClInclude Include="PromptPointSelection.h">
       <Filter>PromptSelection</Filter>
     </ClInclude>
+    <ClInclude Include="GLLineJig.h">
+      <Filter>Jig</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -136,6 +139,9 @@
     </ClCompile>
     <ClCompile Include="PromptPointSelection.cpp">
       <Filter>PromptSelection</Filter>
+    </ClCompile>
+    <ClCompile Include="GLLineJig.cpp">
+      <Filter>Jig</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

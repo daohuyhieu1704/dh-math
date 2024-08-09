@@ -28,9 +28,6 @@
     <Filter Include="DisposableWrapper">
       <UniqueIdentifier>{6e85a566-01b8-4159-bb40-cc53c56e7189}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Entities">
-      <UniqueIdentifier>{653a9181-44d8-4ffe-87d0-56e6bea8605a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="HostAppService">
       <UniqueIdentifier>{a9eb0c77-1860-460d-ba1f-d959757cac25}</UniqueIdentifier>
     </Filter>
@@ -45,6 +42,24 @@
     </Filter>
     <Filter Include="Geometry\Vector3d">
       <UniqueIdentifier>{7b31e11c-9c55-4bf9-a0ed-dfd1e3f593b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Drawing">
+      <UniqueIdentifier>{d68f0131-fea4-467a-a503-df8b31a693d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Drawing\Drawable">
+      <UniqueIdentifier>{c47a4868-43bc-46dd-9990-cb1526d7910c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Drawing\Jig">
+      <UniqueIdentifier>{ff8ad557-b6f1-48e3-938b-9d799eaf8f3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DatabaseServices\Entities">
+      <UniqueIdentifier>{653a9181-44d8-4ffe-87d0-56e6bea8605a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DatabaseServices\DbObject">
+      <UniqueIdentifier>{16da2180-9c50-4b20-812e-ab477a9cb565}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Geometry\Extend2d">
+      <UniqueIdentifier>{d45b0d7b-e525-47dc-b9cf-938106b40054}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -72,6 +87,21 @@
     <ClInclude Include="Point3d.h">
       <Filter>Geometry\Point3d</Filter>
     </ClInclude>
+    <ClInclude Include="Drawable.h">
+      <Filter>Drawing\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="Jig.h">
+      <Filter>Drawing\Jig</Filter>
+    </ClInclude>
+    <ClInclude Include="DbObject.h">
+      <Filter>DatabaseServices\DbObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>DatabaseServices\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Extend2d.h">
+      <Filter>Geometry\Extend2d</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -94,6 +124,21 @@
     </ClCompile>
     <ClCompile Include="Point3d.cpp">
       <Filter>Geometry\Point3d</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawable.cpp">
+      <Filter>Drawing\Drawable</Filter>
+    </ClCompile>
+    <ClCompile Include="Jig.cpp">
+      <Filter>Drawing\Jig</Filter>
+    </ClCompile>
+    <ClCompile Include="DbObject.cpp">
+      <Filter>DatabaseServices\DbObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>DatabaseServices\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Extend2d.cpp">
+      <Filter>Geometry\Extend2d</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

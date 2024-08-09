@@ -150,9 +150,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="DbObject.h" />
     <ClInclude Include="DisposableWrapper.h" />
+    <ClInclude Include="Drawable.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="Extend2d.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="HostAppService.h" />
+    <ClInclude Include="Jig.h" />
     <ClInclude Include="ObjectBase.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Point2d.h" />
@@ -160,8 +165,13 @@
     <ClInclude Include="Trans.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DbObject.cpp" />
     <ClCompile Include="DisposableWrapper.cpp" />
+    <ClCompile Include="Drawable.cpp" />
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Extend2d.cpp" />
     <ClCompile Include="HostAppService.cpp" />
+    <ClCompile Include="Jig.cpp" />
     <ClCompile Include="ObjectBase.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

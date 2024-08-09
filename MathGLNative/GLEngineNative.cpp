@@ -441,39 +441,39 @@ void RenderText(const char* text) {
 
 void GLEngineNative::drawGridXZ(float size, float step)
 {
-    // disable lighting
-    glDisable(GL_LIGHTING);
+    //// disable lighting
+    //glDisable(GL_LIGHTING);
 
-    glBegin(GL_LINES);
+    //glBegin(GL_LINES);
 
-    glColor4f(0.5f, 0.5f, 0.5f, 0.5f);
-    for (float i = step; i <= size; i += step)
-    {
-        glVertex3f(-size, 0, i);   // lines parallel to X-axis
-        glVertex3f(size, 0, i);
-        glVertex3f(-size, 0, -i);   // lines parallel to X-axis
-        glVertex3f(size, 0, -i);
+    //glColor4f(0.5f, 0.5f, 0.5f, 0.5f);
+    //for (float i = step; i <= size; i += step)
+    //{
+    //    glVertex3f(-size, 0, i);   // lines parallel to X-axis
+    //    glVertex3f(size, 0, i);
+    //    glVertex3f(-size, 0, -i);   // lines parallel to X-axis
+    //    glVertex3f(size, 0, -i);
 
-        glVertex3f(i, 0, -size);   // lines parallel to Z-axis
-        glVertex3f(i, 0, size);
-        glVertex3f(-i, 0, -size);   // lines parallel to Z-axis
-        glVertex3f(-i, 0, size);
-    }
+    //    glVertex3f(i, 0, -size);   // lines parallel to Z-axis
+    //    glVertex3f(i, 0, size);
+    //    glVertex3f(-i, 0, -size);   // lines parallel to Z-axis
+    //    glVertex3f(-i, 0, size);
+    //}
 
-    // x-axis
-    glColor3f(1, 0, 0);
-    glVertex3f(-size, 0, 0);
-    glVertex3f(size, 0, 0);
+    //// x-axis
+    //glColor3f(1, 0, 0);
+    //glVertex3f(-size, 0, 0);
+    //glVertex3f(size, 0, 0);
 
-    // z-axis
-    glColor3f(0, 0, 1);
-    glVertex3f(0, 0, -size);
-    glVertex3f(0, 0, size);
+    //// z-axis
+    //glColor3f(0, 0, 1);
+    //glVertex3f(0, 0, -size);
+    //glVertex3f(0, 0, size);
 
-    glEnd();
+    //glEnd();
 
-    // enable lighting back
-    glEnable(GL_LIGHTING);
+    //// enable lighting back
+    //glEnable(GL_LIGHTING);
 }
 
 
@@ -620,9 +620,9 @@ void GLEngineNative::RenderScene()
 
     // Draw3DGrid(100, 1);
     drawAxis();                         // for origin (0,0,0)
-    drawGridXZ(20);                     // draw XZ-grid at origin (world space)
+    // drawGridXZ(20);                     // draw XZ-grid at origin (world space)
     drawGridXY(20);                     // draw XY-grid at origin (world space)
-    RenderCube(10, 10);
+    // RenderCube(10, 10);
 
     for (RenderEntity* ent : m_entities)
     {
@@ -726,6 +726,12 @@ void GLEngineNative::PickPoint()
 	GLLine* line = new GLLine();
     m_entities.push_back(circle);
 	m_entities.push_back(line);
+
+    for (OdJig* jig : m_jigs)
+    {
+        jig->Preview();
+    }
+
     while (pointPicked && m_totalPick >= points.size())
     {
         if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
@@ -768,10 +774,15 @@ void GLEngineNative::PickPoint()
                 else if (msg.message == WM_MOUSEMOVE)
                 {
                     circle->setCenter(projectPoint);
-                    circle->setRadius(5);
+                    circle->setRadius(1);
 
-					line->setStartPnt(OdGePoint3d(projectPoint.x, projectPoint.y, 0));
-                    line->setEndPnt(OdGePoint3d(winX, winY, 0));
+                    if (m_jigs.size() > 0)
+					{
+						for (OdJig* jig : m_jigs)
+						{
+                            jig->AcquirePoint(projectPoint);
+						}
+                    }
                 }
                 else
                 {
@@ -787,6 +798,11 @@ void GLEngineNative::PickPoint()
     }
 	TriggerPointPicked(points);
 
+	for (OdJig* jig : m_jigs)
+	{
+        m_entities.pop_back();
+	}
+	m_jigs.clear();
 	m_entities.pop_back();
 	m_entities.pop_back();
 	delete circle;

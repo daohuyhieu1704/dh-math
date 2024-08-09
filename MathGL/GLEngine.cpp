@@ -83,13 +83,13 @@ namespace MathGL
 	{
 		m_pEngine->BRViewport();
 	}
-	void GLEngine::AddLine(Point3d startPnt, Point3d endPnt)
-	{
-		m_pEngine->AddLine(startPnt.ToNative(), endPnt.ToNative());
-	}
 	void GLEngine::AppendCommand(String^ command)
 	{
 		std::string standardStr = msclr::interop::marshal_as<std::string>(command);
 		m_pEngine->AppendCommand(standardStr);
+	}
+	void GLEngine::AddJig(Jig^ jig)
+	{
+		m_pEngine->m_jigs.push_back(static_cast<OdJig*>(jig->GetImpObj()));
 	}
 }

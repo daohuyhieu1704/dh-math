@@ -2,8 +2,10 @@
 #include "pch.h"
 #include "GLEngineNative.h"
 #include "Point3d.h"
+#include <Jig.h>
 
 using namespace System;
+using namespace MathCore;
 using namespace MathCore::Geom;
 using namespace System::Collections::Generic;
 
@@ -57,8 +59,8 @@ namespace MathGL
 		void BLViewport();
 		void BMViewport();
 		void BRViewport();
-		void AddLine(Point3d startPnt, Point3d endPnt);
 		void AppendCommand(String^ command);
+		void AddJig(Jig^ jig);
 	protected:
 		GLEngineNative* m_pEngine;
 	};

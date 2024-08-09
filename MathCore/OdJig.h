@@ -12,10 +12,10 @@ class OdJig
 {
 public:
     virtual ~OdJig() {}
-    virtual OdDbEntity* entity() const = 0;
+    virtual OdObjectBase* entity() const = 0;
     virtual DragStatus sampler() = 0;
     virtual bool update() = 0;
-    virtual bool Preview(void* renderTarget) = 0;
-    virtual DragStatus AcquirePoint(OdGePoint3d& point) = 0;
+    virtual bool Preview() = 0;
+    virtual DragStatus AcquirePoint(OdGePoint3d point) = 0;
 };
 

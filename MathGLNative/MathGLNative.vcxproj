@@ -155,6 +155,7 @@
     <ClInclude Include="GLLine.h" />
     <ClInclude Include="GLSquare.h" />
     <ClInclude Include="LineCmd.h" />
+    <ClInclude Include="GLLineJig.h" />
     <ClInclude Include="MathCircle.h" />
     <ClInclude Include="MathLine.h" />
     <ClInclude Include="MathSquare.h" />
@@ -169,6 +170,7 @@
     <ClCompile Include="GLLine.cpp" />
     <ClCompile Include="GLSquare.cpp" />
     <ClCompile Include="LineCmd.cpp" />
+    <ClCompile Include="GLLineJig.cpp" />
     <ClCompile Include="MathCircle.cpp" />
     <ClCompile Include="MathLine.cpp" />
     <ClCompile Include="MathSquare.cpp" />

@@ -28,6 +28,12 @@
     <Filter Include="Prompts">
       <UniqueIdentifier>{3656a98f-5627-4559-b997-0574ee05fc11}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Drawing">
+      <UniqueIdentifier>{76e3ec9e-93f5-4361-b575-9dfd885f167c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Drawing\Jig">
+      <UniqueIdentifier>{15cfd101-f184-41fa-9b46-6ac4fc4b0989}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -54,6 +60,9 @@
     <ClInclude Include="DoubleSelection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="LineJig.h">
+      <Filter>Drawing\Jig</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GLEngine.cpp">
@@ -76,6 +85,9 @@
     </ClCompile>
     <ClCompile Include="DoubleSelection.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LineJig.cpp">
+      <Filter>Drawing\Jig</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

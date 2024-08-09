@@ -16,6 +16,7 @@ namespace MathGL
 
 	Task<List<Point3d>^>^ PointSelection::getPoints(int total)
 	{
+		GLEngineNative::GetInstance()->points.clear();
         GLEngineNative::GetInstance()->m_totalPick = total;
         GLEngineNative::GetInstance()->pointPicked = true;
         _tcs = gcnew TaskCompletionSource<List<Point3d>^>();

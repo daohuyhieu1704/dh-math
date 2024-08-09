@@ -1,5 +1,4 @@
 ﻿using MathUI.ViewModels.MainWindow;
-using MathUI.ViewModels.TopPanel;
 using System;
 using System.Collections.Generic;
 using System.Linq;

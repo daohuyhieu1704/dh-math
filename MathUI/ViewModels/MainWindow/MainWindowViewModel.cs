@@ -162,8 +162,11 @@ namespace MathUI.ViewModels.MainWindow
         {
             PointSelection pointSelection = new();
             HistoryWindow += "Pick 2 points:" + "\n";
-            List<Point3d> pnt = await pointSelection.getPoints(2);
-            Line line = new(pnt[0], pnt[1]);
+            List<Point3d> pnt1 = await pointSelection.getPoints(1);
+            LineJig lineJig = new(pnt1[0]);
+            lineJig.Commit();
+            List<Point3d> pnt2 = await pointSelection.getPoints(1);
+            Line line = new(pnt1[0], pnt2[0]);
             line.Draw();
             HistoryWindow += line.GetCommand() + "\n";
         }
@@ -171,9 +174,9 @@ namespace MathUI.ViewModels.MainWindow
         public async void DrawCircle()
         {
             PointSelection pointSelection = new();
-            HistoryWindow += "Pick 1 points:" + "\n";
-            List<Point3d> pnt = await pointSelection.getPoints(1);
-            Circle circle = new(pnt[0], 6);
+            HistoryWindow += "Pick 2 points:" + "\n";
+            List<Point3d> pnt = await pointSelection.getPoints(2);
+            Circle circle = new(pnt[0], pnt[0].DistanceTo(pnt[1]));
             circle.Draw();
             HistoryWindow += circle.GetCommand() + "\n";
         }
