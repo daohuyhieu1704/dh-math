@@ -13,6 +13,31 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ViewModels\TopPanel\**" />
+    <EmbeddedResource Remove="ViewModels\TopPanel\**" />
+    <None Remove="ViewModels\TopPanel\**" />
+    <Page Remove="ViewModels\TopPanel\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Icons\circle.png" />
+    <None Remove="Icons\line.png" />
+    <None Remove="Icons\rect.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Icons\circle.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Icons\line.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Icons\rect.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MathDX\MathDX.vcxproj" />
     <ProjectReference Include="..\MathGL\MathGL.vcxproj" />
   </ItemGroup>
@@ -30,10 +55,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ViewModels\TopPanel\" />
   </ItemGroup>
 
 </Project>
