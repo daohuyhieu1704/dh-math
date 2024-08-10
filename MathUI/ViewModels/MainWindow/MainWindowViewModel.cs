@@ -148,6 +148,18 @@ namespace MathUI.ViewModels.MainWindow
             }
         }
 
+        private ObservableCollection<string> _filePaths;
+
+        public ObservableCollection<string> FilePaths
+        {
+            get => _filePaths;
+            set
+            {
+                Set(ref _filePaths, value);
+                OnPropertyChanged(nameof(FilePaths));
+            }
+        }
+
         private string _fileSelected;
         public string FileSelected
         {
@@ -156,6 +168,17 @@ namespace MathUI.ViewModels.MainWindow
             {
                 Set(ref _fileSelected, value);
                 OnPropertyChanged(nameof(FileSelected));
+            }
+        }
+
+        private string _pathSelected;
+        public string PathSelected
+        {
+            get => _pathSelected;
+            set
+            {
+                Set(ref _pathSelected, value);
+                OnPropertyChanged(nameof(PathSelected));
             }
         }
 
@@ -175,9 +198,11 @@ namespace MathUI.ViewModels.MainWindow
             EngineName = "OpenGL";
             HistoryWindow = "";
             context = mainWindow;
-            FileItems = new ObservableCollection<string>();
-            FileItems.Add("Untitled");
+            FileItems = ["Untitled"];
+            FilePaths = ["Untitled"];
             FileSelected = "Untitled";
+            PathSelected = "Untitled";
+            IsNewFile = true;
             CloseTabCommand = new RelayCommand<string>((fileName) => true, (fileName) => CloseTab(fileName));
         }
 
@@ -366,7 +391,9 @@ namespace MathUI.ViewModels.MainWindow
         internal void NewFile()
         {
             FileItems.Add("Untitled");
-            FileSelected = "Untitled";
+            FileSelected = FileItems.Last();
+            FilePaths.Add("");
+            PathSelected = FilePaths.Last();
             IsNewFile = true;
         }
 
@@ -397,18 +424,29 @@ namespace MathUI.ViewModels.MainWindow
                         var FileTabControl = topPnl.FindName("FileTabControl") as TabControl;
                         if (FileTabControl != null)
                         {
-                            GLEngine.Instance.CreateSession(filePath);
-                            var cmdList = content.Split("\r\n").ToList();
                             HistoryWindow = "";
-                            foreach (var cmd in cmdList)
-                            {
-                                GLEngine.Instance.AppendCommand(cmd);
-                                HistoryWindow += cmd + "\n";
-                            }
                             var fileName = Path.GetFileName(filePath);
-                            FileItems.Add(fileName);
-                            FileSelected = fileName;
-                            IsNewFile = false;
+                            if (FilePaths.Contains(filePath))
+                            {
+                                FileSelected = fileName;
+                                PathSelected = filePath;
+                                IsNewFile = false;
+                            }
+                            else
+                            {
+                                FileItems.Add(fileName);
+                                FileSelected = fileName;
+                                FilePaths.Add(filePath);
+                                PathSelected = filePath;
+                                var cmdList = content.Split("\r\n").ToList();
+                                GLEngine.Instance.CreateSession(filePath);
+                                foreach (var cmd in cmdList)
+                                {
+                                    GLEngine.Instance.AppendPrompt(cmd);
+                                    HistoryWindow += cmd + "\n";
+                                }
+                                IsNewFile = false;
+                            }
                         }
                     }
                 }
@@ -426,20 +464,17 @@ namespace MathUI.ViewModels.MainWindow
 
         internal void SaveFile()
         {
-            var dialog = new SaveFileDialog
+            if (IsNewFile)
             {
-                FileName = "Untitled",
-                DefaultExt = ".txt",
-                Filter = "Text documents (.txt)|*.txt"
-            };
-            if (!IsNewFile)
-            {
-                dialog.FileName = GLEngine.Instance.CurrentFilePath;
-            }
-            bool? result = dialog.ShowDialog();
+                var dialog = new SaveFileDialog
+                {
+                    FileName = "Untitled",
+                    DefaultExt = ".txt",
+                    Filter = "Text documents (.txt)|*.txt"
+                };
 
-            if (!IsNewFile || result == true)
-            {
+                bool? result = dialog.ShowDialog();
+
                 string filePath = dialog.FileName;
                 try
                 {
@@ -455,7 +490,17 @@ namespace MathUI.ViewModels.MainWindow
             }
             else
             {
-                Console.WriteLine("No file was selected.");
+                try
+                {
+                    string data = string.Empty;
+                    data = GLEngine.Instance.History.Aggregate(data, (current, cmd) => current + (cmd + "\r\n"));
+                    File.WriteAllText(GLEngine.Instance.CurrentFilePath, data);
+                    Console.WriteLine("File saved successfully.");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("An error occurred while saving the file: " + ex.Message);
+                }
             }
         }
 
@@ -477,6 +522,25 @@ namespace MathUI.ViewModels.MainWindow
         {
             context.Close();
         }
+
+        internal async void Dist()
+        {
+            PointSelection pointSelection = new();
+            HistoryWindow += "Pick 2 points:" + "\n";
+            List<Point3d> pnt = await pointSelection.getPoints(2);
+            double dist = pnt[0].DistanceTo(pnt[1]);
+            HistoryWindow += "Distance between 2 points: " + dist + "\n";
+        }
+
+        internal void ChangeTab()
+        {
+            if (FileSelected != null)
+            {
+                PathSelected = FilePaths[FileItems.IndexOf(FileSelected)];
+                GLEngine.Instance.ChangeSession(PathSelected);
+            }
+        }
+
         public ICommand CloseTabCommand { get; }
     }
 }

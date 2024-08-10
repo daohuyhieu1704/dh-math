@@ -34,6 +34,11 @@ namespace Geometry
 		return OdGePoint2d(x, y);
 	}
 
+	OdGePoint3d OdGePoint3d::CenterTo(OdGePoint3d other) const
+	{
+		return OdGePoint3d((x + other.x) / 2, (y + other.y) / 2, (z + other.z) / 2);
+	}
+
 	void OdGePoint3d::operator+=(const OdGePoint3d& other)
 	{
 		x += other.x;

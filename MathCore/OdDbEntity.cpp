@@ -33,6 +33,10 @@ void OdDbEntity::setShape(std::string shape)
 {
 	m_shape = shape;
 }
+OdGePoint3d OdDbEntity::getCenter() const
+{
+	return m_boundary.getCenter();
+}
 OdObjectBase* OdDbEntity::Clone() const
 {
 	return nullptr;

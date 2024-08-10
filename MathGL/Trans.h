@@ -1,29 +1,28 @@
 #pragma once
 #include "ObjectBase.h"
-#include "OdTransaction.h"
-#include "IEngine.h"
-#include <MathLog.h>
+#include "FmTransaction.h"
+#include "FmRenderer.h"
+#include <FumoLog.h>
 
-using namespace DatabaseServices;
-
-namespace MathCore {
+namespace FumoWrapper {
     namespace DbServices {
         public ref class Trans : public ObjectBase
         {
         public:
             Trans(IntPtr unmanagedObjPtr, bool autoDelete) : ObjectBase(System::IntPtr(unmanagedObjPtr), autoDelete) {}
+            Trans() : ObjectBase(System::IntPtr(new TransactionNative(FmRenderer::Instance->GetImpObj()->CurDoc())), true) {}
 
             void StartTransaction()
             {  
                 if (GetImpObj() == nullptr) {
                     return;
                 }
-                GetImpObj()->StartTransaction();
+                GetImpObj()->StartTransaction(FmRenderer::Instance->GetImpObj()->pRenderTarget);
             }
 
             void AddNewlyObject(ObjectBase^ obj)
             {
-                GetImpObj()->AddNewlyObject(std::shared_ptr<OdObjectBase>(obj->GetImpObj()));
+                GetImpObj()->AddNewlyObject(std::shared_ptr<FmObjectBase>(obj->GetImpObj()));
             }
 
             void Abort()
@@ -36,12 +35,22 @@ namespace MathCore {
                 GetImpObj()->Commit();
             }
 
+            void Undo()
+            {
+                GetImpObj()->Undo();
+            }
+
+            void Redo()
+            {
+                GetImpObj()->Redo();
+            }
+
         private:
-            DatabaseServices::OdTransaction* GetImpObj()
+            DatabaseServices::TransactionNative* GetImpObj()
             {
                 void* obj = DisposableWrapper::GetImpObj();
-                MathLog::LogFunction("Trans impObj", obj);
-                return static_cast<DatabaseServices::OdTransaction*>(obj);
+                FumoLog::LogFunction("Trans impObj", obj);
+                return static_cast<DatabaseServices::TransactionNative*>(obj);
             }
         };
     }

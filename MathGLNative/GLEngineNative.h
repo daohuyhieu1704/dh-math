@@ -70,7 +70,9 @@ public:
 
 	void AddLine(OdGePoint3d startPnt, OdGePoint3d endPnt);
 	void CreateSession(std::string fileName);
+	void ChangeSession(std::string filePath);
 	void AppendCommand(const std::string command);
+	void AppendPrompt(const std::string prompt);
 	void RegisterCommandPattern();
 	int getHistorySize();
 	std::string GetCurrentFilePath();

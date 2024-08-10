@@ -14,6 +14,7 @@ namespace Geometry
 
 		float DistanceTo(OdGePoint3d other) const;
 		OdGePoint2d ConvertTo2d();
+		OdGePoint3d CenterTo(OdGePoint3d other) const;
 
 		void operator+=(const OdGePoint3d& other);
 		void operator+=(const OdGeVector3d& other);

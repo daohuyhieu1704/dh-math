@@ -75,7 +75,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)Libraries</OutDir>
-    <IncludePath>C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um;C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared</IncludePath>
+    <IncludePath>$(SolutionDir)vcpkg_installed\x64-windows\include;$(IncludePath);C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um;C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared</IncludePath>
     <LibraryPath>C:\Program Files (x86)\Windows Kits\10\Lib\10.0.22621.0\um\x64;..\Lib;$(LibraryPath)</LibraryPath>
     <ExternalIncludePath>$(SolutionDir)Libraries;$(ExternalIncludePath)</ExternalIncludePath>
   </PropertyGroup>

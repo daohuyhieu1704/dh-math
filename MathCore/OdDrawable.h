@@ -2,6 +2,7 @@
 #include "OdObjectBase.h"
 #include "OdGePoint3d.h"
 #include "RenderEntity.h"
+#include <vector>
 
 using namespace Geometry;
 
@@ -27,6 +28,7 @@ public:
     float GetRotation() const;
     void SetRotation(float rot);
     void GetColor(float* color) const;
+    std::vector<float> GetColor() const;
     void SetColor(float red, float green, float blue, float alpha);
 #pragma endregion
     virtual OdObjectBase* Clone() const = 0;

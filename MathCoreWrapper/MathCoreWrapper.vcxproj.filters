@@ -72,9 +72,6 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Trans.h">
-      <Filter>DatabaseServices\Transaction</Filter>
-    </ClInclude>
     <ClInclude Include="ObjectBase.h">
       <Filter>ObjectBase</Filter>
     </ClInclude>
@@ -108,13 +105,13 @@
     <ClInclude Include="Extend3d.h">
       <Filter>Geometry\Extend3d</Filter>
     </ClInclude>
+    <ClInclude Include="Trans.h">
+      <Filter>DatabaseServices\Transaction</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Trans.cpp">
-      <Filter>DatabaseServices\Transaction</Filter>
     </ClCompile>
     <ClCompile Include="ObjectBase.cpp">
       <Filter>ObjectBase</Filter>
@@ -148,6 +145,9 @@
     </ClCompile>
     <ClCompile Include="Extend3d.cpp">
       <Filter>Geometry\Extend3d</Filter>
+    </ClCompile>
+    <ClCompile Include="Trans.cpp">
+      <Filter>DatabaseServices\Transaction</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

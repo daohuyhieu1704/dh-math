@@ -104,5 +104,19 @@ namespace MathUI.Presenters
         {
             CommandAction((model) => ViewModel.CloseApp());
         }
+
+        private void Dist_Click(object sender, RoutedEventArgs e)
+        {
+            CommandAction((model) => ViewModel.Dist());
+        }
+
+        private void FileTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ViewModel == null)
+            {
+                return;
+            }
+            CommandAction((model) => ViewModel.ChangeTab());
+        }
     }
 }

@@ -15,6 +15,7 @@ namespace EditorInput {
         bool processInput(std::string& input);
         void registerCommand(const std::string& command, IActionCmd* func);
         void appendCommand(const std::string& input);
+        void appendPrompt(const std::string& input);
         IActionCmd* getCommand(const std::string& command);
 
         int historySize() const;

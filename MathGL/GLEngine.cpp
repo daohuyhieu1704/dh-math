@@ -88,6 +88,11 @@ namespace MathGL
 		std::string standardStr = msclr::interop::marshal_as<std::string>(command);
 		m_pEngine->AppendCommand(standardStr);
 	}
+	void GLEngine::AppendPrompt(String^ prompt)
+	{
+		std::string standardStr = msclr::interop::marshal_as<std::string>(prompt);
+		m_pEngine->AppendPrompt(standardStr);
+	}
 	void GLEngine::CreateSession(String^ fileName)
 	{
 		std::string standardStr = msclr::interop::marshal_as<std::string>(fileName);
@@ -100,6 +105,11 @@ namespace MathGL
 	void GLEngine::Redo()
 	{
 		m_pEngine->Redo();
+	}
+	void GLEngine::ChangeSession(String^ filePath)
+	{
+		std::string standardStr = msclr::interop::marshal_as<std::string>(filePath);
+		m_pEngine->ChangeSession(standardStr);
 	}
 	void GLEngine::AddJig(Jig^ jig)
 	{

@@ -7,11 +7,14 @@ class OdHostAppService
 {
 public:
     static OdHostAppService* getInstance() {
-		OdHostAppService* instance = new OdHostAppService();
-        return instance;
+		static OdHostAppService instance;
+		return &instance;
     }
 
     std::shared_ptr<MathSession> createSession(const std::string& sessionId) {
+		if (sessions.find(sessionId) != sessions.end()) {
+			return sessions[sessionId];
+		}
         auto session = std::make_shared<MathSession>();
         sessions[sessionId] = session;
 		currentSessionId = sessionId;
@@ -25,6 +28,11 @@ public:
         return nullptr;
     }
 
+    void ChangeCurrSession(const std::string filePath) {
+		if (sessions.find(filePath) != sessions.end()) {
+			currentSessionId = filePath;
+		}
+    }
     void removeSession(const std::string& sessionId) {
         sessions.erase(sessionId);
     }
@@ -41,7 +49,7 @@ private:
     OdHostAppService()
     {
 		sessions = std::unordered_map<std::string, std::shared_ptr<MathSession>>();
-        createSession("default");
+        createSession("Untitled");
     };
     ~OdHostAppService() = default;
     OdHostAppService(const OdHostAppService&) = delete;

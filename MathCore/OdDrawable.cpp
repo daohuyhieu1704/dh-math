@@ -34,6 +34,15 @@ void OdDrawable::GetColor(float* color) const
 	}
 }
 
+std::vector<float> OdDrawable::GetColor() const
+{
+	std::vector<float> color;
+	for (int i = 0; i < 4; ++i) {
+		color.push_back(m_color[i]);
+	}
+	return color;
+}
+
 void OdDrawable::SetColor(float red, float green, float blue, float alpha)
 {
 	m_color[0] = red;

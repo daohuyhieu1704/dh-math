@@ -24,5 +24,6 @@ namespace Geometry
         void SetMaxPnt(OdGePoint3d maxPnt) { m_maxPnt = maxPnt; }
 
 #pragma endregion
+        OdGePoint3d getCenter() const;
     };
 }

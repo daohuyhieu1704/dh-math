@@ -148,6 +148,8 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="MathLog.h" />
     <ClInclude Include="Matrices.h" />
+    <ClInclude Include="OdDatabase.h" />
+    <ClInclude Include="OdDataTableRecord.h" />
     <ClInclude Include="OdDbCircle.h" />
     <ClInclude Include="OdDbSquare.h" />
     <ClInclude Include="OdGeExtend3d.h" />
@@ -168,6 +170,7 @@
     <ClInclude Include="OdGeVector3d.h" />
     <ClInclude Include="OdJig.h" />
     <ClInclude Include="OdObjectBase.h" />
+    <ClInclude Include="OdTransaction.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="RenderEntity.h" />
     <ClInclude Include="resource.h" />
@@ -175,6 +178,8 @@
   <ItemGroup>
     <ClCompile Include="CommandPrompt.cpp" />
     <ClCompile Include="Matrices.cpp" />
+    <ClCompile Include="OdDatabase.cpp" />
+    <ClCompile Include="OdDataTableRecord.cpp" />
     <ClCompile Include="OdDbCircle.cpp" />
     <ClCompile Include="OdDbSquare.cpp" />
     <ClCompile Include="OdGeExtend3d.cpp" />
@@ -195,6 +200,7 @@
     <ClCompile Include="OdGeVector3d.cpp" />
     <ClCompile Include="OdJig.cpp" />
     <ClCompile Include="OdObjectBase.cpp" />
+    <ClCompile Include="OdTransaction.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

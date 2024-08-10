@@ -18,7 +18,7 @@ public:
     virtual OdObjectBase* Clone() const = 0;
 };
 
-typedef std::shared_ptr<OdObjectBase> FmObjectBasePtr;
+typedef std::shared_ptr<OdObjectBase> OdObjectBasePtr;
 
 class ObjectBaseFactory {
 public:

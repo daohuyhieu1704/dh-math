@@ -1,5 +1,6 @@
 #pragma once
 #include "DisposableWrapper.h"
+#include "OdObjectBase.h"
 #include <msclr/marshal_cppstd.h>
 
 using namespace System;
@@ -12,5 +13,10 @@ namespace MathCore
         ObjectBase(IntPtr unmanagedObjPtr, bool autoDelete) : DisposableWrapper(System::IntPtr(unmanagedObjPtr), autoDelete)
         {
         }
+		~ObjectBase() {}
+		OdObjectBase* GetImpObj()
+		{
+			return static_cast<OdObjectBase*>(DisposableWrapper::GetImpObj());
+		}
     };
 }

@@ -42,6 +42,7 @@ void GLSquare::render()
 
     glBegin(GL_QUADS);
 
+    glColor3f(1.0, 1.0, 1.0);
     glVertex3f(minX, minY, zBottom);
     glVertex3f(maxX, minY, zBottom);
     glVertex3f(maxX, maxY, zBottom);
@@ -73,4 +74,47 @@ void GLSquare::render()
     glVertex3f(minX, maxY, zTop);
 
     glEnd();
+
+    glColor3f(0.0, 0.0, 0.0);
+
+    glBegin(GL_LINES);
+
+    glVertex3f(minX, minY, zBottom);
+    glVertex3f(maxX, minY, zBottom);
+
+    glVertex3f(maxX, minY, zBottom);
+    glVertex3f(maxX, maxY, zBottom);
+
+    glVertex3f(maxX, maxY, zBottom);
+    glVertex3f(minX, maxY, zBottom);
+
+    glVertex3f(minX, maxY, zBottom);
+    glVertex3f(minX, minY, zBottom);
+
+    glVertex3f(minX, minY, zTop);
+    glVertex3f(maxX, minY, zTop);
+
+    glVertex3f(maxX, minY, zTop);
+    glVertex3f(maxX, maxY, zTop);
+
+    glVertex3f(maxX, maxY, zTop);
+    glVertex3f(minX, maxY, zTop);
+
+    glVertex3f(minX, maxY, zTop);
+    glVertex3f(minX, minY, zTop);
+
+    glVertex3f(minX, minY, zBottom);
+    glVertex3f(minX, minY, zTop);
+
+    glVertex3f(maxX, minY, zBottom);
+    glVertex3f(maxX, minY, zTop);
+
+    glVertex3f(maxX, maxY, zBottom);
+    glVertex3f(maxX, maxY, zTop);
+
+    glVertex3f(minX, maxY, zBottom);
+    glVertex3f(minX, maxY, zTop);
+
+    glEnd();
 }
+

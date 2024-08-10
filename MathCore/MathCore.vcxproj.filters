@@ -183,6 +183,15 @@
     <ClInclude Include="OdGeExtend3d.h">
       <Filter>Geometry\Extend3d</Filter>
     </ClInclude>
+    <ClInclude Include="OdDatabase.h">
+      <Filter>DatabaseService</Filter>
+    </ClInclude>
+    <ClInclude Include="OdDataTableRecord.h">
+      <Filter>DatabaseService</Filter>
+    </ClInclude>
+    <ClInclude Include="OdTransaction.h">
+      <Filter>DatabaseService</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -256,6 +265,15 @@
     </ClCompile>
     <ClCompile Include="OdGeExtend3d.cpp">
       <Filter>Geometry\Extend3d</Filter>
+    </ClCompile>
+    <ClCompile Include="OdDatabase.cpp">
+      <Filter>DatabaseService</Filter>
+    </ClCompile>
+    <ClCompile Include="OdDataTableRecord.cpp">
+      <Filter>DatabaseService</Filter>
+    </ClCompile>
+    <ClCompile Include="OdTransaction.cpp">
+      <Filter>DatabaseService</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

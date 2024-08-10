@@ -55,5 +55,6 @@ nlohmann::json OdDbSquare::ToJson() const
 
 void OdDbSquare::WorldDraw()
 {
-	m_boundary = OdGeExtend3d(OdGePoint3d({ m_minPnt.x, m_minPnt.y, 0 }), OdGePoint3d({ m_maxPnt.x, m_maxPnt.y, 0 }));
+	m_boundary = OdGeExtend3d(OdGePoint3d({ m_minPnt.x, m_minPnt.y, 0 }), OdGePoint3d({ m_maxPnt.x, m_maxPnt.y, (float)m_height }));
+    m_position = m_boundary.getCenter();
 }

@@ -22,6 +22,7 @@ public:
 	void setIsSelected(bool isSelected);
 	std::string getShape() const;
 	void setShape(std::string shape);
+	OdGePoint3d getCenter() const;
 #pragma endregion
     virtual void WorldDraw() = 0;
     OdObjectBase* Clone() const override;

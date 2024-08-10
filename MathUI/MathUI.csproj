@@ -22,9 +22,11 @@
 
   <ItemGroup>
     <None Remove="Icons\circle.png" />
+    <None Remove="Icons\dist.png" />
     <None Remove="Icons\line.png" />
     <None Remove="Icons\new.png" />
     <None Remove="Icons\open.png" />
+    <None Remove="Icons\poly.png" />
     <None Remove="Icons\rect.png" />
     <None Remove="Icons\redo.png" />
     <None Remove="Icons\save.png" />
@@ -35,6 +37,9 @@
 
   <ItemGroup>
     <Content Include="Icons\circle.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Icons\dist.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Icons\line.png">
@@ -73,6 +78,12 @@
 
   <ItemGroup>
     <Content Include="Icons\save.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Icons\poly.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

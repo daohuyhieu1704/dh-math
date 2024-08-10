@@ -70,6 +70,16 @@ namespace EditorInput {
 		}
     }
 
+    void CommandPrompt::appendPrompt(const std::string& input) {
+        std::string inputCopy = input;
+        if (processInput(inputCopy))
+        {
+            History.push_back(input);
+            saveStateForUndo();
+            redoStack = std::stack<std::string>();
+        }
+    }
+
     IActionCmd* CommandPrompt::getCommand(const std::string& command)
     {
 		if (commandMap.find(command) == commandMap.end()) {

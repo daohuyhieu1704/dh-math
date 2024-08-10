@@ -80,7 +80,9 @@ namespace MathGL
 		void BMViewport();
 		void BRViewport();
 		void CreateSession(String^ fileName);
+		void ChangeSession(String^ filePath);
 		void AppendCommand(String^ command);
+		void AppendPrompt(String^ prompt);
 		void AddJig(Jig^ jig);
 		void Undo();
 		void Redo();

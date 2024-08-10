@@ -599,10 +599,23 @@ void GLEngineNative::CreateSession(std::string fileName)
     RegisterCommandPattern();
 }
 
+void GLEngineNative::ChangeSession(std::string filePath)
+{
+	m_appServices->ChangeCurrSession(filePath);
+    m_entities.clear();
+    m_appServices->getCurrentSession()->ExecuteAllPrompts();
+
+}
+
 void GLEngineNative::AppendCommand(const std::string command)
 {
 	m_appServices->getCurrentSession()->getPrompts().appendCommand(command);
     
+}
+
+void GLEngineNative::AppendPrompt(const std::string prompt)
+{
+	m_appServices->getCurrentSession()->getPrompts().appendPrompt(prompt);
 }
 
 void GLEngineNative::RenderScene()
@@ -619,6 +632,8 @@ void GLEngineNative::RenderScene()
             OdDrawable* drawable = static_cast<OdDrawable*>(ent);
             if (drawable != nullptr && drawable->m_renderMethod != nullptr)
             {
+                std::vector<float> color = drawable->GetColor();
+                glColor3f(color[0], color[1], color[2]);
 				drawable->m_renderMethod->render();
             }
         }
