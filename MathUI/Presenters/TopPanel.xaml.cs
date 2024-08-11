@@ -118,5 +118,10 @@ namespace MathUI.Presenters
             }
             CommandAction((model) => ViewModel.ChangeTab());
         }
+
+        private void DrawPoly_Click(object sender, RoutedEventArgs e)
+        {
+            CommandAction((model) => ViewModel.DrawPoly());
+        }
     }
 }

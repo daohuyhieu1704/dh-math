@@ -541,6 +541,37 @@ namespace MathUI.ViewModels.MainWindow
             }
         }
 
+        internal async void DrawPoly()
+        {
+            HistoryWindow += "Total vertices:" + "\n";
+            TextInput textInp = new(this);
+            string text = await textInp.GetText();
+            if (double.TryParse(text, out var z))
+            {
+                HistoryWindow += $"Pick {z} points:" + "\n";
+                for (int i = 0; i < z; i++)
+                {
+                    //HistoryWindow += "Pick vertex " + (i + 1) + "\n";
+                    PointSelection pointSelection = new();
+
+                    List<Point3d> pnt = await pointSelection.getPoints(1);
+                    List<Point3d> pnt1 = await pointSelection.getPoints(1);
+                    using LineJig lineJig = new(pnt1[0]);
+                    lineJig.Commit();
+                    if (i == 0)
+                    {
+                    }
+                    else
+                    {
+                        List<Point3d> pnt2 = await pointSelection.getPoints(1);
+                        Line line = new(pnt1[0], pnt2[0]);
+                        line.Draw();
+                        HistoryWindow += line.GetCommand() + "\n";
+                    }
+                }
+            }
+        }
+
         public ICommand CloseTabCommand { get; }
     }
 }
