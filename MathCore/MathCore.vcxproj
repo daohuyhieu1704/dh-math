@@ -145,15 +145,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CommandPrompt.h" />
+    <ClInclude Include="ErrorDefs.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="MathLog.h" />
     <ClInclude Include="Matrices.h" />
+    <ClInclude Include="MessageDefs.h" />
     <ClInclude Include="OdDatabase.h" />
     <ClInclude Include="OdDataTableRecord.h" />
     <ClInclude Include="OdDbCircle.h" />
     <ClInclude Include="OdDbSquare.h" />
     <ClInclude Include="OdGeExtend3d.h" />
+    <ClInclude Include="OdGeMatrix2d.h" />
+    <ClInclude Include="OdGeMatrix3d.h" />
     <ClInclude Include="OdGeQuaternion.h" />
+    <ClInclude Include="OdGeScale3d.h" />
+    <ClInclude Include="OdGeTol.h" />
     <ClInclude Include="OdGeVector2d.h" />
     <ClInclude Include="OdGeVector4d.h" />
     <ClInclude Include="OdHostAppService.h" />
@@ -170,6 +176,7 @@
     <ClInclude Include="OdGeVector3d.h" />
     <ClInclude Include="OdJig.h" />
     <ClInclude Include="OdObjectBase.h" />
+    <ClInclude Include="OdResult.h" />
     <ClInclude Include="OdSmartPtr.h" />
     <ClInclude Include="OdTransaction.h" />
     <ClInclude Include="pch.h" />
@@ -184,7 +191,11 @@
     <ClCompile Include="OdDbCircle.cpp" />
     <ClCompile Include="OdDbSquare.cpp" />
     <ClCompile Include="OdGeExtend3d.cpp" />
+    <ClCompile Include="OdGeMatrix2d.cpp" />
+    <ClCompile Include="OdGeMatrix3d.cpp" />
     <ClCompile Include="OdGeQuaternion.cpp" />
+    <ClCompile Include="OdGeScale3d.cpp" />
+    <ClCompile Include="OdGeTol.cpp" />
     <ClCompile Include="OdGeVector2d.cpp" />
     <ClCompile Include="OdGeVector4d.cpp" />
     <ClCompile Include="OdHostAppService.cpp" />

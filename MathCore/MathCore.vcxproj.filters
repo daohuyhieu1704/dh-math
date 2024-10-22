@@ -100,6 +100,15 @@
     <Filter Include="Geometry\Extend3d">
       <UniqueIdentifier>{f5844737-fea4-4839-b6fa-0c179710aa98}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Geometry\Scale3d">
+      <UniqueIdentifier>{8bd885ec-6d8e-4f7f-b6db-02d3957241a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Geometry\Tol">
+      <UniqueIdentifier>{ac84e0e2-2a4a-45ef-a93f-25130c95c66b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Results">
+      <UniqueIdentifier>{cb599d3f-d83a-4feb-92fd-4bc22eda87a4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -195,6 +204,27 @@
     <ClInclude Include="OdSmartPtr.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="OdGeScale3d.h">
+      <Filter>Geometry\Scale3d</Filter>
+    </ClInclude>
+    <ClInclude Include="OdGeTol.h">
+      <Filter>Geometry\Tol</Filter>
+    </ClInclude>
+    <ClInclude Include="OdGeMatrix3d.h">
+      <Filter>Geometry\Matrices</Filter>
+    </ClInclude>
+    <ClInclude Include="OdGeMatrix2d.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OdResult.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ErrorDefs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MessageDefs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -277,6 +307,18 @@
     </ClCompile>
     <ClCompile Include="OdTransaction.cpp">
       <Filter>DatabaseService</Filter>
+    </ClCompile>
+    <ClCompile Include="OdGeScale3d.cpp">
+      <Filter>Geometry\Scale3d</Filter>
+    </ClCompile>
+    <ClCompile Include="OdGeTol.cpp">
+      <Filter>Geometry\Tol</Filter>
+    </ClCompile>
+    <ClCompile Include="OdGeMatrix3d.cpp">
+      <Filter>Geometry\Matrices</Filter>
+    </ClCompile>
+    <ClCompile Include="OdGeMatrix2d.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
