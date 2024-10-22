@@ -10,8 +10,8 @@
 #include <nlohmann/json.hpp>
 
 namespace DatabaseServices {
-    typedef std::shared_ptr<class OdDatabase> OdDatabasePtr;
-
+    typedef OdSmartPtr<class OdTransaction> OdTransactionPtr;
+    typedef OdSmartPtr<class OdDatabase> OdDatabasePtr;
     class OdDatabase : public OdObjectBase
     {
     private:
@@ -27,9 +27,9 @@ namespace DatabaseServices {
 
         virtual void ReRender(void* renderTarget) = 0;
         virtual OdDatabasePtr CreateInstance() const = 0;
-        void AppendObject(std::shared_ptr<OdObjectBase> obj);
+        void AppendObject(OdObjectBasePtr obj);
         void SaveToJson(const std::string& filename);
         OdTransactionPtr TransactionManager;
-        OdObjectBase* Clone() const override;
+        OdObjectBasePtr Clone() const override;
     };
 }

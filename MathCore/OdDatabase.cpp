@@ -17,7 +17,7 @@ namespace DatabaseServices {
         m_name = name;
     }
 
-    void OdDatabase::AppendObject(std::shared_ptr<OdObjectBase> obj) {
+    void OdDatabase::AppendObject(OdObjectBasePtr obj) {
         m_ObjectRecords->AddObject(obj);
     }
 

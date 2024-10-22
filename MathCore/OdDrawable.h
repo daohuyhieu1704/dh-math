@@ -31,5 +31,5 @@ public:
     std::vector<float> GetColor() const;
     void SetColor(float red, float green, float blue, float alpha);
 #pragma endregion
-    virtual OdObjectBase* Clone() const = 0;
+    virtual OdObjectBasePtr Clone() const = 0;
 };

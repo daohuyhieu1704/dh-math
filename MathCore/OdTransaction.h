@@ -8,7 +8,7 @@
 
 namespace DatabaseServices {
 
-    typedef std::shared_ptr<class OdDatabase> OdDatabasePtr;
+    typedef OdSmartPtr<class OdDatabase> OdDatabasePtr;
 
     class OdTransaction : public OdObjectBase
     {
@@ -25,7 +25,7 @@ namespace DatabaseServices {
             : OdObjectBase(), m_transactionActive(false), m_Doc(parentDoc), m_renderTarget(nullptr), m_isUndoRedoInProgress(false) {}
 
         void StartTransaction();
-        void AddNewlyObject(std::shared_ptr<OdObjectBase> obj);
+        void AddNewlyObject(OdObjectBasePtr obj);
         void Abort();
         void Commit();
         virtual ~OdTransaction() = default;

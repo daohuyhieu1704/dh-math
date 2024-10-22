@@ -170,6 +170,7 @@
     <ClInclude Include="OdGeVector3d.h" />
     <ClInclude Include="OdJig.h" />
     <ClInclude Include="OdObjectBase.h" />
+    <ClInclude Include="OdSmartPtr.h" />
     <ClInclude Include="OdTransaction.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="RenderEntity.h" />

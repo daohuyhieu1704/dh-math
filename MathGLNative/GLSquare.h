@@ -26,3 +26,5 @@ public:
     void render() override;
     ~GLSquare() {}
 };
+
+typedef OdS<GLSquare> GLSquarePtr;

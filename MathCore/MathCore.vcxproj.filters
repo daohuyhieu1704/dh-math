@@ -192,6 +192,9 @@
     <ClInclude Include="OdTransaction.h">
       <Filter>DatabaseService</Filter>
     </ClInclude>
+    <ClInclude Include="OdSmartPtr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">

@@ -1,25 +1,25 @@
 #include "pch.h"
 #include "OdDataTableRecord.h"
 
-std::vector<std::shared_ptr<OdObjectBase>> OdDataTableRecord::GetObjects() const
+std::vector<OdObjectBasePtr> OdDataTableRecord::GetObjects() const
 {
-    std::vector<std::shared_ptr<OdObjectBase>> objects;
+    std::vector<OdObjectBasePtr> objects;
     for (const auto& pair : m_objects) {
-        objects.push_back(std::shared_ptr<OdObjectBase>(pair.second.get()));
+        objects.push_back(OdObjectBasePtr(pair.second));
     }
     return objects;
 }
 
-void OdDataTableRecord::AddObject(std::shared_ptr<OdObjectBase> obj)
+void OdDataTableRecord::AddObject(OdObjectBasePtr obj)
 {
     std::string id = obj->GetObjectId();
     m_objects[id] = obj;
 }
 
-bool OdDataTableRecord::GetObjectById(const std::string& id, std::shared_ptr<OdObjectBase>& obj) {
+bool OdDataTableRecord::GetObjectById(const std::string& id, OdObjectBasePtr obj) {
     auto it = m_objects.find(id);
     if (it != m_objects.end()) {
-        obj = std::shared_ptr<OdObjectBase>(it->second.get(), [](OdObjectBase*) {});
+        obj = OdObjectBasePtr(it->second);
         return true;
     }
     return false;
@@ -28,16 +28,14 @@ bool OdDataTableRecord::GetObjectById(const std::string& id, std::shared_ptr<OdO
 nlohmann::json OdDataTableRecord::ToJson() const {
     nlohmann::json jsonArray = nlohmann::json::array();
     for (const auto& obj : m_objects) {
-        OdDbObject* dbObj = dynamic_cast<OdDbObject*>(obj.second.get());
-        if (dbObj == nullptr) {
-            continue;
-        }
+        OdDbObjectPtr dbObj = dynamic_pointer_cast<OdDbObject, OdObjectBase>(obj.second);
+        if (dbObj) continue;
         jsonArray.push_back(dbObj->ToJson());
     }
     return jsonArray;
 }
 
-OdObjectBase* OdDataTableRecord::Clone() const
+OdObjectBasePtr OdDataTableRecord::Clone() const
 {
     return nullptr;
 }

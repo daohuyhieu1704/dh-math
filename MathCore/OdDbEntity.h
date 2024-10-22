@@ -25,6 +25,6 @@ public:
 	OdGePoint3d getCenter() const;
 #pragma endregion
     virtual void WorldDraw() = 0;
-    OdObjectBase* Clone() const override;
+    OdObjectBasePtr Clone() const override;
     virtual ~OdDbEntity() = default;
 };

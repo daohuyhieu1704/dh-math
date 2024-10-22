@@ -27,18 +27,3 @@ std::string OdObjectBase::GenerateShortId()
 
     return ss.str().substr(0, 8);
 }
-
-ObjectBaseFactory& ObjectBaseFactory::Instance()
-{
-    static ObjectBaseFactory factory;
-    return factory;
-}
-
-std::shared_ptr<OdObjectBase> ObjectBaseFactory::CreateObject(const std::string& type) const
-{
-    auto it = creators.find(type);
-    if (it != creators.end()) {
-        return it->second();
-    }
-    return nullptr;
-}

@@ -37,7 +37,8 @@ OdGePoint3d OdDbEntity::getCenter() const
 {
 	return m_boundary.getCenter();
 }
-OdObjectBase* OdDbEntity::Clone() const
+OdObjectBasePtr OdDbEntity::Clone() const
 {
-	return nullptr;
+	auto derivedPtr = ObjectFactory<OdDbEntity>::createObject();
+	return OdObjectBasePtr(derivedPtr);
 }
