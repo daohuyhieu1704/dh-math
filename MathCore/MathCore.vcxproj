@@ -145,13 +145,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CommandPrompt.h" />
+    <ClInclude Include="Error_NotThatKindOfClass.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="MathLog.h" />
     <ClInclude Include="Matrices.h" />
+    <ClInclude Include="OdBaseObjectPtr.h" />
     <ClInclude Include="OdDatabase.h" />
     <ClInclude Include="OdDataTableRecord.h" />
     <ClInclude Include="OdDbCircle.h" />
     <ClInclude Include="OdDbSquare.h" />
+    <ClInclude Include="OdError.h" />
     <ClInclude Include="OdGeExtend3d.h" />
     <ClInclude Include="OdGeQuaternion.h" />
     <ClInclude Include="OdGeVector2d.h" />
@@ -170,8 +173,12 @@
     <ClInclude Include="OdGeVector3d.h" />
     <ClInclude Include="OdJig.h" />
     <ClInclude Include="OdObjectBase.h" />
+    <ClInclude Include="OdPlatformSettings.h" />
+    <ClInclude Include="OdResult.h" />
+    <ClInclude Include="OdSmartPtr.h" />
     <ClInclude Include="OdTransaction.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="PrObject.h" />
     <ClInclude Include="RenderEntity.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
@@ -207,6 +214,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="PrObject.cpp" />
     <ClCompile Include="RenderEntity.cpp" />
   </ItemGroup>
   <ItemGroup>

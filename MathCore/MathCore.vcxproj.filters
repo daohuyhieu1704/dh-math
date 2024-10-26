@@ -100,6 +100,12 @@
     <Filter Include="Geometry\Extend3d">
       <UniqueIdentifier>{f5844737-fea4-4839-b6fa-0c179710aa98}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Primary">
+      <UniqueIdentifier>{61f68006-fc00-499e-abf2-bfa4a7d0dd92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ResultPresenter">
+      <UniqueIdentifier>{3ba0aa25-7dae-4f5e-a061-571300e549cf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -192,6 +198,27 @@
     <ClInclude Include="OdTransaction.h">
       <Filter>DatabaseService</Filter>
     </ClInclude>
+    <ClInclude Include="PrObject.h">
+      <Filter>Primary</Filter>
+    </ClInclude>
+    <ClInclude Include="OdBaseObjectPtr.h">
+      <Filter>Primary</Filter>
+    </ClInclude>
+    <ClInclude Include="OdSmartPtr.h">
+      <Filter>Primary</Filter>
+    </ClInclude>
+    <ClInclude Include="OdResult.h">
+      <Filter>ResultPresenter</Filter>
+    </ClInclude>
+    <ClInclude Include="OdError.h">
+      <Filter>ResultPresenter</Filter>
+    </ClInclude>
+    <ClInclude Include="Error_NotThatKindOfClass.h">
+      <Filter>ResultPresenter</Filter>
+    </ClInclude>
+    <ClInclude Include="OdPlatformSettings.h">
+      <Filter>Primary</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -274,6 +301,9 @@
     </ClCompile>
     <ClCompile Include="OdTransaction.cpp">
       <Filter>DatabaseService</Filter>
+    </ClCompile>
+    <ClCompile Include="PrObject.cpp">
+      <Filter>Primary</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,4 @@
-﻿using MathDX;
+﻿// using MathDX;
 using MathGL;
 using MathUI.ViewModels.MainWindow;
 using System.Text;

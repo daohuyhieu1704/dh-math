@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Interop;
-using MathDX;
+// using MathDX;
 using MathGL;
 
 namespace MathUI.Utils.EngineHost
@@ -55,15 +55,15 @@ namespace MathUI.Utils.EngineHost
                         }
                         break;
                     }
-                case Type t when t == typeof(DXEngine):
-                    {
-                        hwndHost = DXEngine.Instance.InitializeWindow(hwndParent.Handle);
-                        if (hwndHost == IntPtr.Zero)
-                        {
-                            throw new InvalidOperationException("Failed to create DirectX window.");
-                        }
-                        break;
-                    }
+                //case Type t when t == typeof(DXEngine):
+                //    {
+                //        hwndHost = DXEngine.Instance.InitializeWindow(hwndParent.Handle);
+                //        if (hwndHost == IntPtr.Zero)
+                //        {
+                //            throw new InvalidOperationException("Failed to create DirectX window.");
+                //        }
+                //        break;
+                //    }
             }
             return new HandleRef(this, hwndHost);
         }
