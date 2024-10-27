@@ -1,39 +1,40 @@
 #pragma once
 
 #include "ObjectBase.h"
+#include "OdDrawable.h"
 #include <map>
 #include <deque>
 #include <memory>
 #include <stdexcept>
 
 namespace DatabaseServices {
-
-    typedef std::shared_ptr<class OdDatabase> OdDatabasePtr;
+    class OdDatabase;
+    typedef OdSmartPtr<OdDatabase> OdDatabasePtr;
 
     class OdTransaction : public OdObjectBase
     {
     protected:
         bool m_transactionActive;
         OdDatabasePtr m_Doc;
-        std::map<std::string, std::shared_ptr<OdObjectBase>> m_newlyAddedObjects;
+        std::map<OdDbObjectId, OdDrawablePtr> m_newlyAddedObjects;
         bool m_isUndoRedoInProgress;
-        std::deque<std::shared_ptr<OdObjectBase>> m_undoneObjects;
+        std::deque<OdPrObjectPtr> m_undoneObjects;
 
     public:
-        OdTransaction() : OdObjectBase(), m_transactionActive(false), m_Doc(nullptr), m_renderTarget(nullptr), m_isUndoRedoInProgress(false) {}
-        OdTransaction(OdDatabasePtr parentDoc)
-            : OdObjectBase(), m_transactionActive(false), m_Doc(parentDoc), m_renderTarget(nullptr), m_isUndoRedoInProgress(false) {}
+		ODBASE_DECLARE_MEMBERS(OdTransaction);
+        OdTransaction();
+        OdTransaction(OdDatabasePtr parentDoc) : m_transactionActive(false), m_Doc(parentDoc), m_isUndoRedoInProgress(false) {}
 
         void StartTransaction();
-        void AddNewlyObject(std::shared_ptr<OdObjectBase> obj);
+        void AddNewlyObject(OdDrawablePtr obj);
         void Abort();
         void Commit();
         virtual ~OdTransaction() = default;
 
     protected:
-        void* m_renderTarget;
-        virtual void DrawObject(std::shared_ptr<OdObjectBase> obj) = 0;
+        RenderEntityPtr m_renderTarget;
+        virtual void DrawObject(OdDrawablePtr obj) = 0;
     };
 
-    typedef std::shared_ptr<OdTransaction> OdTransactionPtr;
+    typedef OdSmartPtr<OdTransaction> OdTransactionPtr;
 }

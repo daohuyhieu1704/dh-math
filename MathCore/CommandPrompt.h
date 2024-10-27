@@ -8,15 +8,16 @@
 
 namespace EditorInput {
 
-    class CommandPrompt {
+    class CommandPrompt : public OdObjectBase {
     public:
+        ODBASE_DECLARE_MEMBERS(CommandPrompt);
         CommandPrompt();
 
         bool processInput(std::string& input);
-        void registerCommand(const std::string& command, IActionCmd* func);
+        void registerCommand(const std::string& command, IActionCmdPtr func);
         void appendCommand(const std::string& input);
         void appendPrompt(const std::string& input);
-        IActionCmd* getCommand(const std::string& command);
+        IActionCmdPtr getCommand(const std::string& command);
 
         int historySize() const;
         std::vector<std::string> getHistory() const;
@@ -32,9 +33,15 @@ namespace EditorInput {
 
         void saveStateForUndo();
 
-        std::map<std::string, IActionCmd*> commandMap;
+        std::map<std::string, IActionCmdPtr> commandMap;
         std::vector<std::string> History;
         std::stack<std::string> undoStack;
         std::stack<std::string> redoStack;
+
+        // Inherited via OdObjectBase
+        void addRef() override;
+        void release() override;
     };
+
+    typedef OdSmartPtr<CommandPrompt> CommandPromptPtr;
 }

@@ -152,6 +152,7 @@
     <ClInclude Include="OdDatabase.h" />
     <ClInclude Include="OdDataTableRecord.h" />
     <ClInclude Include="OdDbCircle.h" />
+    <ClInclude Include="OdDbObjectId.h" />
     <ClInclude Include="OdDbSquare.h" />
     <ClInclude Include="OdError.h" />
     <ClInclude Include="OdError_NotThatKindOfClass.h" />
@@ -196,6 +197,7 @@
     <ClCompile Include="OdDatabase.cpp" />
     <ClCompile Include="OdDataTableRecord.cpp" />
     <ClCompile Include="OdDbCircle.cpp" />
+    <ClCompile Include="OdDbObjectId.cpp" />
     <ClCompile Include="OdDbSquare.cpp" />
     <ClCompile Include="OdError.cpp" />
     <ClCompile Include="OdError_NotThatKindOfClass.cpp" />

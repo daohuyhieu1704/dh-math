@@ -6,24 +6,26 @@
 
 using namespace EditorInput;
 
-class MathSession
+class MathSession : public OdObjectBase
 {
 	std::string fileName = "";
 public:
+	ODBASE_DECLARE_MEMBERS(MathSession);
     MathSession()
 	{
-		mathPrompt = CommandPrompt();
+		mathPrompt = CommandPrompt::createObject();
 	}
 	~MathSession() = default;
 	std::string getFileName() { return fileName; }
 	void setFileName(std::string name) { fileName = name; }
 	void undo();
 	void redo();
-	CommandPrompt& getPrompts() { return mathPrompt; }
+	CommandPromptPtr getPrompts() { return mathPrompt; }
 	void ExecuteAllPrompts()
 	{
-		mathPrompt.executeAllPrompts();
+		mathPrompt->executeAllPrompts();
 	}
-    CommandPrompt mathPrompt;
+    CommandPromptPtr mathPrompt;
 };
 
+typedef OdSmartPtr<MathSession> MathSessionPtr;

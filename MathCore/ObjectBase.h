@@ -2,6 +2,7 @@
 #include "OdBaseObjectPtr.h"
 #include "OdError.h"
 #include <cstdlib>
+#include "OdDbObjectId.h"
 
 #define NEW_HANDLER()\
 {\
@@ -35,41 +36,48 @@
     } \
     void operator delete[](void*, void*) {}
 
-#define ODBASE_DECLARE_MEMBERS_GENERIC(ClassType, ClassName)\
-public:                                                                                              \
-                                                                                                     \
-  /** Casts the specified pointer to an ClassName SmartPointer. **/                      \
-  static OdSmartPtr<ClassName> cast(const OdObjectBase* pObj)                                          \
-  {                                                                                                  \
-    if (pObj)                                                                                        \
-      return OdSmartPtr<ClassName>(((ClassName*)pObj->queryX(ClassName::desc())));                   \
-    return (ClassName*)0;                                                                            \
-  }                                                                                                  \
-                                                                                                     \
-  static ClassType* g_pDesc;                                                                         \
-                                                                                                     \
-  /** Returns the static ClassType description object associated with this object. **/  \
-  /** This function is for use only when the class type of this object is known.          **/  \
-  /** If the class type of this object is unknown, use instead isA().                           **/  \
-  static ClassType* desc();                                                                   \
-                                                                                                     \
-  /** Returns the ClassType description instance associated with this object.      **/  \
-  /** This function is for use only when the class type of this object is unknown.        **/  \
-  /** If the class type of this object is known, use instead desc().                            **/  \
-  virtual ClassType* isA() const;                                                                    \
-                                                                                                     \
-  /** Returns the Protocol Extension object for this object.        **/                 \
-  /** Return null if there is no Protocol Extension object is found.    **/                 \
-  virtual OdObjectBase* queryX(const OdClassBase* protocolClass) const;                                  \
-                                                                                                     \
-  /** Creates a new instance of this object type.                   **/                 \
-  /** Returns a SmartPointer to the new instance.                       **/                 \
-  static OdPrObjectPtr pseudoConstructor();                                                          \
-                                                                                                     \
-  /** Creates a new instance of this object type.                   **/                 \
-  /** Returns a SmartPointer to the new instance.                       **/                 \
-   static OdSmartPtr<ClassName> createObject()                                                       \
-  { if (!desc()) throw OdError(eNotInitializedYet); return desc()->create(); }
+#define ODBASE_DECLARE_MEMBERS_GENERIC(ClassType, ClassName)                              \
+public:                                                                                   \
+    static void initClass();                                                              \
+    static void uninitClass();                                                            \
+                                                                                          \
+    /** Casts the specified pointer to a ClassName SmartPointer. **/                      \
+    static OdSmartPtr<ClassName> cast(const OdObjectBase* pObj)                           \
+    {                                                                                     \
+        if (pObj)                                                                         \
+            return OdSmartPtr<ClassName>(((ClassName*)pObj->queryX(ClassName::desc())));  \
+        return (ClassName*)0;                                                             \
+    }                                                                                     \
+                                                                                          \
+    static ClassType* g_pDesc;                                                            \
+                                                                                          \
+    /** Returns the static ClassType description object associated with this object. **/  \
+    /** This function is for use only when the class type of this object is known. **/    \
+    /** If the class type of this object is unknown, use instead isA(). **/               \
+    static ClassType* desc();                                                             \
+                                                                                          \
+    /** Returns the ClassType description instance associated with this object. **/       \
+    /** This function is for use only when the class type of this object is unknown. **/  \
+    /** If the class type of this object is known, use instead desc(). **/                \
+    virtual ClassType* isA() const;                                                       \
+                                                                                          \
+    /** Returns the Protocol Extension object for this object. **/                        \
+    /** Return null if no Protocol Extension object is found. **/                         \
+    virtual OdObjectBase* queryX(const OdClassBase* protocolClass) const;                 \
+                                                                                          \
+    /** Creates a new instance of this object type. **/                                   \
+    /** Returns a SmartPointer to the new instance. **/                                   \
+    static OdPrObjectPtr pseudoConstructor();                                             \
+                                                                                          \
+    /** Creates a new instance of this object type. **/                                   \
+    /** Returns a SmartPointer to the new instance. **/                                   \
+    static OdSmartPtr<ClassName> createObject()                                           \
+    {                                                                                     \
+        if (!desc())                                                                      \
+            throw OdError(eNotInitializedYet);                                            \
+        return desc()->create();                                                          \
+    }
+
 
 class OdClassBase;
 
@@ -94,16 +102,16 @@ typedef void (*AppNameChangeFuncPtr)(const OdClassBase* classObj, std::string& n
 /// does not increment its reference counter, and returns a smart pointer to the instance.
 /// The reference counter of a new instance is set to a default value.
 /// </summary>
-#define NEWOBJ_CONSTR(ClassName) OdSmartPtr<ClassName>(new ClassName, kODBASEObjAttach)
+#define NEWOBJ_CONSTR(ClassName) OdSmartPtr<ClassName>(new ClassName)
+
+#define DBOBJECT_CONSTR(ClassName) OdSmartPtr<ClassName> (new ClassName)
 
 #define ODBASE_DEFINE_RTTI_MEMBERS_GENERIC(ClassType, ClassName, ParentClass) \
-                                                                            \
-  ClassType* ClassName::g_pDesc = 0;                                        \
-  ClassType* ClassName::desc() { return g_pDesc; }                          \
-  ClassType* ClassName::isA() const { return g_pDesc; }                     \
-                                                                            \
-  OdObjectBase* ClassName::queryX(const OdClassBase* pClass) const {            \
-    return ::odQueryXImpl<ClassName, ParentClass>(this, pClass);            \
+  OdClassBase* ClassName::g_pDesc = nullptr; \
+  OdClassBase* ClassName::desc() { return g_pDesc; } \
+  OdClassBase* ClassName::isA() const { return g_pDesc; } \
+  OdObjectBase* ClassName::queryX(const OdClassBase* pClass) const { \
+    return ::odQueryXImpl<ClassName, ParentClass>(this, pClass); \
   }
 
 /// <summary>
@@ -117,54 +125,41 @@ typedef void (*AppNameChangeFuncPtr)(const OdClassBase* classObj, std::string& n
 /// does not increment its reference counter, and returns a smart pointer to the instance.
 /// The reference counter of a new instance is set to a default value.
 /// </summary>
-#define ODBASE_DEFINE_PSEUDOCONSTRUCTOR(ClassName,DOCREATE)                                            \
-                                                                                                     \
-OdPrObjectPtr ClassName::pseudoConstructor() { return OdPrObjectPtr(DOCREATE(ClassName)); }
+#define ODBASE_DEFINE_PSEUDOCONSTRUCTOR(ClassName, DOCREATE)                            \
+  OdSmartPtr<ClassName> ClassName::pseudoConstructor() { return DOCREATE(ClassName); }
 
-#define ODBASE_DEFINE_INIT_MEMBERS(ClassName, ParentClass, pseudoConsFn, DwgVer,                \
-                                 MaintVer, nProxyFlags, szDWGClassName,                       \
-                                 szDxfName, szAppName, nCustomFlags, pMemberCreate, pUserData)\
-  ODBASE_DEFINE_RTTI_MEMBERS_GENERIC(                                                           \
-      ClassName,                                                                              \
-      (::newOdPrClass(szDWGClassName, ParentClass::desc(), pseudoConsFn, DwgVer,              \
-        MaintVer, nProxyFlags, szDxfName, szAppName, NULL, nCustomFlags, pMemberCreate, pUserData)),                    \
-      (::newOdPrClass(szDWGClassName, ParentClass::desc(), pseudoConsFn, DwgVer,              \
-        MaintVer, nProxyFlags, szDxfName, szAppName, pAppNameChangeCallback, nCustomFlags, pMemberCreate, pUserData)))
+#define ODBASE_DEFINE_INIT_MEMBERS(ClassName, ParentClass, pseudoConsFn, \
+                                   szDWGClassName, szDxfName, szAppName, \
+                                   pMemberCreate, pUserData) \
+  void ClassName::initClass() { \
+    if (!g_pDesc) { \
+      g_pDesc = new OdClassBase( \
+        #ClassName, \
+        ParentClass::desc(), \
+        pseudoConsFn, \
+        szDWGClassName, \
+        szDxfName, \
+        szAppName, \
+        pMemberCreate, \
+        pUserData); \
+    } \
+  } \
+  void ClassName::uninitClass() { \
+    delete g_pDesc; \
+    g_pDesc = nullptr; \
+  }
 
+#define ODBASE_DEFINE_MEMBERS2(ClassName, ParentClass, pseudoConsFn, \
+                               szDWGClassName, szDxfName, szAppName) \
+  ODBASE_DEFINE_RTTI_MEMBERS(ClassName, ParentClass) \
+  ODBASE_DEFINE_INIT_MEMBERS(ClassName, ParentClass, pseudoConsFn, \
+                             szDWGClassName, szDxfName, szAppName, 0, 0)
 
-#define ODBASE_DEFINE_MEMBERS2(ClassName,ParentClass,pseudoConsFn,DwgVer,MaintVer,nProxyFlags,szDWGClassName,szDxfName,szAppName,nCustomFlags) \
-                                                                                                     \
-ODBASE_DEFINE_RTTI_MEMBERS(ClassName,ParentClass)                                                      \
-                                                                                                     \
-ODBASE_DEFINE_INIT_MEMBERS(ClassName,ParentClass,pseudoConsFn,                                         \
-    DwgVer,MaintVer,nProxyFlags,szDWGClassName,szDxfName,szAppName,nCustomFlags,0,0)
-
-#define ODBASE_DEFINE_MEMBERS(ClassName,ParentClass,DOCREATE,DwgVer,MaintVer,nProxyFlags,szDWGClassName,szDxfName,szAppName)\
-                                                                                                     \
-ODBASE_DEFINE_MEMBERS2(ClassName,ParentClass,ClassName::pseudoConstructor,                             \
-  DwgVer,MaintVer,nProxyFlags,szDWGClassName,szDxfName,szAppName,0)                                  \
-                                                                                                     \
-ODBASE_DEFINE_PSEUDOCONSTRUCTOR(ClassName,DOCREATE)
-
-#define ODBASE_DEFINE_MEMBERS_EX(ClassName,ParentClass,DOCREATE,DwgVer,MaintVer,nProxyFlags,szDWGClassName,szDxfName,szAppName,nCustomFlags)\
-                                                                                                     \
-ODBASE_DEFINE_MEMBERS2(ClassName,ParentClass,ClassName::pseudoConstructor,                             \
-  DwgVer,MaintVer,nProxyFlags,szDWGClassName,szDxfName,szAppName,nCustomFlags)                       \
-                                                                                                     \
-ODBASE_DEFINE_PSEUDOCONSTRUCTOR(ClassName,DOCREATE)
-
-
-#define ODBASE_NO_CONS_DEFINE_MEMBERS_ALTNAME(ClassName,ParentClass,szClassName)                       \
-                                                                                                     \
-ODBASE_DEFINE_MEMBERS2(ClassName,ParentClass,0,0,0,0,szClassName,std::string::kEmpty,std::string::kEmpty,0)                          \
-                                                                                                     \
-ODBASE_DEFINE_PSEUDOCONSTRUCTOR(ClassName,EMPTY_CONSTR)
-
-#define ODBASE_NO_CONS_DEFINE_MEMBERS(ClassName,ParentClass)                                           \
-                                                                                                     \
-ODBASE_NO_CONS_DEFINE_MEMBERS_ALTNAME(ClassName,ParentClass,OD_T(#ClassName))
-
-
+#define ODBASE_DEFINE_MEMBERS(ClassName, ParentClass, DOCREATE, szDWGClassName, \
+                              szDxfName, szAppName) \
+  ODBASE_DEFINE_MEMBERS2(ClassName, ParentClass, ClassName::pseudoConstructor, \
+                         szDWGClassName, szDxfName, szAppName) \
+  ODBASE_DEFINE_PSEUDOCONSTRUCTOR(ClassName, DOCREATE)
 
 #define ODBASE_CONS_DEFINE_MEMBERS_ALTNAME(ClassName,ParentClass,szClassName,DOCREATE)                 \
                                                                                                      \
@@ -180,17 +175,15 @@ ODBASE_CONS_DEFINE_MEMBERS_ALTNAME(ClassName,ParentClass,OD_T(#ClassName),DOCREA
 
 
 
-#define ODBASE_DXF_DEFINE_MEMBERS(ClassName,ParentClass,DOCREATE,DwgVer,MaintVer, nProxyFlags,DxfName,AppName)    \
-                                                                                                                \
-ODBASE_DEFINE_MEMBERS(ClassName,ParentClass,DOCREATE,                                                             \
-    DwgVer,MaintVer,nProxyFlags,OD_T(#ClassName),OD_T(#DxfName),OD_T(#AppName))
+#define ODBASE_DXF_DEFINE_MEMBERS(ClassName, ParentClass, DOCREATE, DxfName, AppName)   \
+  ODBASE_DEFINE_MEMBERS(ClassName, ParentClass, DOCREATE,                               \
+                        #ClassName, #DxfName, #AppName)
 
 
-
-#define ODBASE_DXF_CONS_DEFINE_MEMBERS(ClassName,ParentClass,DwgVer,MaintVer,nProxyFlags,DxfName,AppName)    \
+#define ODBASE_DXF_CONS_DEFINE_MEMBERS(ClassName,ParentClass,DxfName,AppName)    \
                                                                                                            \
 ODBASE_DEFINE_MEMBERS2(ClassName,ParentClass,ClassName::pseudoConstructor,                                   \
-    DwgVer,MaintVer,nProxyFlags,OD_T(#ClassName),OD_T(#DxfName),OD_T(#AppName),0)                          \
+    OD_T(#ClassName),OD_T(#DxfName),OD_T(#AppName),0)                          \
                                                                                                            \
 ODBASE_DEFINE_PSEUDOCONSTRUCTOR(ClassName,NEWOBJ_CONSTR)
 
@@ -412,7 +405,7 @@ class OdObjectBase
     /// <param name=""></param>
     /// <returns></returns>
     OdObjectBase& operator = (const OdObjectBase&) = delete;
-    std::string m_objectId = "";
+    OdDbObjectId m_objectId;
 public:
     /// <summary>
     /// Protects derived OdObjectBase objects from direct use of new and delete operators
@@ -420,12 +413,24 @@ public:
     ODBASE_HEAP_OPERATORS();
 
 public:
-    std::string GetObjectId() const;
-    static std::string GenerateShortId();
     /** \details
         Default constructor for this class.
     */
-    OdObjectBase() { }
+    OdObjectBase()
+	{
+		m_objectId = OdDbObjectId();
+    }
+
+    /** \details
+      Returns the Object ID of this object.
+
+      \remarks
+      Returns a null ID if this object has not been added to a database.
+    */
+	OdDbObjectId objectId() const
+	{
+		return m_objectId;
+	}
 
     /** \details
         The virtual destructor for this class.

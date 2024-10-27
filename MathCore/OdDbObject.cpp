@@ -1,6 +1,21 @@
 #include "pch.h"
 #include "OdDbObject.h"
 
+ODBASE_DEFINE_RTTI_MEMBERS_GENERIC(OdDbObject, OdDbObject, OdDrawable)
+
+void OdDbObject::addRef()
+{
+}
+
+void OdDbObject::release()
+{
+}
+
+long OdDbObject::numRefs() const
+{
+    return 0;
+}
+
 nlohmann::json OdDbObject::ToJson() const
 {
     //return

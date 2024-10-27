@@ -192,15 +192,6 @@
     <ClInclude Include="OdGeExtents3d.h">
       <Filter>Geometry\Extend3d</Filter>
     </ClInclude>
-    <ClInclude Include="OdDatabase.h">
-      <Filter>DatabaseService</Filter>
-    </ClInclude>
-    <ClInclude Include="OdDataTableRecord.h">
-      <Filter>DatabaseService</Filter>
-    </ClInclude>
-    <ClInclude Include="OdTransaction.h">
-      <Filter>DatabaseService</Filter>
-    </ClInclude>
     <ClInclude Include="OdResult.h">
       <Filter>ResultPresenter</Filter>
     </ClInclude>
@@ -254,6 +245,18 @@
     </ClInclude>
     <ClInclude Include="OdGeScale3d.h">
       <Filter>Geometry\Scale</Filter>
+    </ClInclude>
+    <ClInclude Include="OdDbObjectId.h">
+      <Filter>DatabaseService\DbObject</Filter>
+    </ClInclude>
+    <ClInclude Include="OdDatabase.h">
+      <Filter>DatabaseService\DbObject</Filter>
+    </ClInclude>
+    <ClInclude Include="OdDataTableRecord.h">
+      <Filter>DatabaseService\DbObject</Filter>
+    </ClInclude>
+    <ClInclude Include="OdTransaction.h">
+      <Filter>DatabaseService\DbObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -323,15 +326,6 @@
     <ClCompile Include="OdGeExtents3d.cpp">
       <Filter>Geometry\Extend3d</Filter>
     </ClCompile>
-    <ClCompile Include="OdDatabase.cpp">
-      <Filter>DatabaseService</Filter>
-    </ClCompile>
-    <ClCompile Include="OdDataTableRecord.cpp">
-      <Filter>DatabaseService</Filter>
-    </ClCompile>
-    <ClCompile Include="OdTransaction.cpp">
-      <Filter>DatabaseService</Filter>
-    </ClCompile>
     <ClCompile Include="OdError.cpp">
       <Filter>ResultPresenter</Filter>
     </ClCompile>
@@ -370,6 +364,18 @@
     </ClCompile>
     <ClCompile Include="OdGeScale3d.cpp">
       <Filter>Geometry\Scale</Filter>
+    </ClCompile>
+    <ClCompile Include="OdDbObjectId.cpp">
+      <Filter>DatabaseService\DbObject</Filter>
+    </ClCompile>
+    <ClCompile Include="OdDatabase.cpp">
+      <Filter>DatabaseService\DbObject</Filter>
+    </ClCompile>
+    <ClCompile Include="OdDataTableRecord.cpp">
+      <Filter>DatabaseService\DbObject</Filter>
+    </ClCompile>
+    <ClCompile Include="OdTransaction.cpp">
+      <Filter>DatabaseService\DbObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

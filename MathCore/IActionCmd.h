@@ -1,17 +1,17 @@
 #pragma once
+#include "ObjectBase.h"
 #include <string>
 #include <vector>
 
-class IActionCmd
+class IActionCmd : public OdObjectBase
 {
-private:
-	std::string m_id;
 public:
-	IActionCmd();
-	std::string getId() const;
+	ODBASE_DECLARE_MEMBERS(IActionCmd);
+	IActionCmd(){}
 	virtual ~IActionCmd() = default;
 	virtual bool execute() = 0;
 	virtual bool serialize(const std::vector<std::string>& strData) = 0;
 	std::string m_commandName;
 };
 
+typedef OdSmartPtr<IActionCmd> IActionCmdPtr;

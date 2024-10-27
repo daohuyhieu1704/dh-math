@@ -10,7 +10,6 @@
 #include <nlohmann/json.hpp>
 
 namespace DatabaseServices {
-    typedef std::shared_ptr<class OdDatabase> OdDatabasePtr;
 
     class OdDatabase : public OdObjectBase
     {
@@ -19,16 +18,19 @@ namespace DatabaseServices {
     protected:
         OdDataTableRecordPtr m_ObjectRecords;
     public:
+		ODBASE_DECLARE_MEMBERS(OdDatabase);
         OdDatabase();
 #pragma region Properties
         std::string GetName() const;
         void SetName(const std::string& name);
 #pragma endregion
 
-        virtual void ReRender(void* renderTarget) = 0;
+        virtual void ReRender(RenderEntityPtr renderTarget) = 0;
         virtual OdDatabasePtr CreateInstance() const = 0;
-        void AppendObject(std::shared_ptr<OdObjectBase> obj);
+        void AppendObject(OdDrawablePtr obj);
         void SaveToJson(const std::string& filename);
         OdTransactionPtr TransactionManager;
     };
+
+    typedef OdSmartPtr<OdDatabase> OdDatabasePtr;
 }

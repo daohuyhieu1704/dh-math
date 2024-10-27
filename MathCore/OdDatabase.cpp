@@ -6,9 +6,7 @@
 
 namespace DatabaseServices {
 
-    OdDatabase::OdDatabase()
-        : m_name(""), m_ObjectRecords(std::make_shared<OdDataTableRecord>()) {}
-
+    ODBASE_DEFINE_RTTI_MEMBERS_GENERIC(OdDatabase, OdDatabase, OdObjectBase)
     std::string OdDatabase::GetName() const {
         return m_name;
     }
@@ -17,17 +15,15 @@ namespace DatabaseServices {
         m_name = name;
     }
 
-    void OdDatabase::AppendObject(std::shared_ptr<OdObjectBase> obj) {
+    void OdDatabase::AppendObject(OdDrawablePtr obj) {
         m_ObjectRecords->AddObject(obj);
     }
 
     void OdDatabase::SaveToJson(const std::string& filename) {
         nlohmann::json json;
         for (const auto& record : m_ObjectRecords->GetObjects()) {
-            OdDbObject* dbObj = dynamic_cast<OdDbObject*>(record.get());
-            if (dbObj == nullptr) {
-                continue;
-            }
+            OdDbObjectPtr dbObj = OdDbObject::cast(record.get());
+            if (dbObj.isNull()) continue;
             json.push_back(dbObj->ToJson());
         }
         std::ofstream file(filename);

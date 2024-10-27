@@ -4,10 +4,12 @@
 #include <iostream>
 
 namespace EditorInput {
+    
+	ODBASE_DEFINE_RTTI_MEMBERS_GENERIC(CommandPrompt, CommandPrompt, OdObjectBase);
 
     CommandPrompt::CommandPrompt()
     {
-        commandMap = std::map<std::string, IActionCmd*>();
+        commandMap = std::map<std::string, IActionCmdPtr>();
     }
 
     std::vector<std::string> CommandPrompt::split(const std::string& str) {
@@ -50,7 +52,7 @@ namespace EditorInput {
         return commandMap[command]->execute();
     }
 
-    void CommandPrompt::registerCommand(const std::string& command, IActionCmd* func) {
+    void CommandPrompt::registerCommand(const std::string& command, IActionCmdPtr func) {
         if (func == nullptr) {
             throw std::runtime_error("Command function is null");
         }
@@ -80,10 +82,10 @@ namespace EditorInput {
         }
     }
 
-    IActionCmd* CommandPrompt::getCommand(const std::string& command)
+    IActionCmdPtr CommandPrompt::getCommand(const std::string& command)
     {
 		if (commandMap.find(command) == commandMap.end()) {
-			return nullptr;
+			return IActionCmdPtr();
 		}
 		return commandMap[command];
     }
@@ -133,5 +135,11 @@ namespace EditorInput {
         if (!History.empty()) {
             undoStack.push(History.back());
         }
+    }
+    void CommandPrompt::addRef()
+    {
+    }
+    void CommandPrompt::release()
+    {
     }
 }

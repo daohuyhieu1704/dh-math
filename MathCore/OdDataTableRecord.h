@@ -5,13 +5,15 @@
 
 class OdDataTableRecord : public OdObjectBase {
 private:
-    std::map<std::string, std::shared_ptr<OdObjectBase>> m_objects;
+    std::map<OdDbObjectId, OdDrawablePtr> m_objects;
 public:
+	ODBASE_DECLARE_MEMBERS(OdDataTableRecord);
+	virtual ~OdDataTableRecord() = default;
 #pragma region Properties
-    std::vector<std::shared_ptr<OdObjectBase>> GetObjects() const;
+    std::vector<OdDrawablePtr> GetObjects() const;
 #pragma endregion
-    void AddObject(std::shared_ptr<OdObjectBase> obj);
-    bool GetObjectById(const std::string& id, std::shared_ptr<OdObjectBase>& obj);
+    void AddObject(OdDrawablePtr obj);
+    bool GetObjectById(const OdDbObjectId& id, OdDrawablePtr obj);
     nlohmann::json ToJson() const;
 
     // Inherited via OdObjectBase
@@ -19,4 +21,4 @@ public:
     void release() override;
 };
 
-typedef std::shared_ptr<OdDataTableRecord> OdDataTableRecordPtr;
+typedef OdSmartPtr<OdDataTableRecord> OdDataTableRecordPtr;

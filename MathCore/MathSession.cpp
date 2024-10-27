@@ -3,10 +3,10 @@
 
 void MathSession::undo()
 {
-	mathPrompt.undo();
+	mathPrompt->undo();
 }
 
 void MathSession::redo()
 {
-	mathPrompt.redo();
+	mathPrompt->redo();
 }

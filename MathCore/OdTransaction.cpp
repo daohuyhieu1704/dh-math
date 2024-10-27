@@ -6,6 +6,10 @@
 #include <type_traits>
 
 namespace DatabaseServices {
+
+    ODBASE_DEFINE_RTTI_MEMBERS_GENERIC(OdTransaction, OdTransaction, OdObjectBase)
+        OdTransaction::OdTransaction() : m_transactionActive(false), m_isUndoRedoInProgress(false) {}
+
     void OdTransaction::StartTransaction() {
         MathLog::LogFunction("OdTransaction::StartTransaction", "MathCore", m_transactionActive);
         if (m_transactionActive) {
@@ -16,17 +20,15 @@ namespace DatabaseServices {
         m_newlyAddedObjects.clear();
     }
 
-    void OdTransaction::AddNewlyObject(std::shared_ptr<OdObjectBase> obj) {
+    void OdTransaction::AddNewlyObject(OdDrawablePtr obj) {
         if (!m_transactionActive) {
             throw std::runtime_error("No active transaction");
         }
-        if (obj == nullptr) {
-            return;
-        }
-        if (m_newlyAddedObjects.find(obj.get()->GetObjectId()) != m_newlyAddedObjects.end()) {
+        if (obj.isNull()) return;
+        if (m_newlyAddedObjects.find(obj->objectId()) != m_newlyAddedObjects.end()) {
             throw std::runtime_error("Object with the given ID already exists");
         }
-        m_newlyAddedObjects[obj->GetObjectId()] = obj;
+        m_newlyAddedObjects[obj->objectId()] = obj;
     }
 
     void OdTransaction::Abort() {
@@ -42,7 +44,7 @@ namespace DatabaseServices {
             throw std::runtime_error("No active transaction to commit");
         }
         for (auto& pair : m_newlyAddedObjects) {
-            m_Doc.get()->AppendObject(pair.second);
+            m_Doc->AppendObject(pair.second);
             DrawObject(pair.second);
         }
         m_newlyAddedObjects.clear();
