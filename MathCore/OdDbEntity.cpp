@@ -1,12 +1,12 @@
 #include "pch.h"
 #include "OdDbEntity.h"
 
-OdGeExtend3d OdDbEntity::GetBoundary() const
+OdGeExtents3d OdDbEntity::GetBoundary() const
 {
 	return m_boundary;
 }
 
-void OdDbEntity::SetBoundary(OdGeExtend3d boundary)
+void OdDbEntity::SetBoundary(OdGeExtents3d boundary)
 {
 	m_boundary = boundary;
 }
@@ -36,8 +36,4 @@ void OdDbEntity::setShape(std::string shape)
 OdGePoint3d OdDbEntity::getCenter() const
 {
 	return m_boundary.getCenter();
-}
-OdObjectBase* OdDbEntity::Clone() const
-{
-	return nullptr;
 }

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "OdObjectBase.h"
+#include "ObjectBase.h"
 #include "OdDataTableRecord.h"
 #include "OdTransaction.h" 
 #include <memory>
@@ -30,6 +30,5 @@ namespace DatabaseServices {
         void AppendObject(std::shared_ptr<OdObjectBase> obj);
         void SaveToJson(const std::string& filename);
         OdTransactionPtr TransactionManager;
-        OdObjectBase* Clone() const override;
     };
 }

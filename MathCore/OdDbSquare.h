@@ -5,8 +5,8 @@
 class OdDbSquare : public OdDbEntity
 {
 private:
-    OdGePoint2d m_minPnt;
-    OdGePoint2d m_maxPnt;
+    OdGePoint2d m_min;
+    OdGePoint2d m_max;
     double m_height;
 
 public:

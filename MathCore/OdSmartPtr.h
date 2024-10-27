@@ -1,9 +1,9 @@
 #pragma once
-#include "Error_NotThatKindOfClass.h"
 #include "OdBaseObjectPtr.h"
+#include "OdError_NotThatKindOfClass.h"
 
 /// <summary>
-/// This template class provides the typified implementation of smart pointers for instances of classes derived from the OdPrObject class.
+/// This template class provides the typified implementation of smart pointers for instances of classes derived from the OdObjectBase class.
 /// remarks
 /// SmartPointers relieve the programmer of having to determine when objects are no longer needed, or having to delete them at that time.
 /// Each object referenced by a SmartPointer maintains a reference count; i.e., how many SmartPointers are referencing it.
@@ -46,11 +46,11 @@ protected:
     /// If this SmartPointer is currently referencing another object, that object is released prior to the assignment.
     /// </summary>
     /// <param name="pObject">Pointer to the specified object to be assigned</param>
-    void internalQueryX(const OdPrObject* pObject)
+    void internalQueryX(const OdObjectBase* pObject)
     {
         if (pObject)
         {
-            OdPrObject* pX = pObject->queryX(T::desc());
+            OdObjectBase* pX = pObject->queryX(T::desc());
             if (pX)
                 m_pObject = pX;
             else
@@ -62,7 +62,7 @@ protected:
     /// Assigns the pointer of specified object to the smart pointer.
     /// </summary>
     /// <param name="pObject">Pointer to the specified object to be assigned</param>
-    void assign(const OdPrObject* pObject)
+    void assign(const OdObjectBase* pObject)
     {
         release();
         internalQueryX(pObject);
@@ -91,7 +91,7 @@ public:
         internalAddRef();
     }
 
-    OdSmartPtr(const OdPrObject* pObject)
+    OdSmartPtr(const OdObjectBase* pObject)
         : OdBaseObjectPtr()
     {
         internalQueryX(pObject);
@@ -137,7 +137,7 @@ public:
     /// If the smart pointer is currently referencing to another object, that object is released prior to the assignment.
     /// </summary>
     /// <param name="pObject">Pointer to the specifed object to be assigned</param>
-    void attach(OdPrObject* pObject)
+    void attach(OdObjectBase* pObject)
     {
         release();
         internalQueryX(pObject);

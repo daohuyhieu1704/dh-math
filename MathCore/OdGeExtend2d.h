@@ -6,8 +6,8 @@ namespace Geometry
 	class OdGeExtend2d
 	{
 	private:
-		OdGePoint2d m_minPnt;
-		OdGePoint2d m_maxPnt;
+		OdGePoint2d m_min;
+		OdGePoint2d m_max;
 	public:
 	#pragma region Properties
 		OdGePoint2d GetMinPnt() const;

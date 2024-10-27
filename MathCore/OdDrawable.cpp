@@ -50,3 +50,8 @@ void OdDrawable::SetColor(float red, float green, float blue, float alpha)
 	m_color[2] = blue;
 	m_color[3] = alpha;
 }
+
+OdResult OdDrawable::getGeomExtents(OdGeExtents3d& extents) const
+{
+	return OdResult();
+}

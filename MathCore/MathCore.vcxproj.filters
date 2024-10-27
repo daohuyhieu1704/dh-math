@@ -22,15 +22,6 @@
     <Filter Include="AbstractEngine">
       <UniqueIdentifier>{92ffbb5b-327a-4ad0-aa91-cfc61f97a804}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Geometry\Point2d">
-      <UniqueIdentifier>{ebc22dbe-0408-4e3d-9d08-ee6fd3d6a101}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometry\Point3d">
-      <UniqueIdentifier>{131d2013-dd8c-47b8-85f0-3c82755e31e3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ObjectBase">
-      <UniqueIdentifier>{1846de56-1a29-42ee-88ae-1f7a8181f525}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Drawing">
       <UniqueIdentifier>{0adfcee8-3748-4b34-b06d-63d9dd02bab9}</UniqueIdentifier>
     </Filter>
@@ -94,9 +85,6 @@
     <Filter Include="Geometry\Vectors\Vector4d">
       <UniqueIdentifier>{cfc41ccc-d56f-4a80-b763-f932689efe27}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Geometry\Matrices">
-      <UniqueIdentifier>{6c58fb95-e347-4bcf-92f8-cc9be279d642}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Geometry\Extend3d">
       <UniqueIdentifier>{f5844737-fea4-4839-b6fa-0c179710aa98}</UniqueIdentifier>
     </Filter>
@@ -105,6 +93,30 @@
     </Filter>
     <Filter Include="ResultPresenter">
       <UniqueIdentifier>{3ba0aa25-7dae-4f5e-a061-571300e549cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Primary\Objects">
+      <UniqueIdentifier>{ab66b96e-3be6-4589-a7aa-bdb062a463a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Primary\Attributes">
+      <UniqueIdentifier>{eebffdcd-d625-456d-961d-91fe3bc7febd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Primary\SmartPointers">
+      <UniqueIdentifier>{00a16ef2-cd39-47ed-839c-24f5840f0aab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Primary\Objects\ObjectBase">
+      <UniqueIdentifier>{9a470bbb-8b62-4502-822d-77bf6a9ec01e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Primary\Utils">
+      <UniqueIdentifier>{ef3b7f18-ea20-4da0-90fb-9d5cc53bb137}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Geometry\Point">
+      <UniqueIdentifier>{ebc22dbe-0408-4e3d-9d08-ee6fd3d6a101}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Geometry\Scale">
+      <UniqueIdentifier>{bb065674-0d79-4193-897d-4e37731870bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Geometry\Matrix">
+      <UniqueIdentifier>{6c58fb95-e347-4bcf-92f8-cc9be279d642}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -115,16 +127,10 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="OdGePoint2d.h">
-      <Filter>Geometry\Point2d</Filter>
+      <Filter>Geometry\Point</Filter>
     </ClInclude>
     <ClInclude Include="OdGeVector3d.h">
       <Filter>Geometry\Vectors\Vector3d</Filter>
-    </ClInclude>
-    <ClInclude Include="OdGePoint3d.h">
-      <Filter>Geometry\Point3d</Filter>
-    </ClInclude>
-    <ClInclude Include="OdObjectBase.h">
-      <Filter>ObjectBase</Filter>
     </ClInclude>
     <ClInclude Include="OdDrawable.h">
       <Filter>Drawing\Drawable</Filter>
@@ -171,9 +177,6 @@
     <ClInclude Include="OdDbSquare.h">
       <Filter>DatabaseService\Entities\Square</Filter>
     </ClInclude>
-    <ClInclude Include="MathLog.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="OdGeVector2d.h">
       <Filter>Geometry\Vectors\Vector2d</Filter>
     </ClInclude>
@@ -184,9 +187,9 @@
       <Filter>Geometry\Vectors\Vector4d</Filter>
     </ClInclude>
     <ClInclude Include="Matrices.h">
-      <Filter>Geometry\Matrices</Filter>
+      <Filter>Geometry\Matrix</Filter>
     </ClInclude>
-    <ClInclude Include="OdGeExtend3d.h">
+    <ClInclude Include="OdGeExtents3d.h">
       <Filter>Geometry\Extend3d</Filter>
     </ClInclude>
     <ClInclude Include="OdDatabase.h">
@@ -198,26 +201,59 @@
     <ClInclude Include="OdTransaction.h">
       <Filter>DatabaseService</Filter>
     </ClInclude>
-    <ClInclude Include="PrObject.h">
-      <Filter>Primary</Filter>
-    </ClInclude>
-    <ClInclude Include="OdBaseObjectPtr.h">
-      <Filter>Primary</Filter>
-    </ClInclude>
-    <ClInclude Include="OdSmartPtr.h">
-      <Filter>Primary</Filter>
-    </ClInclude>
     <ClInclude Include="OdResult.h">
       <Filter>ResultPresenter</Filter>
     </ClInclude>
     <ClInclude Include="OdError.h">
       <Filter>ResultPresenter</Filter>
     </ClInclude>
-    <ClInclude Include="Error_NotThatKindOfClass.h">
+    <ClInclude Include="OdError_NotThatKindOfClass.h">
       <Filter>ResultPresenter</Filter>
     </ClInclude>
+    <ClInclude Include="OdBaseAttributeCollection.h">
+      <Filter>Primary\Attributes</Filter>
+    </ClInclude>
+    <ClInclude Include="OdBaseAttribute.h">
+      <Filter>Primary\Attributes</Filter>
+    </ClInclude>
+    <ClInclude Include="OdPrValue.h">
+      <Filter>Primary\Attributes</Filter>
+    </ClInclude>
+    <ClInclude Include="OdPrProperty.h">
+      <Filter>Primary\Attributes</Filter>
+    </ClInclude>
+    <ClInclude Include="OdBaseObjectPtr.h">
+      <Filter>Primary\SmartPointers</Filter>
+    </ClInclude>
+    <ClInclude Include="OdSmartPtr.h">
+      <Filter>Primary\SmartPointers</Filter>
+    </ClInclude>
+    <ClInclude Include="OdClassBaseImpl.h">
+      <Filter>Primary\Objects\ObjectBase</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectBase.h">
+      <Filter>Primary\Objects\ObjectBase</Filter>
+    </ClInclude>
+    <ClInclude Include="MathLog.h">
+      <Filter>Primary\Utils</Filter>
+    </ClInclude>
     <ClInclude Include="OdPlatformSettings.h">
-      <Filter>Primary</Filter>
+      <Filter>Primary\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="OdGeMatrix3d.h">
+      <Filter>Geometry\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="OdGeMatrix2d.h">
+      <Filter>Geometry\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="OdGeScale2d.h">
+      <Filter>Geometry\Scale</Filter>
+    </ClInclude>
+    <ClInclude Include="OdGePoint3d.h">
+      <Filter>Geometry\Point</Filter>
+    </ClInclude>
+    <ClInclude Include="OdGeScale3d.h">
+      <Filter>Geometry\Scale</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -225,16 +261,10 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="OdGePoint2d.cpp">
-      <Filter>Geometry\Point2d</Filter>
+      <Filter>Geometry\Point</Filter>
     </ClCompile>
     <ClCompile Include="OdGeVector3d.cpp">
       <Filter>Geometry\Vectors\Vector3d</Filter>
-    </ClCompile>
-    <ClCompile Include="OdGePoint3d.cpp">
-      <Filter>Geometry\Point3d</Filter>
-    </ClCompile>
-    <ClCompile Include="OdObjectBase.cpp">
-      <Filter>ObjectBase</Filter>
     </ClCompile>
     <ClCompile Include="OdDrawable.cpp">
       <Filter>Drawing\Drawable</Filter>
@@ -288,9 +318,9 @@
       <Filter>Geometry\Vectors\Vector4d</Filter>
     </ClCompile>
     <ClCompile Include="Matrices.cpp">
-      <Filter>Geometry\Matrices</Filter>
+      <Filter>Geometry\Matrix</Filter>
     </ClCompile>
-    <ClCompile Include="OdGeExtend3d.cpp">
+    <ClCompile Include="OdGeExtents3d.cpp">
       <Filter>Geometry\Extend3d</Filter>
     </ClCompile>
     <ClCompile Include="OdDatabase.cpp">
@@ -302,13 +332,52 @@
     <ClCompile Include="OdTransaction.cpp">
       <Filter>DatabaseService</Filter>
     </ClCompile>
-    <ClCompile Include="PrObject.cpp">
-      <Filter>Primary</Filter>
+    <ClCompile Include="OdError.cpp">
+      <Filter>ResultPresenter</Filter>
+    </ClCompile>
+    <ClCompile Include="OdError_NotThatKindOfClass.cpp">
+      <Filter>ResultPresenter</Filter>
+    </ClCompile>
+    <ClCompile Include="OdBaseAttributeCollection.cpp">
+      <Filter>Primary\Attributes</Filter>
+    </ClCompile>
+    <ClCompile Include="OdBaseAttribute.cpp">
+      <Filter>Primary\Attributes</Filter>
+    </ClCompile>
+    <ClCompile Include="OdPrValue.cpp">
+      <Filter>Primary\Attributes</Filter>
+    </ClCompile>
+    <ClCompile Include="OdPrProperty.cpp">
+      <Filter>Primary\Attributes</Filter>
+    </ClCompile>
+    <ClCompile Include="OdClassBaseImpl.cpp">
+      <Filter>Primary\Objects\ObjectBase</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectBase.cpp">
+      <Filter>Primary\Objects\ObjectBase</Filter>
+    </ClCompile>
+    <ClCompile Include="OdGeMatrix3d.cpp">
+      <Filter>Geometry\Matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="OdGeMatrix2d.cpp">
+      <Filter>Geometry\Matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="OdGeScale2d.cpp">
+      <Filter>Geometry\Scale</Filter>
+    </ClCompile>
+    <ClCompile Include="OdGePoint3d.cpp">
+      <Filter>Geometry\Point</Filter>
+    </ClCompile>
+    <ClCompile Include="OdGeScale3d.cpp">
+      <Filter>Geometry\Scale</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MathCore.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
 </Project>

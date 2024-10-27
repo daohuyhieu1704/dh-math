@@ -33,9 +33,4 @@ namespace DatabaseServices {
         std::ofstream file(filename);
         file << json.dump(4);
     }
-
-    OdObjectBase* OdDatabase::Clone() const
-    {
-        return CreateInstance().get();
-    }
 }

@@ -145,7 +145,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CommandPrompt.h" />
-    <ClInclude Include="Error_NotThatKindOfClass.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="MathLog.h" />
     <ClInclude Include="Matrices.h" />
@@ -155,8 +154,13 @@
     <ClInclude Include="OdDbCircle.h" />
     <ClInclude Include="OdDbSquare.h" />
     <ClInclude Include="OdError.h" />
-    <ClInclude Include="OdGeExtend3d.h" />
+    <ClInclude Include="OdError_NotThatKindOfClass.h" />
+    <ClInclude Include="OdGeExtents3d.h" />
+    <ClInclude Include="OdGeMatrix2d.h" />
+    <ClInclude Include="OdGeMatrix3d.h" />
     <ClInclude Include="OdGeQuaternion.h" />
+    <ClInclude Include="OdGeScale2d.h" />
+    <ClInclude Include="OdGeScale3d.h" />
     <ClInclude Include="OdGeVector2d.h" />
     <ClInclude Include="OdGeVector4d.h" />
     <ClInclude Include="OdHostAppService.h" />
@@ -172,13 +176,17 @@
     <ClInclude Include="OdGePoint3d.h" />
     <ClInclude Include="OdGeVector3d.h" />
     <ClInclude Include="OdJig.h" />
-    <ClInclude Include="OdObjectBase.h" />
     <ClInclude Include="OdPlatformSettings.h" />
+    <ClInclude Include="OdBaseAttribute.h" />
+    <ClInclude Include="OdBaseAttributeCollection.h" />
+    <ClInclude Include="OdClassBaseImpl.h" />
+    <ClInclude Include="OdPrProperty.h" />
+    <ClInclude Include="OdPrValue.h" />
     <ClInclude Include="OdResult.h" />
     <ClInclude Include="OdSmartPtr.h" />
     <ClInclude Include="OdTransaction.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="PrObject.h" />
+    <ClInclude Include="ObjectBase.h" />
     <ClInclude Include="RenderEntity.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
@@ -189,8 +197,14 @@
     <ClCompile Include="OdDataTableRecord.cpp" />
     <ClCompile Include="OdDbCircle.cpp" />
     <ClCompile Include="OdDbSquare.cpp" />
-    <ClCompile Include="OdGeExtend3d.cpp" />
+    <ClCompile Include="OdError.cpp" />
+    <ClCompile Include="OdError_NotThatKindOfClass.cpp" />
+    <ClCompile Include="OdGeExtents3d.cpp" />
+    <ClCompile Include="OdGeMatrix2d.cpp" />
+    <ClCompile Include="OdGeMatrix3d.cpp" />
     <ClCompile Include="OdGeQuaternion.cpp" />
+    <ClCompile Include="OdGeScale2d.cpp" />
+    <ClCompile Include="OdGeScale3d.cpp" />
     <ClCompile Include="OdGeVector2d.cpp" />
     <ClCompile Include="OdGeVector4d.cpp" />
     <ClCompile Include="OdHostAppService.cpp" />
@@ -206,7 +220,11 @@
     <ClCompile Include="OdGePoint3d.cpp" />
     <ClCompile Include="OdGeVector3d.cpp" />
     <ClCompile Include="OdJig.cpp" />
-    <ClCompile Include="OdObjectBase.cpp" />
+    <ClCompile Include="OdBaseAttribute.cpp" />
+    <ClCompile Include="OdBaseAttributeCollection.cpp" />
+    <ClCompile Include="OdClassBaseImpl.cpp" />
+    <ClCompile Include="OdPrProperty.cpp" />
+    <ClCompile Include="OdPrValue.cpp" />
     <ClCompile Include="OdTransaction.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -214,11 +232,14 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="PrObject.cpp" />
+    <ClCompile Include="ObjectBase.cpp" />
     <ClCompile Include="RenderEntity.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MathCore.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

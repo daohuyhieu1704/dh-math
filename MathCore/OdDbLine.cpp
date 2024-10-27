@@ -42,5 +42,5 @@ nlohmann::json OdDbLine::ToJson() const
 
 void OdDbLine::WorldDraw()
 {
-	m_boundary = OdGeExtend3d(OdGePoint3d({ m_startPnt.x, m_startPnt.y, 0 }), OdGePoint3d({ m_endPnt.x, m_endPnt.y, 0 }));
+	m_boundary = OdGeExtents3d(OdGePoint3d({ m_startPnt.x, m_startPnt.y, 0 }), OdGePoint3d({ m_endPnt.x, m_endPnt.y, 0 }));
 }

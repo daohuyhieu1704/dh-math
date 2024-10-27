@@ -44,5 +44,5 @@ nlohmann::json OdDbCircle::ToJson() const
 
 void OdDbCircle::WorldDraw()
 {
-	m_boundary = OdGeExtend3d(OdGePoint3d({ m_center.x - m_radius, m_center.y - m_radius, 0 }), OdGePoint3d({ m_center.x + m_radius, m_center.y + m_radius, 0 }));
+	m_boundary = OdGeExtents3d(OdGePoint3d({ m_center.x - m_radius, m_center.y - m_radius, 0 }), OdGePoint3d({ m_center.x + m_radius, m_center.y + m_radius, 0 }));
 }

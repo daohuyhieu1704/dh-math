@@ -68,6 +68,11 @@ namespace Geometry
 		return OdGePoint3d(x + other.x, y + other.y, z + other.z);
 	}
 
+	OdGePoint3d OdGePoint3d::operator+(const OdGeVector3d& other) const
+	{
+		return OdGePoint3d(x + other.x, y + other.y, z + other.z);
+	}
+
 	OdGeVector3d OdGePoint3d::operator-(const OdGePoint3d& other) const
 	{
 		return OdGeVector3d(x - other.x, y - other.y, z - other.z);

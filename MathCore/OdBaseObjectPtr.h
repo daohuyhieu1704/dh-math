@@ -1,7 +1,7 @@
 #pragma once
 #include "pch.h"
 
-class OdPrObject;
+class OdObjectBase;
 
 /// <summary>
 /// **Smart Pointer Base Class**
@@ -13,10 +13,10 @@ class OdPrObject;
 class OdBaseObjectPtr
 {
 protected:
-    OdPrObject* m_pObject = nullptr;
+    OdObjectBase* m_pObject = nullptr;
 
     OdBaseObjectPtr() : m_pObject(0) {}
-    explicit OdBaseObjectPtr(const OdPrObject* pSource) : m_pObject(const_cast<OdPrObject*>(pSource)) {}
+    explicit OdBaseObjectPtr(const OdObjectBase* pSource) : m_pObject(const_cast<OdObjectBase*>(pSource)) {}
 
     OdBaseObjectPtr(OdBaseObjectPtr&& pObject) noexcept : m_pObject(pObject.m_pObject)
     {
@@ -35,6 +35,6 @@ public:
       This class maintains the reference to the referenced object.
       The reference counter of the referenced object is not changed.
     */
-    OdPrObject* get() const { return m_pObject; }
+    OdObjectBase* get() const { return m_pObject; }
     bool isNull() const { return m_pObject == 0; }
 };

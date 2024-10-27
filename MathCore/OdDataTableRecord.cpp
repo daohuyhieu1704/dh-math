@@ -37,7 +37,11 @@ nlohmann::json OdDataTableRecord::ToJson() const {
     return jsonArray;
 }
 
-OdObjectBase* OdDataTableRecord::Clone() const
+void OdDataTableRecord::addRef()
 {
-    return nullptr;
+
+}
+
+void OdDataTableRecord::release()
+{
 }

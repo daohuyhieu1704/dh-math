@@ -3,9 +3,14 @@
 
 nlohmann::json OdDbObject::ToJson() const
 {
-    return
+    //return
+    //{
+    //    {"position", {m_position.x, m_position.y}},
+    //    {"rotation", m_rotation},
+    //};
+     return
     {
-        {"position", {m_position.x, m_position.y}},
-        {"rotation", m_rotation},
+        {"position", {1, 1}},
+        {"rotation", 1},
     };
 }

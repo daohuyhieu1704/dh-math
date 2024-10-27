@@ -22,11 +22,13 @@ namespace Geometry
 		OdGePoint3d operator*(float scalar) const;
 
 		OdGePoint3d operator+(const OdGePoint3d& other) const;
+		OdGePoint3d operator+(const OdGeVector3d& other) const;
 		OdGeVector3d operator-(const OdGePoint3d& other) const;
 		bool IsEqual(const OdGePoint3d& other) const;
-
+		static const OdGePoint3d kOrigin;
 		float x;
 		float y;
 		float z;
 	};
+	static const OdGePoint3d kOrigin = OdGePoint3d();
 }
