@@ -1,6 +1,9 @@
 #include "pch.h"
 #include "OdDbEntity.h"
 
+
+ODBASE_DXF_DEFINE_MEMBERS(OdDbEntity, OdDbObject, DBOBJECT_CONSTR, AiEntity, Entity)
+
 OdGeExtents3d OdDbEntity::GetBoundary() const
 {
 	return m_boundary;

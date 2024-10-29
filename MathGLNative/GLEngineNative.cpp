@@ -407,12 +407,12 @@ void GLEngineNative::BRViewport()
 void GLEngineNative::RegisterCommandPattern()
 {
     m_appServices = OdHostAppService::getInstance();
-    LineCmd* lineCmd = new LineCmd();
-    m_appServices->getCurrentSession()->getPrompts().registerCommand("LINE", lineCmd);
+    LineCmdPtr lineCmd = LineCmd::createObject();
+    m_appServices->getCurrentSession()->getPrompts()->registerCommand("LINE", lineCmd);
     CircleCmd* circleCmd = new CircleCmd();
-    m_appServices->getCurrentSession()->getPrompts().registerCommand("CIRCLE", circleCmd);
+    m_appServices->getCurrentSession()->getPrompts()->registerCommand("CIRCLE", circleCmd);
     SquareCmd* squareCmd = new SquareCmd();
-    m_appServices->getCurrentSession()->getPrompts().registerCommand("SQUARE", squareCmd);
+    m_appServices->getCurrentSession()->getPrompts()->registerCommand("SQUARE", squareCmd);
 }
 
 int GLEngineNative::getHistorySize()

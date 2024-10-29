@@ -85,12 +85,6 @@ namespace MathCore
                 }
             }
         }
-
-        virtual Drawable^ Clone()
-        {
-            if (GetImpObj() == nullptr) return nullptr;
-            return gcnew Drawable(IntPtr(GetImpObj()->Clone()), false);
-        }
     protected:
         OdDrawable* GetImpObj()
         {

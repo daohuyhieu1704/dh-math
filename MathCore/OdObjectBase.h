@@ -67,7 +67,7 @@ public:                                                                         
                                                                                           \
     /** Creates a new instance of this object type. **/                                   \
     /** Returns a SmartPointer to the new instance. **/                                   \
-    static OdPrObjectPtr pseudoConstructor();                                             \
+    static OdObjectBasePtr pseudoConstructor();                                             \
                                                                                           \
     /** Creates a new instance of this object type. **/                                   \
     /** Returns a SmartPointer to the new instance. **/                                   \
@@ -198,7 +198,7 @@ namespace OdPr
     };
 }
 
-class OdPrObjectPtr : public OdBaseObjectPtr
+class OdObjectBasePtr : public OdBaseObjectPtr
 {
     /// <summary>
     /// Increments the reference counter of the referenced object.
@@ -236,23 +236,23 @@ public:
       If OdPrObjMod is specified, the reference counter of the specified object
       is *not* incremented.
     */
-    OdPrObjectPtr() : OdBaseObjectPtr() { }
+    OdObjectBasePtr() : OdBaseObjectPtr() { }
 
-    OdPrObjectPtr(
+    OdObjectBasePtr(
         const OdObjectBase* pSource)
         : OdBaseObjectPtr(pSource)
     {
         internalAddRef();
     }
 
-    OdPrObjectPtr(
-        const OdPrObjectPtr& pSource)
+    OdObjectBasePtr(
+        const OdObjectBasePtr& pSource)
         : OdBaseObjectPtr(pSource.get())
     {
         internalAddRef();
     }
 
-    OdPrObjectPtr(
+    OdObjectBasePtr(
         const OdBaseObjectPtr& pSource)
         : OdBaseObjectPtr(pSource.get())
     {
@@ -284,7 +284,7 @@ public:
       \remarks
       Decrements the reference counter of the referenced object. When the reference count reaches zero, the referenced object is deleted.
     */
-    ~OdPrObjectPtr()
+    ~OdObjectBasePtr()
     {
         release();
     }
@@ -326,19 +326,19 @@ public:
       \sa
      <link smart_pointers_example_nontypified.html, Example of a Non-Typified Smart Pointer>
     */
-    OdPrObjectPtr& operator = (
-        const OdPrObjectPtr& source)
+    OdObjectBasePtr& operator = (
+        const OdObjectBasePtr& source)
     {
         assign(source); return *this;
     }
 
-    OdPrObjectPtr& operator = (
+    OdObjectBasePtr& operator = (
         const OdObjectBase* source)
     {
         assign(source); return *this;
     }
 
-    OdPrObjectPtr& operator = (
+    OdObjectBasePtr& operator = (
         const OdBaseObjectPtr& source)
     {
         assign(source.get()); return *this;
@@ -463,10 +463,10 @@ public:
       Casts the specified raw pointer to the smart pointer.
       \param pointer [in]  Raw pointer to be cast.
     */
-    static OdPrObjectPtr cast(
+    static OdObjectBasePtr cast(
         const OdObjectBase* pointer)
     {
-        OdPrObjectPtr pRes;
+        OdObjectBasePtr pRes;
         if (pointer)
             pRes.attach(pointer->queryX(desc()));
         return pRes;
@@ -496,12 +496,6 @@ public:
       \remarks
       This function is for use only when the class type of this object is unknown.
       If the class type of this object is known, use desc() method instead.
-
-      \sa
-      <link rtti_sample_identifying.html, Example of Identifying Classes>
-
-      \sa
-      <link rtti_class_functionality.html, Functionality of RTTI>
     */
     virtual OdClassBase* isA() const;
 
@@ -556,7 +550,7 @@ public:
     /** \details
       Creates a *clone* of this object, and returns a pointer to the *clone*.
     */
-    virtual OdPrObjectPtr clone() const;
+    virtual OdObjectBasePtr clone() const;
 
     /** details
       Copies the contents of the specified object into this object.
@@ -600,11 +594,11 @@ private:
     static OdClassBase* g_pDesc;
 };
 
-void OdPrObjectPtr::internalAddRef()
+void OdObjectBasePtr::internalAddRef()
 {
     if (m_pObject) { m_pObject->addRef(); }
 }
-void OdPrObjectPtr::release()
+void OdObjectBasePtr::release()
 {
     if (m_pObject)
     {
@@ -616,13 +610,12 @@ void OdPrObjectPtr::release()
 #include "OdSmartPtr.h"
 class OdPrOverruleIterator;
 class OdBaseAttributeCollection;
-typedef OdPrObjectPtr(*OdPseudoConstructorType)();
+typedef OdObjectBasePtr(*OdPseudoConstructorType)();
 class OdClassBaseImpl;
 
 class OdClassBase : public OdObjectBase
 {
     friend class OdClassBaseImpl;
-
 protected:
     OdClassBaseImpl* m_pImpl;
     OdClassBase(OdClassBaseImpl*);
@@ -645,7 +638,7 @@ public:
       null pointer, and asserts in debug mode. It will be
       fully implemented in a future *release*.
     */
-    OdPrObjectPtr addX(
+    OdObjectBasePtr addX(
         OdClassBase* pProtocolClass,
         OdObjectBase* pProtocolObject);
 
@@ -663,7 +656,7 @@ public:
       assert in debug mode, and return a null pointer.
       It will be fully implemented in a future *release*.
     */
-    OdPrObjectPtr getX(
+    OdObjectBasePtr getX(
         const OdClassBase* pProtocolClass);
 
     /** \details
@@ -679,7 +672,7 @@ public:
       assert in debug mode, and return a null pointer.
       It will be fully implemented in a future *release*.
     */
-    OdPrObjectPtr delX(
+    OdObjectBasePtr delX(
         OdClassBase* pProtocolClass);
 
     /** \details
@@ -689,7 +682,7 @@ public:
       \returns
       Returns a smart pointer to the newly created instance.
     */
-    virtual OdPrObjectPtr create() const;
+    virtual OdObjectBasePtr create() const;
 
     /** \details
       Returns the application class name for the class describing instance represented by this
@@ -767,7 +760,7 @@ inline bool OdObjectBase::isKindOf(const OdClassBase* pClass) const {
         return true;
     }
 
-    OdPrObjectPtr pRes;
+    OdObjectBasePtr pRes;
     pRes.attach(queryX(pClass));
     return (!pRes.isNull());
 }

@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "ObjectBase.h"
+#include "OdObjectBase.h"
 #include "OdError_NotThatKindOfClass.h"
 #include "OdClassBaseImpl.h"
 #include <stdexcept>
@@ -12,7 +12,7 @@
 
 // Initialize the static member
 OdClassBase* OdObjectBase::g_pDesc = nullptr;
-
+OdClassBase* OdClassBase::g_pDesc = nullptr;
 
 // Destructor
 OdObjectBase::~OdObjectBase() {}
@@ -57,7 +57,7 @@ long OdObjectBase::numRefs() const {
 }
 
 // Implementation of clone (default implementation)
-OdPrObjectPtr OdObjectBase::clone() const {
+OdObjectBasePtr OdObjectBase::clone() const {
     throw OdError(eNotApplicable);
 }
 
@@ -89,7 +89,7 @@ OdClassBase::~OdClassBase() {
 }
 
 // Implementation of addX: Adds a protocol extension to the class
-OdPrObjectPtr OdClassBase::addX(OdClassBase* pProtocolClass, OdObjectBase* pProtocolObject) {
+OdObjectBasePtr OdClassBase::addX(OdClassBase* pProtocolClass, OdObjectBase* pProtocolObject) {
     if (m_pImpl) {
         return m_pImpl->addX(pProtocolClass, pProtocolObject);
     }
@@ -97,7 +97,7 @@ OdPrObjectPtr OdClassBase::addX(OdClassBase* pProtocolClass, OdObjectBase* pProt
 }
 
 // Implementation of getX: Gets the protocol extension for the specified protocol class
-OdPrObjectPtr OdClassBase::getX(const OdClassBase* pProtocolClass) {
+OdObjectBasePtr OdClassBase::getX(const OdClassBase* pProtocolClass) {
     if (m_pImpl) {
         return m_pImpl->getX(pProtocolClass);
     }
@@ -105,7 +105,7 @@ OdPrObjectPtr OdClassBase::getX(const OdClassBase* pProtocolClass) {
 }
 
 // Implementation of delX: Deletes the protocol extension for the specified protocol class
-OdPrObjectPtr OdClassBase::delX(OdClassBase* pProtocolClass) {
+OdObjectBasePtr OdClassBase::delX(OdClassBase* pProtocolClass) {
     if (m_pImpl) {
         return m_pImpl->delX(pProtocolClass);
     }
@@ -113,7 +113,7 @@ OdPrObjectPtr OdClassBase::delX(OdClassBase* pProtocolClass) {
 }
 
 // Implementation of create: Creates a new instance of the class using the pseudo-constructor
-OdPrObjectPtr OdClassBase::create() const {
+OdObjectBasePtr OdClassBase::create() const {
     if (m_pImpl) {
         return m_pImpl->create();
     }
@@ -217,4 +217,13 @@ OdBaseAttributeCollection& OdClassBase::attributes() {
     // Return a static empty instance if m_pImpl is null
     static OdBaseAttributeCollection emptyAttributes;
     return emptyAttributes;
+}
+
+OdObjectBase* OdClassBase::queryX(const OdClassBase* pClass) const
+{
+    return nullptr;  // Return nullptr if no match
+}
+
+OdClassBase* OdClassBase::isA() const {
+    return g_pDesc; // Return the static class descriptor associated with this object
 }

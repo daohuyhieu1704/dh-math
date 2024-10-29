@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "OdError_NotThatKindOfClass.h"
-#include "ObjectBase.h"
+#include "OdObjectBase.h"
 
 OdError_NotThatKindOfClass::OdError_NotThatKindOfClass(const OdClassBase* fromClass, const OdClassBase* toClass)
 	: OdError(OdResult::eInvalidInput)

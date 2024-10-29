@@ -1,5 +1,5 @@
 #pragma once
-#include "ObjectBase.h"
+#include "OdObjectBase.h"
 #include "OdBaseAttributeCollection.h"
 #include <string>
 #include <unordered_map>
@@ -10,24 +10,18 @@
 /// <param name="classObj"></param>
 /// <param name="newAppName"></param>
 /// <param name="saveVer"></param>
-void exampleAppNameChange(const OdClassBase* classObj, std::string& newAppName, int saveVer) {
-    if (saveVer >= 2024) {
-        newAppName = "NewAppName_2024";
-    }
-    else {
-        newAppName = "LegacyAppName";
-    }
-}
+void exampleAppNameChange(const OdClassBase* classObj, std::string& newAppName, int saveVer);
 
 class OdClassBaseImpl {
 public:
     OdClassBaseImpl();
     ~OdClassBaseImpl();
-
-    OdPrObjectPtr addX(OdClassBase* pProtocolClass, OdObjectBase* pProtocolObject);
-    OdPrObjectPtr getX(const OdClassBase* pProtocolClass);
-    OdPrObjectPtr delX(OdClassBase* pProtocolClass);
-    OdPrObjectPtr create() const;
+	OdClassBase* isA() const;
+	OdObjectBase* queryX(const OdClassBase* pClass) const;
+    OdObjectBasePtr addX(OdClassBase* pProtocolClass, OdObjectBase* pProtocolObject);
+    OdObjectBasePtr getX(const OdClassBase* pProtocolClass);
+    OdObjectBasePtr delX(OdClassBase* pProtocolClass);
+    OdObjectBasePtr create() const;
 
     const std::string appName() const;
     const std::string dxfName() const;
@@ -50,7 +44,7 @@ private:
     OdUInt32 m_proxyFlags;
     OdUInt32 m_customFlags;
     OdClassBase* m_parent;
-    AppNameChangeFuncPtr m_appNameCallback = exampleAppNameChange;
+    AppNameChangeFuncPtr m_appNameCallback;
     OdPseudoConstructorType m_pseudoConstructor;
     OdBaseAttributeCollection m_attributes;
 };

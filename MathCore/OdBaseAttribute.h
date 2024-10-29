@@ -1,5 +1,5 @@
 #pragma once
-#include "ObjectBase.h"
+#include "OdObjectBase.h"
 #include "OdPrValue.h"
 #include "OdPrProperty.h"
 

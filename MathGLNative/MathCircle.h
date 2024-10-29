@@ -7,7 +7,7 @@ class MathCircle : public OdDbCircle
 public:
     MathCircle() : OdDbCircle()
     {
-        m_renderMethod = new GLCircle();
+        m_renderMethod = GLCircle::createObject();
     }
     ~MathCircle();
 

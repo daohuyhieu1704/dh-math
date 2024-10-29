@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ObjectBase.h"
+#include "OdObjectBase.h"
 #include "OdDrawable.h"
 #include <map>
 #include <deque>
@@ -18,7 +18,7 @@ namespace DatabaseServices {
         OdDatabasePtr m_Doc;
         std::map<OdDbObjectId, OdDrawablePtr> m_newlyAddedObjects;
         bool m_isUndoRedoInProgress;
-        std::deque<OdPrObjectPtr> m_undoneObjects;
+        std::deque<OdObjectBasePtr> m_undoneObjects;
 
     public:
 		ODBASE_DECLARE_MEMBERS(OdTransaction);

@@ -28,9 +28,9 @@ namespace MathCore
             }
         }
     protected:
-        OdDbObject* GetImpObj()
+        OdDbObjectPtr GetImpObj()
         {
-            return static_cast<OdDbObject*>(Drawable::GetImpObj());
+            return OdDbObject::cast(Drawable::GetImpObj());
         }
     };
 }

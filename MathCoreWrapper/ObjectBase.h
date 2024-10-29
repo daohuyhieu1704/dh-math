@@ -14,9 +14,9 @@ namespace MathCore
         {
         }
 		~ObjectBase() {}
-		OdObjectBase* GetImpObj()
+        OdObjectBasePtr GetImpObj()
 		{
-			return static_cast<OdObjectBase*>(DisposableWrapper::GetImpObj());
+			return OdObjectBase::cast(static_cast<OdObjectBase*>(DisposableWrapper::GetImpObj()));
 		}
     };
 }

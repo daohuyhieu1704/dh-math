@@ -1,5 +1,5 @@
 #pragma once
-#include "ObjectBase.h"
+#include "OdObjectBase.h"
 #include "OdGePoint3d.h"
 #include "RenderEntity.h"
 #include <vector>
@@ -31,6 +31,10 @@ public:
 private:
     float m_rotation;
     float m_color[4];
+
+    // Inherited via OdObjectBase
+    void addRef() override;
+    void release() override;
 };
 
 typedef OdSmartPtr<OdDrawable> OdDrawablePtr;

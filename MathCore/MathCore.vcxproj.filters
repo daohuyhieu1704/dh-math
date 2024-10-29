@@ -91,9 +91,6 @@
     <Filter Include="Primary">
       <UniqueIdentifier>{61f68006-fc00-499e-abf2-bfa4a7d0dd92}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ResultPresenter">
-      <UniqueIdentifier>{3ba0aa25-7dae-4f5e-a061-571300e549cf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Primary\Objects">
       <UniqueIdentifier>{ab66b96e-3be6-4589-a7aa-bdb062a463a5}</UniqueIdentifier>
     </Filter>
@@ -117,6 +114,9 @@
     </Filter>
     <Filter Include="Geometry\Matrix">
       <UniqueIdentifier>{6c58fb95-e347-4bcf-92f8-cc9be279d642}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Primary\ResultPresenter">
+      <UniqueIdentifier>{3ba0aa25-7dae-4f5e-a061-571300e549cf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -193,13 +193,13 @@
       <Filter>Geometry\Extend3d</Filter>
     </ClInclude>
     <ClInclude Include="OdResult.h">
-      <Filter>ResultPresenter</Filter>
+      <Filter>Primary\ResultPresenter</Filter>
     </ClInclude>
     <ClInclude Include="OdError.h">
-      <Filter>ResultPresenter</Filter>
+      <Filter>Primary\ResultPresenter</Filter>
     </ClInclude>
     <ClInclude Include="OdError_NotThatKindOfClass.h">
-      <Filter>ResultPresenter</Filter>
+      <Filter>Primary\ResultPresenter</Filter>
     </ClInclude>
     <ClInclude Include="OdBaseAttributeCollection.h">
       <Filter>Primary\Attributes</Filter>
@@ -222,7 +222,7 @@
     <ClInclude Include="OdClassBaseImpl.h">
       <Filter>Primary\Objects\ObjectBase</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectBase.h">
+    <ClInclude Include="OdObjectBase.h">
       <Filter>Primary\Objects\ObjectBase</Filter>
     </ClInclude>
     <ClInclude Include="MathLog.h">
@@ -327,10 +327,10 @@
       <Filter>Geometry\Extend3d</Filter>
     </ClCompile>
     <ClCompile Include="OdError.cpp">
-      <Filter>ResultPresenter</Filter>
+      <Filter>Primary\ResultPresenter</Filter>
     </ClCompile>
     <ClCompile Include="OdError_NotThatKindOfClass.cpp">
-      <Filter>ResultPresenter</Filter>
+      <Filter>Primary\ResultPresenter</Filter>
     </ClCompile>
     <ClCompile Include="OdBaseAttributeCollection.cpp">
       <Filter>Primary\Attributes</Filter>
@@ -347,7 +347,7 @@
     <ClCompile Include="OdClassBaseImpl.cpp">
       <Filter>Primary\Objects\ObjectBase</Filter>
     </ClCompile>
-    <ClCompile Include="ObjectBase.cpp">
+    <ClCompile Include="OdObjectBase.cpp">
       <Filter>Primary\Objects\ObjectBase</Filter>
     </ClCompile>
     <ClCompile Include="OdGeMatrix3d.cpp">

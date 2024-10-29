@@ -13,6 +13,7 @@ private:
 
 public:
 #pragma region Properties
+    ODBASE_DECLARE_MEMBERS(GLSquare);
     OdGePoint2d getMinPnt() const;
     void setMinPnt(OdGePoint2d minPnt);
 

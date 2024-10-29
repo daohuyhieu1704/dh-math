@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "OdClassBaseImpl.h"
-#include "ObjectBase.h"
+#include "OdObjectBase.h"
 #include "OdBaseAttributeCollection.h"
 
 // Constructor
@@ -10,29 +10,39 @@ OdClassBaseImpl::OdClassBaseImpl()
 // Destructor
 OdClassBaseImpl::~OdClassBaseImpl() {}
 
+OdClassBase* OdClassBaseImpl::isA() const
+{
+	return nullptr;
+}
+
+OdObjectBase* OdClassBaseImpl::queryX(const OdClassBase* pClass) const
+{
+	return nullptr;
+}
+
 // Adds a protocol extension
-OdPrObjectPtr OdClassBaseImpl::addX(OdClassBase* pProtocolClass, OdObjectBase* pProtocolObject) {
+OdObjectBasePtr OdClassBaseImpl::addX(OdClassBase* pProtocolClass, OdObjectBase* pProtocolObject) {
     if (pProtocolClass && pProtocolObject) {
         m_extensions[pProtocolClass] = pProtocolObject;
-        return OdPrObjectPtr(pProtocolObject);
+        return OdObjectBasePtr(pProtocolObject);
     }
     return nullptr;
 }
 
 // Gets the protocol extension for the specified class
-OdPrObjectPtr OdClassBaseImpl::getX(const OdClassBase* pProtocolClass) {
+OdObjectBasePtr OdClassBaseImpl::getX(const OdClassBase* pProtocolClass) {
     auto it = m_extensions.find(pProtocolClass);
     if (it != m_extensions.end()) {
-        return OdPrObjectPtr(it->second);
+        return OdObjectBasePtr(it->second);
     }
     return nullptr;
 }
 
 // Deletes the protocol extension for the specified class
-OdPrObjectPtr OdClassBaseImpl::delX(OdClassBase* pProtocolClass) {
+OdObjectBasePtr OdClassBaseImpl::delX(OdClassBase* pProtocolClass) {
     auto it = m_extensions.find(pProtocolClass);
     if (it != m_extensions.end()) {
-        OdPrObjectPtr result = OdPrObjectPtr(it->second);
+        OdObjectBasePtr result = OdObjectBasePtr(it->second);
         m_extensions.erase(it);
         return result;
     }
@@ -40,7 +50,7 @@ OdPrObjectPtr OdClassBaseImpl::delX(OdClassBase* pProtocolClass) {
 }
 
 // Creates a new instance of the class using the pseudo-constructor
-OdPrObjectPtr OdClassBaseImpl::create() const {
+OdObjectBasePtr OdClassBaseImpl::create() const {
     if (m_pseudoConstructor) {
         return m_pseudoConstructor();
     }
@@ -112,4 +122,14 @@ OdBaseAttributeCollection& OdClassBaseImpl::attributes() {
 AppNameChangeFuncPtr OdClassBaseImpl::appNameCallbackPtr() const
 {
 	return m_appNameCallback;
+}
+
+void exampleAppNameChange(const OdClassBase* classObj, std::string& newAppName, int saveVer)
+{
+    if (saveVer >= 2024) {
+        newAppName = "NewAppName_2024";
+    }
+    else {
+        newAppName = "LegacyAppName";
+    }
 }

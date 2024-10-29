@@ -8,6 +8,8 @@ using namespace Geometry;
 
 class OdDbEntity : public OdDbObject
 {
+public:
+    ODBASE_DECLARE_MEMBERS(OdDbEntity);
 protected:
     OdGeExtents3d m_boundary;
     bool m_isSelected = false;

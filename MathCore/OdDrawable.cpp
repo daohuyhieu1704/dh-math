@@ -72,3 +72,11 @@ OdResult OdDrawable::getGeomExtents(OdGeExtents3d& extents) const
 {
 	return OdResult();
 }
+
+void OdDrawable::addRef()
+{
+}
+
+void OdDrawable::release()
+{
+}

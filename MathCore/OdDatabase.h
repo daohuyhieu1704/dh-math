@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ObjectBase.h"
+#include "OdObjectBase.h"
 #include "OdDataTableRecord.h"
 #include "OdTransaction.h" 
 #include <memory>

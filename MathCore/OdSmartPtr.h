@@ -103,7 +103,7 @@ public:
         internalAddRef();
     }
 
-    OdSmartPtr(const OdPrObjectPtr& pObject)
+    OdSmartPtr(const OdObjectBasePtr& pObject)
         : OdBaseObjectPtr()
     {
         internalQueryX(pObject.get());

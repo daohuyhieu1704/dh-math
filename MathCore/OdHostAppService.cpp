@@ -8,3 +8,11 @@ OdHostAppService::OdHostAppService()
     sessions = std::unordered_map<std::string, MathSessionPtr>();
     createSession("Untitled");
 };
+
+void OdHostAppService::addRef()
+{
+}
+
+void OdHostAppService::release()
+{
+}

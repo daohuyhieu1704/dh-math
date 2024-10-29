@@ -187,7 +187,7 @@
     <ClInclude Include="OdSmartPtr.h" />
     <ClInclude Include="OdTransaction.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="ObjectBase.h" />
+    <ClInclude Include="OdObjectBase.h" />
     <ClInclude Include="RenderEntity.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
@@ -234,7 +234,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="ObjectBase.cpp" />
+    <ClCompile Include="OdObjectBase.cpp" />
     <ClCompile Include="RenderEntity.cpp" />
   </ItemGroup>
   <ItemGroup>

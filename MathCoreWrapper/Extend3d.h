@@ -1,5 +1,5 @@
 #pragma once
-#include "OdGeExtend3d.h"
+#include "OdGeExtents3d.h"
 #include "Point3d.h"
 
 using namespace System;
@@ -45,12 +45,12 @@ namespace MathCore
                 }
             }
 
-            OdGeExtend3d ToNative()
+            OdGeExtents3d ToNative()
             {
-				return OdGeExtend3d(minPnt.ToNative(), maxPnt.ToNative());
+				return OdGeExtents3d(minPnt.ToNative(), maxPnt.ToNative());
             }
 
-            static Extend3d FromNative(OdGeExtend3d nativeExtend)
+            static Extend3d FromNative(OdGeExtents3d nativeExtend)
             {
 				return Extend3d(Point3d::FromNative(nativeExtend.GetMinPnt()), Point3d::FromNative(nativeExtend.GetMaxPnt()));
             }

@@ -23,7 +23,9 @@ namespace MathCore {
 
             void AddNewlyObject(ObjectBase^ obj)
             {
-                GetImpObj()->AddNewlyObject(std::shared_ptr<OdObjectBase>(obj->GetImpObj()));
+				OdDrawablePtr drawable = OdDrawable::cast(obj->GetImpObj());
+				if (drawable.isNull()) return;
+                GetImpObj()->AddNewlyObject(drawable);
             }
 
             void Abort()
@@ -37,11 +39,14 @@ namespace MathCore {
             }
 
         private:
-            DatabaseServices::OdTransaction* GetImpObj()
+            DatabaseServices::OdTransactionPtr GetImpObj()
             {
-                void* obj = DisposableWrapper::GetImpObj();
-                MathLog::LogFunction("Trans impObj", obj);
-                return static_cast<DatabaseServices::OdTransaction*>(obj);
+                OdTransactionPtr obj = OdTransaction::cast(ObjectBase::GetImpObj());
+                if (obj.isNull())
+                {
+                    MathLog::LogFunction("Error Trans impObj", obj);
+                }
+                return obj;
             }
         };
     }

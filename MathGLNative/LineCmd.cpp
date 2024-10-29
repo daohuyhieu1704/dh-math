@@ -3,6 +3,8 @@
 #include "GLEngineNative.h"
 #include "MathLine.h"
 
+ODBASE_DXF_DEFINE_MEMBERS(LineCmd, IActionCmd, DBOBJECT_CONSTR, AiLineCmd, Command)
+
 bool LineCmd::execute()
 {
     MathLine* line = new MathLine();
@@ -41,4 +43,12 @@ bool LineCmd::serialize(const std::vector<std::string>& strData)
     };
 
 	return true;
+}
+
+void LineCmd::addRef()
+{
+}
+
+void LineCmd::release()
+{
 }

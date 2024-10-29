@@ -1,5 +1,5 @@
 #pragma once
-#include "ObjectBase.h"
+#include "OdObjectBase.h"
 #include <unordered_map>
 #include <memory>
 #include "MathSession.h"
@@ -7,11 +7,11 @@
 class OdHostAppService : public OdObjectBase
 {
 public:
-    //static OdHostAppServicePtr getInstance()
-    //{
-    //    static OdHostAppServicePtr instance = OdHostAppService::createObject();
-    //    return instance;
-    //}
+    static OdHostAppServicePtr getInstance()
+    {
+        static OdHostAppServicePtr instance = OdHostAppService::createObject();
+        return instance;
+    }
     ODBASE_DECLARE_MEMBERS(OdHostAppService)
 
     MathSessionPtr createSession(const std::string& sessionId) {
@@ -47,7 +47,8 @@ public:
 	void ExecuteAllPrompts() {
 		getCurrentSession()->ExecuteAllPrompts();
 	}
-
+    void addRef() override;
+    void release() override;
 private:
     OdHostAppService();
     ~OdHostAppService() = default;

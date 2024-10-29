@@ -47,12 +47,6 @@ namespace MathCore
         {
             static_cast<OdDbEntity*>(GetImpObj())->WorldDraw();
         }
-
-		Drawable^ Clone() override
-        {
-            OdDrawable* clonedEntity = static_cast<OdDrawable*>(GetImpObj()->Clone());
-            return gcnew Drawable(IntPtr(clonedEntity), true);
-        }
     protected:
 		OdDbEntity* GetImpObj()
 		{

@@ -1,7 +1,10 @@
 #include "pch.h"
 #include "OdDbObject.h"
 
-ODBASE_DEFINE_RTTI_MEMBERS_GENERIC(OdDbObject, OdDbObject, OdDrawable)
+ODBASE_DXF_DEFINE_MEMBERS(OdDbObject, OdDrawable, DBOBJECT_CONSTR, AiDbObject, Object)
+   OdDbObject::OdDbObject()
+{
+}
 
 void OdDbObject::addRef()
 {
